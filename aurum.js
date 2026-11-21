@@ -11,7 +11,7 @@
   const topBtn = document.getElementById("backTop");
   const overlay = document.getElementById("modalOverlay");
   const closeModalButton = document.getElementById("modalClose");
-  const hero = document.getElementById("hero");
+  const hero = document.getElementById("opening");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const lowPower = matchMedia("(max-width: 650px)").matches;
   const saveData = Boolean(navigator.connection && navigator.connection.saveData);
