@@ -2,188 +2,116 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080807">
-<meta name="description" content="Gold Pick — The Game, Reimagined. 경기의 결과보다 근거와 맥락을 깊게 살펴보는 스포츠 리서치 플랫폼.">
-<title>Gold Pick — The Game, Reimagined</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090a09">
+<meta name="description" content="Gold Pick — 쉽고 명확한 스포츠 분석. 필요한 정보를 한눈에 살펴보세요.">
+<title>Gold Pick — 분석의 기준을 높이다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="aurum.css">
-<script src="aurum.js" defer></script>
+<link rel="stylesheet" href="luxe.css">
+<script src="luxe.js" defer></script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-<div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;left:-2000px;top:-2000px;width:0;height:0;overflow:hidden" aria-hidden="true">
+<div class="page-noise" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
-<symbol id="ic-diag" viewBox="0 0 24 24"><path d="M6 18 18 6M8 6h10v10"/></symbol>
-<symbol id="ic-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 16l4-5 4 2 5-7"/></symbol>
-<symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
-<symbol id="ic-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/></symbol>
-<symbol id="ic-football" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 8 6 0 2 5-5 4-5-4 2-5ZM12 3v5m-9 5h4m10 0h4m-9 4v4"/></symbol>
-<symbol id="ic-basket" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5 6c4 2 6 5 7 6s3 4 7 6M19 6c-4 2-6 5-7 6s-3 4-7 6"/></symbol>
-<symbol id="ic-baseball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7 5c4 4 4 10 0 14m10-14c-4 4-4 10 0 14M6 8l3 2m-3 4 3-2m9-4-3 2m3 4-3-2"/></symbol>
-<symbol id="ic-game" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 3l1 6a3 3 0 0 1-5 2l-2-2H9l-2 2a3 3 0 0 1-5-2l1-6a4 4 0 0 1 4-3Z"/><path d="M7 12v4m-2-2h4m7-1h.01M19 15h.01"/></symbol>
 <symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
-<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+<symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="ic-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 16l4-5 4 2 5-7"/></symbol>
+<symbol id="ic-brief" viewBox="0 0 24 24"><path d="M4 8h16a2 2 0 0 1 2 2v10H2V10a2 2 0 0 1 2-2ZM9 8V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3M2 14h20m-12 0v2h4v-2"/></symbol>
+<symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="ic-spark" viewBox="0 0 24 24"><path d="m12 2 2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z"/></symbol>
 <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
 <symbol id="ic-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
 <symbol id="ic-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
 <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-<symbol id="ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
-<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></symbol>
-<symbol id="ic-file" viewBox="0 0 24 24"><path d="M6 2h9l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v5h5M8 12h8M8 16h8"/></symbol>
-<symbol id="ic-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.5-6.2L3 8V3M3 8h5M12 7v5l3 2"/></symbol>
-<symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2 12S6 5 12 5s10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
-<symbol id="ic-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.7 5.3L8 16l2.7-5.3L16 8Z"/></symbol>
-<symbol id="ic-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M3 20h18M5 7l-3 6h6L5 7Zm14 0-3 6h6l-3-6Z"/></symbol>
-<symbol id="ic-up" viewBox="0 0 24 24"><path d="M12 20V4m-7 7 7-7 7 7"/></symbol>
 </svg>
-<div class="mast"><div class="container"><span><i class="live-dot"></i>INDEPENDENT SPORTS RESEARCH / CONCEPT</span><span class="right">GP EXPERIENCE — EST. 2026</span></div></div>
-<header class="header" id="header"><div class="container head-inner">
-<a href="#home" class="brand" aria-label="Gold Pick 홈"><span class="monogram">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INTELLIGENCE</small></span></a>
-<nav class="nav" id="nav" aria-label="주 메뉴">
-<a href="#home" data-page="home">HOME</a><a href="#research" data-page="research">RESEARCH</a><a href="#workflow">OUR METHOD</a><a href="#results" data-page="results">TRACK RECORD</a><a href="#membership" data-page="membership">MEMBERSHIP</a>
-</nav>
-<div class="actions"><a href="#login" class="btn outline small"><svg class="icon"><use href="#ic-user"/></svg>로그인</a><button type="button" class="menu-toggle" id="menuToggle" aria-controls="nav" aria-expanded="false" aria-label="메뉴 열기"><svg class="icon"><use href="#ic-menu"/></svg></button></div>
+
+<div class="topbar"><div class="container"><span><i></i>골드픽 · 프리미엄 스포츠 분석</span><span class="right">서비스 미리보기</span></div></div>
+<header class="header" id="header"><div class="container nav-inner">
+<a href="#top" class="logo" aria-label="Gold Pick 홈"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a>
+<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></nav>
+<div class="actions"><button id="loginOpen" type="button" class="btn ghost small"><svg class="icon"><use href="#ic-user"/></svg>로그인</button><button id="menuToggle" type="button" class="menu-button" aria-label="메뉴" aria-expanded="false" aria-controls="mobileNav"><svg class="icon"><use href="#ic-menu"/></svg></button></div>
 </div></header>
-<aside id="sectionRail" class="section-rail" aria-label="메인 섹션">
-<a href="#opening" class="active" aria-label="인트로"></a><a href="#principles" aria-label="브랜드 철학"></a><a href="#pillars" aria-label="운영 원칙"></a><a href="#workflow" aria-label="분석 과정"></a><a href="#insights" aria-label="인사이트"></a><a href="#lab" aria-label="인터랙티브 리서치"></a><a href="#sports" aria-label="스포츠 종목"></a><a href="#records" aria-label="기록 방식"></a><a href="#faq" aria-label="질문과 답변"></a><a href="#finale" aria-label="마지막 섹션"></a>
-</aside>
-<button type="button" class="back-top" id="backTop" aria-label="맨 위로"><svg class="icon"><use href="#ic-up"/></svg></button>
+
 <main>
-<section class="page active" id="home">
-<section class="hero" id="opening">
-<canvas id="starfield" aria-hidden="true"></canvas>
-<div class="orb-scene" aria-hidden="true"><div class="orb-haze"></div><div class="orbit three"><span class="orbit-dot"></span></div><div class="orbit two"><span class="orbit-dot"></span></div><div class="orbit one"><span class="orbit-dot"></span></div><div class="orb"><span class="orb-outline"></span></div></div>
-<div class="container">
+<section class="hero" id="top">
+<div class="hero-gridlines" aria-hidden="true"></div>
+<div class="container hero-grid">
 <div class="hero-content">
-<div class="hero-eyebrow"><i></i>GOLD PICK / THE NEXT STANDARD</div>
+<div class="hero-pill"><i></i>더 나은 스포츠 분석의 시작</div>
 <h1 class="display">
-<span class="line"><span>BEYOND</span></span>
-<span class="line"><span>THE <span class="gold-text">GAME.</span></span></span>
-<span class="line"><span style="font-size:.57em;letter-spacing:-.07em">경기의 그 너머.</span></span>
+<span class="pop">승부를 보는</span>
+<span class="pop"><span class="gradient-text">시선이</span> 달라진다.</span>
 </h1>
-<p class="hero-sub">승패 하나로 설명할 수 없는 것들이 있습니다. Gold Pick은 데이터와 전술, 경기의 흐름을 연결해 <strong style="color:#f0dcae;font-weight:600">더 깊은 분석의 기준</strong>을 제시하는 스포츠 리서치 플랫폼을 지향합니다.</p>
-<div class="hero-action">
-<a class="btn gold" href="#principles">OUR PHILOSOPHY <svg class="icon"><use href="#ic-arrow"/></svg></a>
-<a class="btn outline" href="#research">EXPLORE RESEARCH <svg class="icon"><use href="#ic-diag"/></svg></a>
+<p class="hero-copy">복잡한 데이터는 간결하게, 중요한 정보는 더 선명하게.<br>Gold Pick이 제안하는 새로운 스포츠 분석 경험.</p>
+<div class="hero-cta"><a class="btn primary" href="#plans">이용권 살펴보기 <svg class="icon"><use href="#ic-arrow"/></svg></a><a class="btn ghost" href="#preview">분석 미리보기 <svg class="icon"><use href="#ic-eye"/></svg></a></div>
+<div class="hero-trust"><span><svg class="icon"><use href="#ic-check"/></svg>쉬운 정보 구성</span><span><svg class="icon"><use href="#ic-shield"/></svg>투명한 기록 지향</span><span><svg class="icon"><use href="#ic-spark"/></svg>프리미엄 경험</span></div>
 </div>
-<div class="hero-markers"><span><svg class="icon"><use href="#ic-shield"/></svg>근거 중심</span><span><svg class="icon"><use href="#ic-layers"/></svg>4개 스포츠 분야</span><span><svg class="icon"><use href="#ic-eye"/></svg>기록 투명성 지향</span></div>
+<div class="hero-art" aria-hidden="true"><div class="center-glow"></div><div class="orbit"></div><div class="orbit b"></div><div class="vip-card"><div class="vip-inner">
+<div class="vip-card-header"><span class="logo-mark">GP</span><small>GOLD PICK / CONCEPT</small></div>
+<div class="vip-card-title">THE<br><span>GOLD</span> STANDARD.</div>
+<p class="vip-card-p">분석의 기준을 더 높게.</p>
+<div class="vip-bar"></div>
+<div class="vip-row"><span>SPORTS INSIGHT</span><span>PREVIEW / 2026</span></div>
+</div></div><div class="floating-chip"><svg class="icon"><use href="#ic-shield"/></svg><span><b>검증 가능한 정보 지향</b><small>과장 없는 설명 · 준비 중</small></span></div></div>
 </div>
-</div>
-<div class="hero-glass" aria-label="컨셉 사이트 상태"><span class="glass-icon"><svg class="icon"><use href="#ic-chart"/></svg></span><span><strong>GP RESEARCH DESK</strong><small>Interactive concept · Demo</small></span></div>
-<div class="hero-scroll"><span class="mouse"></span>SCROLL TO DISCOVER</div>
+<div class="hero-scroll"><i></i>아래로 스크롤</div>
 </section>
 
-<div class="ticker" aria-label="Gold Pick 운영 철학"><div class="ticker-row">
-<span class="ticker-item">RESEARCH FIRST</span><span class="ticker-item">THE DETAILS MATTER</span><span class="ticker-item">CLARITY OVER HYPE</span><span class="ticker-item">OPEN RECORDS</span><span class="ticker-item">BEYOND THE SCORE</span>
-<span class="ticker-item" aria-hidden="true">RESEARCH FIRST</span><span class="ticker-item" aria-hidden="true">THE DETAILS MATTER</span><span class="ticker-item" aria-hidden="true">CLARITY OVER HYPE</span><span class="ticker-item" aria-hidden="true">OPEN RECORDS</span><span class="ticker-item" aria-hidden="true">BEYOND THE SCORE</span>
+<div class="marquee"><div class="marquee-track">
+<span class="marquee-item">한눈에 보는 핵심</span><span class="marquee-item">간결한 스포츠 분석</span><span class="marquee-item">확인 가능한 근거</span><span class="marquee-item">더 깊은 인사이트</span>
+<span class="marquee-item" aria-hidden="true">한눈에 보는 핵심</span><span class="marquee-item" aria-hidden="true">간결한 스포츠 분석</span><span class="marquee-item" aria-hidden="true">확인 가능한 근거</span><span class="marquee-item" aria-hidden="true">더 깊은 인사이트</span>
 </div></div>
 
-<section class="full-statement" id="principles"><div class="container statement-intro">
-<span class="no reveal">01 / THE WHY</span>
-<div><h2 class="display reveal">숫자보다 <span class="gold-text">맥락.</span><br>확신보다 <span class="gold-text">근거.</span><br>우리가 지키려는 기준.</h2><p class="reveal">스포츠 분석에 필요한 건 근거 없는 자신감이 아닙니다. 어떤 자료를 참고했고, 무엇을 놓칠 수 있는지, 결과를 어떻게 다시 검토할 수 있는지 설명할 수 있어야 합니다.</p></div>
-</div></section>
-
-<section class="section" id="pillars"><div class="container">
-<div class="section-head reveal"><div><span class="eyebrow">01 — THE FOUNDATION</span><h2 class="display">신뢰는 <span class="gold-text">디자인이 아닌</span><br>운영 원칙에서 시작됩니다.</h2></div><p>우리가 지향하는 세 가지 기준입니다. 증명되지 않은 적중률이나 후기로 권위를 꾸미기보다, 검증 가능한 과정이 신뢰를 만드는 구조를 설계합니다.</p></div>
-<div class="cards3">
-<article class="pillar reveal" data-delay="1"><span class="large-idx">01</span><div class="icon-box"><svg class="icon"><use href="#ic-search"/></svg></div><h3>출처가 보이는 리서치</h3><p>분석의 시작은 공개된 자료와 기록입니다. 어떤 지표를 사용했는지 알 수 있는 정보 구조를 지향합니다.</p></article>
-<article class="pillar reveal" data-delay="2"><span class="large-idx">02</span><div class="icon-box"><svg class="icon"><use href="#ic-scale"/></svg></div><h3>반대 근거까지 살피기</h3><p>유리한 데이터만 선택하지 않습니다. 불확실성과 제약을 함께 설명하는 접근을 추구합니다.</p></article>
-<article class="pillar reveal" data-delay="3"><span class="large-idx">03</span><div class="icon-box"><svg class="icon"><use href="#ic-history"/></svg></div><h3>나중에도 확인할 수 있게</h3><p>발행 시점과 수정 이력을 구분하고 실제 경기 후 결과를 대조할 수 있는 기록 체계를 목표로 합니다.</p></article>
+<section class="section" id="benefits"><div class="container">
+<div class="section-head reveal"><div class="eyebrow">골드픽을 선택하는 이유</div><h2 class="display">좋은 분석은 <span class="gradient-text">복잡할 필요가 없습니다.</span></h2><p>어려운 용어보다 이해하기 쉬운 설명에 집중합니다. 확인 가능한 정보를 중심으로 서비스를 준비하고 있어요.</p></div>
+<div class="features">
+<article class="feature reveal"><span class="feature-icon"><svg class="icon"><use href="#ic-eye"/></svg></span><h3>중요한 정보만 한눈에</h3><p>경기 흐름과 주요 변수를 보기 쉽게 정리하는 화면을 목표로 합니다.</p></article>
+<article class="feature reveal" data-delay="1"><span class="feature-icon"><svg class="icon"><use href="#ic-chart"/></svg></span><h3>숫자에는 설명을 더해</h3><p>단순한 예측보다 어떤 근거로 판단했는지를 이해할 수 있도록 설계합니다.</p></article>
+<article class="feature reveal" data-delay="2"><span class="feature-icon"><svg class="icon"><use href="#ic-shield"/></svg></span><h3>기록은 투명하게</h3><p>발행 시점과 실제 결과를 구분해 확인할 수 있는 기록 기능을 준비하고 있습니다.</p></article>
 </div>
 </div></section>
 
-<section class="section process" id="workflow"><div class="container process-grid">
-<div class="sticky-head reveal"><span class="eyebrow">02 — OUR WORKFLOW</span><h2 class="display">생각의<br><span class="gold-text">깊이를</span><br>설계하다.</h2><p>좋은 질문을 만드는 과정부터, 지나간 경기를 되돌아보는 과정까지. 하나의 결론은 여러 단계의 검토를 거칩니다.</p><div class="long-line"></div></div>
-<div class="steps">
-<article class="step reveal"><div class="step-top">STAGE / 01 <svg class="icon"><use href="#ic-search"/></svg></div><h3>정보를 모으기 전에 기준부터 정합니다.</h3><p>최근 경기, 상대 전력, 일정과 팀 변화를 어떤 조건에서 비교할 것인지 구분합니다. 숫자의 출처와 해석 범위도 함께 살펴봅니다.</p></article>
-<article class="step reveal"><div class="step-top">STAGE / 02 <svg class="icon"><use href="#ic-compass"/></svg></div><h3>경기의 맥락을 분리해 읽습니다.</h3><p>전술적 선택, 피로도, 로테이션, 상대 스타일 등 결과를 설명하는 서로 다른 요인을 구분합니다.</p></article>
-<article class="step reveal"><div class="step-top">STAGE / 03 <svg class="icon"><use href="#ic-file"/></svg></div><h3>결과가 나오면 다시 확인합니다.</h3><p>경기 전 분석과 실제 결과를 나중에 비교할 수 있도록 발행 시간과 변경 이력을 기록하는 방식을 준비하고 있습니다.</p></article>
-</div>
+<section class="section showcase" id="preview"><div class="container showcase-grid">
+<div class="showcase-copy reveal"><div class="eyebrow">분석 화면 미리보기</div><h2 class="display">핵심만 남기고,<br><span class="gradient-text">선명하게 보여주다.</span></h2><p>긴 설명을 읽기 전에 중요한 부분부터 확인할 수 있도록. 복잡한 분석을 보기 좋은 정보로 정리하는 방식을 구상하고 있습니다.</p>
+<div class="showcase-bullets"><span><svg class="icon"><use href="#ic-check"/></svg>읽기 쉬운 핵심 요약</span><span><svg class="icon"><use href="#ic-check"/></svg>시각적으로 정리된 흐름</span><span><svg class="icon"><use href="#ic-check"/></svg>정보 출처 표시 계획</span></div></div>
+<div class="preview reveal" data-delay="1"><div class="preview-top"><strong>GOLD PICK / 분석 미리보기</strong><span class="preview-tag">예시 데이터</span></div>
+<div class="preview-body"><span class="preview-time">분석 카드 디자인 예시 · 실제 경기 아님</span><h3 class="preview-title">한눈에 보는 경기 흐름</h3>
+<div class="preview-chart"><svg viewBox="0 0 420 175" preserveAspectRatio="none" role="img" aria-label="가상 데이터를 사용한 샘플 그래프"><defs><linearGradient id="shade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8bf7b" stop-opacity=".35"/><stop offset="1" stop-color="#e8bf7b" stop-opacity="0"/></linearGradient></defs>
+<path d="M0 38H420M0 78H420M0 118H420M0 155H420" stroke="#c9a76c29" stroke-dasharray="4 7"/>
+<path d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24 L420 175 L0 175Z" fill="url(#shade)"/>
+<path class="line-chart" d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24" fill="none" stroke="#e9ca88" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="preview-rows"><div class="preview-row"><span>전력 비교</span><div><i style="--bar:74%"></i></div></div><div class="preview-row"><span>최근 흐름</span><div><i style="--bar:59%"></i></div></div><div class="preview-row"><span>주요 변수</span><div><i style="--bar:83%"></i></div></div></div>
+<div class="preview-bottom">이 그래프와 지표는 디자인 시연용이며 실제 분석 결과가 아닙니다.</div></div></div>
 </div></section>
 
-<div class="dark-break" aria-hidden="true"><div class="big-type">BEYOND NUMBERS.</div></div>
-<section class="section" id="insights"><div class="container">
-<div class="section-head reveal"><div><span class="eyebrow">03 — OUR PERSPECTIVE</span><h2 class="display">빠른 확신 대신<br><span class="gold-text">깊은 시선.</span></h2></div><p>단순한 적중 결과보다 중요한 건 이해할 수 있는 설명입니다. 같은 기록도 어떤 상황에서 만들어졌는지에 따라 다른 의미를 가질 수 있습니다.</p></div>
-<div class="dual-panels">
-<article class="editorial reveal"><svg class="icon"><use href="#ic-eye"/></svg><div><h3 class="display">SEE MORE.<br><span class="gold-text">ASSUME LESS.</span></h3><p>하나의 결론보다 근거가 명확한 설명을. 우리가 준비 중인 리서치 방향입니다.</p></div></article>
-<article class="editorial reveal" data-delay="1"><svg class="icon"><use href="#ic-shield"/></svg><div><h3 class="display">NO EMPTY<br><span class="gold-text">PROMISES.</span></h3><p>스포츠에는 언제나 불확실성이 있습니다. 100% 적중이나 확정 수익을 약속하지 않습니다.</p></div></article>
-</div>
-</div></section>
-
-<section class="section process" id="lab"><div class="container">
-<div class="section-head reveal"><div><span class="eyebrow">04 — INTERACTIVE RESEARCH</span><h2 class="display">직접 눌러보고,<br><span class="gold-text">다르게 읽어보세요.</span></h2></div><p>아래는 종목에 따라 리서치 관점을 전환하는 디자인 데모입니다. 그래프의 곡선은 실제 경기 기록이나 검증된 성과가 아닙니다.</p></div>
-<div class="interactive-lab reveal"><div class="lab-top"><div><span class="micro">GP / INSIGHT LAB</span><h3>ANALYTICS EXPERIENCE</h3></div><span class="lab-demo">SAMPLE VISUALIZATION</span></div>
-<div class="lab-tabs" role="group" aria-label="예시 종목 선택">
-<button class="active" type="button" data-lab="football" aria-pressed="true">FOOTBALL</button>
-<button type="button" data-lab="basketball" aria-pressed="false">BASKETBALL</button>
-<button type="button" data-lab="baseball" aria-pressed="false">BASEBALL</button>
-<button type="button" data-lab="esports" aria-pressed="false">ESPORTS</button>
-</div>
-<div class="lab-body"><div class="lab-summary"><span class="micro" id="labLabel">TACTICAL RESEARCH</span><h4 class="display" id="labTitle">경기 전환의 속도</h4><p id="labText">점유율 그 자체보다 볼을 회수하는 위치와 다음 선택의 방향을 함께 살펴봅니다.</p><div class="lab-chips" id="labChips"><span>압박 위치</span><span>전환 패턴</span><span>경기 속도</span></div></div>
-<div class="lab-viz"><svg viewBox="0 0 452 225" preserveAspectRatio="none" role="img" aria-label="실제 데이터가 아닌 샘플 리서치 그래프"><defs><linearGradient id="labFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f2d296" stop-opacity=".35"/><stop offset="1" stop-color="#f2d296" stop-opacity="0"/></linearGradient><linearGradient id="labStroke" x1="0" x2="1"><stop offset="0" stop-color="#927141"/><stop offset="1" stop-color="#ffeac0"/></linearGradient></defs>
-<g fill="none" stroke="#d8ba7b24" stroke-dasharray="4 8"><path d="M5 40H445M5 90H445M5 140H445M5 190H445"/></g>
-<polygon id="labArea" fill="url(#labFill)" points="8,215 8,176 54,145 98,160 144,101 193,124 237,66 287,92 339,42 390,57 444,21 444,215"/>
-<polyline id="labLine" class="data-line" fill="none" stroke="url(#labStroke)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="8,176 54,145 98,160 144,101 193,124 237,66 287,92 339,42 390,57 444,21"/>
-</svg></div></div></div>
-</div></section>
-
-<section class="section" id="sports"><div class="container">
-<div class="section-head reveal"><div><span class="eyebrow">05 — FOUR AREAS</span><h2 class="display">종목을 넘어서,<br><span class="gold-text">관점을 확장하다.</span></h2></div><p>축구부터 e스포츠까지. 스포츠별 맥락을 읽는 방식을 소개하는 리서치 아카이브를 준비 중입니다.</p></div>
-<div class="sports-grid">
-<a href="#research" class="sport-card reveal" data-sport="football"><svg class="icon"><use href="#ic-football"/></svg><span class="arrow-link"><svg class="icon"><use href="#ic-diag"/></svg></span><h3>FOOTBALL</h3><p>TACTICS / PRESSURE / TRANSITIONS</p></a>
-<a href="#research" class="sport-card reveal" data-delay="1" data-sport="basketball"><svg class="icon"><use href="#ic-basket"/></svg><span class="arrow-link"><svg class="icon"><use href="#ic-diag"/></svg></span><h3>BASKETBALL</h3><p>PACE / EFFICIENCY / ROTATION</p></a>
-<a href="#research" class="sport-card reveal" data-delay="2" data-sport="baseball"><svg class="icon"><use href="#ic-baseball"/></svg><span class="arrow-link"><svg class="icon"><use href="#ic-diag"/></svg></span><h3>BASEBALL</h3><p>PITCHING / MATCHUP / FORM</p></a>
-<a href="#research" class="sport-card reveal" data-delay="3" data-sport="esports"><svg class="icon"><use href="#ic-game"/></svg><span class="arrow-link"><svg class="icon"><use href="#ic-diag"/></svg></span><h3>ESPORTS</h3><p>DRAFT / META / TEAM STYLE</p></a>
+<section class="section" id="plans"><div class="container">
+<div class="section-head reveal"><div class="eyebrow">이용 방식</div><h2 class="display">원하는 만큼, <span class="gradient-text">나에게 맞게.</span></h2><p>서비스가 정식 출시되면 제공할 수 있는 이용권 구성을 소개합니다. 가격과 판매 일정은 아직 확정되지 않았습니다.</p></div>
+<div class="pricing">
+<article class="price-card reveal"><span class="price-kicker">무료 이용</span><h3>무료 분석</h3><p>Gold Pick을 가볍게 둘러보는 기본 콘텐츠</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>공개 분석 콘텐츠 예정</li><li><svg class="icon"><use href="#ic-check"/></svg>이용 방법 확인</li><li><svg class="icon"><use href="#ic-check"/></svg>기본 정보 제공 예정</li></ul><a href="#preview" class="btn ghost">미리보기 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></article>
+<article class="price-card highlight reveal" data-delay="1"><span class="price-kicker">인기 구성안 · 미출시</span><h3>단일 분석</h3><p>관심 있는 콘텐츠를 개별적으로 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>관심 있는 콘텐츠 선택</li><li><svg class="icon"><use href="#ic-check"/></svg>핵심 요약 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>가격은 출시 시 안내</li></ul><button type="button" class="btn primary" disabled>준비 중</button></article>
+<article class="price-card reveal" data-delay="2"><span class="price-kicker">프리미엄 구성안 · 미출시</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 및 일정 미정</li></ul><button type="button" class="btn ghost" disabled>준비 중</button></article>
 </div></div></section>
 
-<section class="section process" id="records"><div class="container">
-<div class="section-head reveal"><div><span class="eyebrow">06 — TRANSPARENCY</span><h2 class="display">화려한 수치보다<br><span class="gold-text">확인 가능한 기록.</span></h2></div><p>향후 실제 리서치를 발행할 때 적용하려는 투명성 기준입니다. 아직 실적을 집계하거나 보증하는 기능은 구현되지 않았습니다.</p></div>
-<div class="record-table reveal"><div class="record-head"><strong>GOLD PICK / RECORD PROTOCOL</strong><span>FRAMEWORK PREVIEW</span></div>
-<div class="record-row"><span class="num">STANDARD 01</span><h3>정보 출처</h3><p>인용 자료와 핵심 데이터의 기준을 명시</p></div>
-<div class="record-row"><span class="num">STANDARD 02</span><h3>발행 시각</h3><p>분석이 실제로 게시된 시간 별도 기록</p></div>
-<div class="record-row"><span class="num">STANDARD 03</span><h3>변경 내역</h3><p>본문 수정 시 시점과 주요 변경점을 구분</p></div>
-<div class="record-row"><span class="num">STANDARD 04</span><h3>사후 검토</h3><p>경기 종료 후 실제 기록과 기존 해석을 비교</p></div>
-</div><p class="record-note">* 위 항목은 향후 적용할 계획입니다. 현재 자동화된 실적 검증 시스템이 존재하는 것은 아닙니다.</p>
+<section class="section review-section" id="reviews"><div class="container">
+<div class="section-head reveal"><div class="eyebrow">이런 경험을 지향합니다</div><h2 class="display">정보는 명료하게.<br><span class="gradient-text">경험은 특별하게.</span></h2><p>아래 문구는 사이트의 카드 애니메이션을 보여주기 위한 가상 예시입니다. 실제 구매 고객의 후기는 아직 없습니다.</p><span class="review-label">디자인 예시 · 실제 고객 후기가 아닙니다</span></div>
+<div class="review-stage reveal" id="sampleReview" aria-label="고객 후기 형태의 디자인 시연"><span class="quote" aria-hidden="true">“</span><p id="sampleText">필요한 내용을 한눈에 살펴볼 수 있도록, 짧고 명확한 분석을 보여주는 화면을 구상했습니다.</p><span class="sample-tag">예시 문구 / 가상 시연 · 고객 작성 아님</span></div>
+<div class="review-dots" id="reviewDots" aria-label="예시 카드 선택"><button type="button" class="active" aria-label="첫 번째 예시" aria-pressed="true"></button><button type="button" aria-label="두 번째 예시" aria-pressed="false"></button><button type="button" aria-label="세 번째 예시" aria-pressed="false"></button></div>
 </div></section>
 
-<section class="section" id="faq"><div class="container faq-grid"><div class="faq-intro reveal"><span class="eyebrow">07 — FAQ</span><h2 class="display">질문에<br><span class="gold-text">명확하게 답하다.</span></h2><p>서비스가 현재 어디까지 준비됐는지, 무엇을 보장하지 않는지 숨기지 않고 설명합니다.</p></div>
-<div class="faq-list reveal">
-<div class="faq open"><button type="button" aria-expanded="true" aria-controls="faq1">Gold Pick은 현재 정식 운영 중인가요?<svg class="icon"><use href="#ic-plus"/></svg></button><div class="faq-answer" id="faq1"><div><p>현재는 디자인과 콘텐츠 구조를 시연하는 버전입니다. 실제 경기 데이터 자동 연동, 결제, 회원 인증 기능은 아직 구축되지 않았습니다.</p></div></div></div>
-<div class="faq"><button type="button" aria-expanded="false" aria-controls="faq2">경기 결과나 적중을 보장하나요?<svg class="icon"><use href="#ic-plus"/></svg></button><div class="faq-answer" id="faq2"><div><p>아니요. 어떤 스포츠 분석도 미래 결과를 보장할 수 없습니다. 검증되지 않은 적중률이나 수익률은 공개하지 않습니다.</p></div></div></div>
-<div class="faq"><button type="button" aria-expanded="false" aria-controls="faq3">실제 기록은 어디서 확인할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></button><div class="faq-answer" id="faq3"><div><p>현재 실적 데이터는 없습니다. 추후 분석이 실제로 발행되면 출처, 발행 시각, 수정 여부와 사후 검토를 포함한 기록 체계를 구축할 예정입니다.</p></div></div></div>
-<div class="faq"><button type="button" aria-expanded="false" aria-controls="faq4">지금 유료 멤버십을 구입할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></button><div class="faq-answer" id="faq4"><div><p>현재 판매 기능은 비활성화되어 있습니다. 한국 이용자를 대상으로 유료 스포츠 픽을 판매하려면 관련 법률 검토가 먼저 필요합니다.</p></div></div></div>
-</div>
-</div></section>
+<section class="section" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">이용 안내</div><h2 class="display">궁금한 점은 <span class="gradient-text">쉽게 확인하세요.</span></h2><p>서비스가 준비된 범위를 명확하게 안내합니다.</p></div>
+<div class="faq reveal">
+<details><summary>지금 구매할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>아직은 사이트 디자인을 확인하는 단계야. 실제 유료 분석 판매와 암호화폐 결제는 법률 검토가 끝난 후 운영 여부를 결정할 예정이야.</p></details>
+<details><summary>스포츠 분석은 어떤 정보를 제공하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>경기 흐름과 팀 기록, 주요 변수를 이해하기 쉽게 설명하는 콘텐츠를 구상하고 있어. 현재 표시되는 분석은 모두 디자인 예시야.</p></details>
+<details><summary>적중률이나 결과를 보장하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>아니. 스포츠 경기의 결과는 보장할 수 없고, 실제 성과가 쌓이기 전에는 적중률이나 이용 후기를 만들어 게시하지 않을 거야.</p></details>
+</div></div></section>
 
-<section class="last-cta" id="finale"><div class="container reveal"><div class="eyebrow" style="justify-content:center">THE GOLD PICK EXPERIENCE</div><h2 class="display">DON'T JUST WATCH.<br><span class="gold-text">UNDERSTAND.</span></h2><p>경기를 보는 새로운 기준. Gold Pick의 리서치 아카이브를 둘러보세요.</p><a href="#research" class="btn gold">EXPLORE OUR RESEARCH <svg class="icon"><use href="#ic-arrow"/></svg></a></div></section>
-</section>
-
-<section id="research" class="page"><div class="container"><div class="sub-hero"><span class="eyebrow">THE INSIGHT LIBRARY</span><h1 class="display">RESEARCH <span class="gold-text">ARCHIVE.</span></h1><p>종목별 관점을 정리한 콘텐츠 아카이브입니다. 아래 자료는 사이트 구성용 예시이며 실제 경기 분석 결과 또는 베팅 추천이 아닙니다.</p></div>
-<div class="filters"><button type="button" class="filter selected" data-filter="all" aria-pressed="true">전체</button><button type="button" class="filter" data-filter="football" aria-pressed="false">축구</button><button type="button" class="filter" data-filter="basketball" aria-pressed="false">농구</button><button type="button" class="filter" data-filter="baseball" aria-pressed="false">야구</button><button type="button" class="filter" data-filter="esports" aria-pressed="false">e스포츠</button></div>
-<div class="articles">
-<article class="article" data-category="football"><div class="article-head"><span>FOOTBALL / CONCEPT</span><svg class="icon"><use href="#ic-football"/></svg></div><h3>압박의 방향이 경기를 바꿀 때</h3><p>점유율과 슈팅 수 외에도 살펴봐야 할 전방 압박과 전환 상황의 의미.</p><div class="article-foot"><span>샘플 콘텐츠</span><button class="link-button" data-article="football" type="button">자세히 <svg class="icon"><use href="#ic-arrow"/></svg></button></div></article>
-<article class="article" data-category="basketball"><div class="article-head"><span>BASKETBALL / CONCEPT</span><svg class="icon"><use href="#ic-basket"/></svg></div><h3>공격 효율을 읽는 세 가지 관점</h3><p>페이스, 슛 선택, 리바운드 등 결과 뒤에 숨은 팀별 플레이 스타일을 살펴봅니다.</p><div class="article-foot"><span>샘플 콘텐츠</span><button class="link-button" data-article="basketball" type="button">자세히 <svg class="icon"><use href="#ic-arrow"/></svg></button></div></article>
-<article class="article" data-category="baseball"><div class="article-head"><span>BASEBALL / CONCEPT</span><svg class="icon"><use href="#ic-baseball"/></svg></div><h3>선발 투수를 숫자 너머에서 보기</h3><p>구종 구성과 최근 이닝 소화 패턴이 경기 전체의 운영에 미치는 영향.</p><div class="article-foot"><span>샘플 콘텐츠</span><button class="link-button" data-article="baseball" type="button">자세히 <svg class="icon"><use href="#ic-arrow"/></svg></button></div></article>
-<article class="article" data-category="esports"><div class="article-head"><span>ESPORTS / CONCEPT</span><svg class="icon"><use href="#ic-game"/></svg></div><h3>드래프트에서 시작되는 전략</h3><p>밴픽, 메타 적응, 팀의 전술적 선택이 경기 흐름에 만들어내는 차이.</p><div class="article-foot"><span>샘플 콘텐츠</span><button class="link-button" data-article="esports" type="button">자세히 <svg class="icon"><use href="#ic-arrow"/></svg></button></div></article>
-</div>
-</div></section>
-<section id="membership" class="page"><div class="container"><div class="sub-hero"><span class="eyebrow">ACCESS OPTIONS</span><h1 class="display">MEMBER<span class="gold-text">SHIP.</span></h1><p>리서치를 다양한 방식으로 이용하는 구상을 소개합니다. 현재 실제 상품 판매나 결제는 지원하지 않습니다.</p></div>
-<div class="plans">
-<div class="plan"><span class="micro">OPEN ACCESS</span><h3>Free Research</h3><p>누구나 볼 수 있는 공개 아카이브</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>공개 콘텐츠</li><li><svg class="icon"><use href="#ic-check"/></svg>종목별 리서치 예시</li><li><svg class="icon"><use href="#ic-check"/></svg>운영 원칙 안내</li></ul><a class="btn outline" href="#research">아카이브 보기</a></div>
-<div class="plan featured"><span class="micro">PLANNED / 7 DAYS</span><h3>Research Week</h3><p>7일형 심층 분석 콘텐츠 열람 구상</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 인사이트 구성 예정</li><li><svg class="icon"><use href="#ic-check"/></svg>종목별 자료 정리</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 미설정</li></ul><button class="btn gold" type="button" disabled>서비스 준비 중</button></div>
-<div class="plan"><span class="micro">PLANNED / 30 DAYS</span><h3>Research Month</h3><p>30일형 리서치 아카이브 열람 구상</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>장기 리서치 구성 예정</li><li><svg class="icon"><use href="#ic-check"/></svg>테마별 관점 정리</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 미설정</li></ul><button class="btn outline" type="button" disabled>서비스 준비 중</button></div>
-</div><div class="notice"><svg class="icon"><use href="#ic-info"/></svg><span>현재 사이트는 디자인 데모입니다. 유료 스포츠 픽 판매와 암호화폐 결제의 적법성을 별도로 검토해야 하며, 검토 전까지 결제 기능을 활성화하지 않습니다.</span></div>
-</div></section>
-<section id="results" class="page"><div class="container"><div class="sub-hero"><span class="eyebrow">OPEN RECORDS</span><h1 class="display">TRACK <span class="gold-text">RECORD.</span></h1><p>실제 결과가 없는 상태에서 적중률이나 수익률을 표시하지 않습니다. 향후 발행 이력과 검증 가능한 기록을 제공하는 구조를 준비하고 있습니다.</p></div><div class="empty-state"><div class="icon-box"><svg class="icon"><use href="#ic-chart"/></svg></div><span class="eyebrow">NO VERIFIED DATA YET</span><h2>공개된 실적이 아직 없습니다.</h2><p>서비스는 콘셉트 시연 단계입니다. 실제 분석이 발행되면 발행 시간과 변경 이력, 사후 검토를 연결한 기록을 구축할 예정입니다.</p><a class="btn outline" href="#research">리서치 예시 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></div>
-</div></section>
-<section id="login" class="page"><div class="container auth-wrap"><div class="auth-card"><span class="eyebrow">MEMBER ACCESS</span><h1 class="display">WELCOME BACK.</h1><p>Gold Pick 로그인 화면입니다.<br>현재 서버 인증은 연결되지 않았습니다.</p><form class="demo-form" novalidate><label class="field"><span>이메일 주소</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label><label class="field"><span>비밀번호</span><input type="password" name="password" placeholder="비밀번호 입력" autocomplete="current-password" required></label><button type="submit" class="btn gold"><svg class="icon"><use href="#ic-lock"/></svg>로그인</button><div class="form-msg" role="status"></div></form><div class="auth-switch">계정이 없나요? <a href="#register">회원가입</a></div></div></div></section>
-<section id="register" class="page"><div class="container auth-wrap"><div class="auth-card"><span class="eyebrow">JOIN GOLD PICK</span><h1 class="display">CREATE ACCOUNT.</h1><p>회원가입 화면입니다.<br>현재 실제 계정은 생성되지 않습니다.</p><form class="demo-form" novalidate><label class="field"><span>이메일 주소</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label><label class="field"><span>비밀번호</span><input type="password" name="password" minlength="8" placeholder="8자 이상" autocomplete="new-password" required></label><label class="field"><span>비밀번호 확인</span><input type="password" name="confirm" minlength="8" placeholder="다시 입력" autocomplete="new-password" required></label><button class="btn gold" type="submit">회원가입 <svg class="icon"><use href="#ic-arrow"/></svg></button><div class="form-msg" role="status"></div></form><div class="auth-switch">이미 계정이 있나요? <a href="#login">로그인</a></div></div></div></section>
-<section id="admin" class="page"><div class="container"><div class="sub-hero"><span class="eyebrow">RESTRICTED AREA</span><h1 class="display">ADMIN <span class="gold-text">ACCESS.</span></h1><p>관리자 시스템은 서버 측 인증과 권한 확인 기능을 완성한 후 제공합니다.</p></div><div class="empty-state"><div class="icon-box"><svg class="icon"><use href="#ic-lock"/></svg></div><h2>관리자 페이지 준비 중</h2><p>실제 회원 정보, 관리 기능 및 비밀 키는 정적 페이지에 포함하지 않습니다.</p></div></div></section>
+<section class="cta" id="end"><div class="container reveal"><div class="eyebrow center">GOLD PICK</div><h2 class="display">더 쉽고, 더 선명하게.<br><span class="gradient-text">분석의 기준을 높이다.</span></h2><p>Gold Pick의 새로운 화면을 미리 만나보세요.</p><a class="btn primary" href="#preview">분석 화면 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></div></section>
 </main>
-<footer class="footer"><div class="container"><div class="footer-grid"><div><a href="#home" class="brand"><span class="monogram">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INTELLIGENCE</small></span></a><p class="footer-summary">결과 너머의 맥락을 읽는 스포츠 리서치 플랫폼. 데이터와 해석을 분리하고, 검증할 수 있는 설명을 지향합니다.</p></div><div><p class="footer-head">EXPLORE</p><div class="footer-links"><a href="#home">메인 화면</a><a href="#research">리서치 아카이브</a><a href="#workflow">분석 과정</a><a href="#results">기록 공개</a></div></div><div><p class="footer-head">INFORMATION</p><div class="footer-links"><a href="#faq">자주 묻는 질문</a><a href="#membership">멤버십 구상</a><a href="#login">로그인</a><a href="#register">회원가입</a></div></div></div><div class="footer-base"><span>© 2026 GOLD PICK — ALL RIGHTS RESERVED.</span><span>CONCEPT WEBSITE · NO LIVE PAYMENTS · NO VERIFIED PERFORMANCE CLAIMS</span></div></div></footer>
-<div class="modal-cover" id="modalOverlay" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" type="button" aria-label="닫기"><svg class="icon"><use href="#ic-close"/></svg></button><div class="eyebrow">RESEARCH CONCEPT</div><h2 class="display" id="modalTitle"></h2><p id="modalText"></p><div class="notice"><svg class="icon"><use href="#ic-info"/></svg><span>샘플 콘텐츠입니다. 실제 경기 예측이나 적중 결과가 아닙니다.</span></div></div></div>
+
+<footer class="footer"><div class="container"><div class="footer-main"><a href="#top" class="logo"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a><div class="footer-links"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></div></div><div class="footer-bottom"><span>© 2026 GOLD PICK. ALL RIGHTS RESERVED.</span><span>디자인 데모 · 실제 결제 및 후기 없음</span></div></div></footer>
+<div class="dialog-backdrop" id="loginOverlay" aria-hidden="true"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button type="button" class="close" id="loginClose" aria-label="닫기"><svg class="icon"><use href="#ic-close"/></svg></button><div class="eyebrow">회원 로그인</div><h2 class="display" id="loginTitle">다시 만나 반가워요.</h2><p>현재는 로그인 화면만 제공하는 데모야. 실제 계정은 아직 생성되지 않아.</p><form id="loginForm" novalidate><label for="email">이메일</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required><label for="password">비밀번호</label><input id="password" name="password" type="password" autocomplete="current-password" required><button class="btn primary" type="submit">로그인</button><p class="feedback" id="loginFeedback" role="status"></p></form></div></div>
 </body>
 </html>
