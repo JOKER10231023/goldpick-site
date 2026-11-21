@@ -146,8 +146,10 @@
         explanation = context === "signup" ?
           "회원가입 처리 중 인증 서버 오류가 발생했습니다. 메일 발송(SMTP) 또는 Auth 로그를 확인해 주세요." :
           "인증 서버 내부 오류입니다. 잠시 후 다시 시도해 주세요.";
+      } else if (error.name === "TypeError") {
+        explanation = "웹사이트 처리 과정에서 오류가 발생했습니다. 화면을 새로고침한 뒤 다시 시도해 주세요.";
       } else {
-        explanation = "인증 요청이 실패했습니다. 아래 오류코드를 알려주면 원인을 확인할 수 있습니다.";
+        explanation = "인증 요청에 실패했습니다. Supabase 인증 로그를 확인해 주세요.";
       }
     }
     // Display only the server-supplied error *code* and HTTP status,
@@ -182,13 +184,16 @@
 
   $("#loginForm").addEventListener("submit", event => {
     event.preventDefault();
-    runForm(event.currentTarget, async data => {
+    // currentTarget becomes null after the synchronous event callback returns.
+    // Keep a stable form reference for the asynchronous auth request.
+    const form = event.currentTarget;
+    runForm(form, async data => {
       const {error} = await client.auth.signInWithPassword({
         email: String(data.get("email")).trim(),
         password: String(data.get("password"))
       });
       if (error) throw error;
-      event.currentTarget.reset();
+      form.reset();
       const {data: response} = await client.auth.getUser();
       currentUser = response?.user || currentUser;
       updateHeader();
@@ -199,7 +204,10 @@
 
   $("#signupForm").addEventListener("submit", event => {
     event.preventDefault();
-    runForm(event.currentTarget, async data => {
+    // currentTarget becomes null after the synchronous event callback returns.
+    // Keep a stable form reference for the asynchronous auth request.
+    const form = event.currentTarget;
+    runForm(form, async data => {
       const password = String(data.get("password"));
       const confirm = String(data.get("confirm"));
       if (password !== confirm) {
@@ -216,7 +224,7 @@
         options: {emailRedirectTo: redirectedHome()}
       });
       if (error) throw error;
-      event.currentTarget.reset();
+      form.reset();
       if (result?.session) {
         currentUser = result.user;
         updateHeader();
@@ -230,19 +238,25 @@
 
   $("#forgotForm").addEventListener("submit", event => {
     event.preventDefault();
-    runForm(event.currentTarget, async data => {
+    // currentTarget becomes null after the synchronous event callback returns.
+    // Keep a stable form reference for the asynchronous auth request.
+    const form = event.currentTarget;
+    runForm(form, async data => {
       const {error} = await client.auth.resetPasswordForEmail(String(data.get("email")).trim(), {
         redirectTo: redirectedHome()
       });
       if (error) throw error;
-      event.currentTarget.reset();
+      form.reset();
       setNotice("이메일 주소가 등록되어 있다면 비밀번호 재설정 링크를 보내드립니다.", "success");
     });
   });
 
   $("#resetForm").addEventListener("submit", event => {
     event.preventDefault();
-    runForm(event.currentTarget, async data => {
+    // currentTarget becomes null after the synchronous event callback returns.
+    // Keep a stable form reference for the asynchronous auth request.
+    const form = event.currentTarget;
+    runForm(form, async data => {
       const password = String(data.get("password"));
       if (password !== String(data.get("confirm"))) {
         setNotice("비밀번호 확인이 일치하지 않습니다.", "error");
@@ -258,7 +272,7 @@
       currentUser = null;
       recoveryMode = false;
       updateHeader();
-      event.currentTarget.reset();
+      form.reset();
       setView("login");
       setNotice("비밀번호가 변경되었습니다. 새 비밀번호로 로그인해 주세요.", "success");
     });
