@@ -13,6 +13,11 @@
   const forms = $$(".auth-form");
   const errorMessages = {
     invalid_credentials: "이메일 또는 비밀번호가 올바르지 않습니다.",
+    email_provider_disabled: "Supabase에서 이메일 회원가입 기능이 꺼져 있습니다. Authentication → Providers → Email을 확인해 주세요.",
+    email_exists: "이미 등록된 이메일일 수 있습니다. 로그인 또는 비밀번호 찾기를 이용해 주세요.",
+    unexpected_failure: "인증 서버 내부 오류입니다. 가입 중이었다면 인증 메일 발송 또는 데이터베이스 설정을 확인해 주세요.",
+    request_timeout: "인증 요청 시간이 초과됐습니다. 연결 상태를 확인하고 다시 시도해 주세요.",
+    captcha_failed: "인증 문자 또는 보안 검증이 실패했습니다. 설정을 확인해 주세요.",
     email_not_confirmed: "먼저 이메일 인증을 완료해 주세요.",
     weak_password: "비밀번호가 너무 단순합니다. 더 안전하게 설정해 주세요.",
     user_already_exists: "이미 등록된 이메일입니다.",
@@ -112,14 +117,46 @@
     if (currentUser && activeView === "account") setView("account");
   }
 
-  function simpleError(error) {
-    if (!error) return "알 수 없는 오류가 발생했습니다.";
-    if (errorMessages[error.code]) return errorMessages[error.code];
-    const message = (error.message || "").toLowerCase();
-    if (message.includes("email not confirmed")) return errorMessages.email_not_confirmed;
-    if (message.includes("invalid login")) return errorMessages.invalid_credentials;
-    if (message.includes("rate limit")) return "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.";
-    return "요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.";
+  function simpleError(error, context = "") {
+    if (!error) return "원인을 확인할 수 없는 오류입니다.";
+    const code = String(error.code || "").slice(0, 60).replace(/[^a-zA-Z0-9_-]/g, "");
+    const status = Number(error.status);
+    const message = String(error.message || "").toLowerCase();
+    let explanation = errorMessages[code] || "";
+    if (!explanation) {
+      if (message.includes("email address not authorized") || message.includes("default smtp")) {
+        explanation = errorMessages.email_address_not_authorized;
+      } else if (message.includes("error sending confirmation email") || message.includes("error sending recovery email")) {
+        explanation = "인증 메일 발송에 실패했습니다. Supabase의 SMTP 설정과 이메일 발송 제한을 확인해 주세요.";
+      } else if (message.includes("email not confirmed")) {
+        explanation = errorMessages.email_not_confirmed;
+      } else if (message.includes("invalid login") || message.includes("invalid credentials")) {
+        explanation = errorMessages.invalid_credentials;
+      } else if (message.includes("rate limit") || status === 429) {
+        explanation = "인증 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.";
+      } else if (message.includes("signups not allowed") || message.includes("signup disabled")) {
+        explanation = errorMessages.signup_disabled;
+      } else if (message.includes("invalid api key") || message.includes("invalid jwt") || status === 401) {
+        explanation = "인증 키가 올바르지 않거나 권한이 없습니다. Supabase 프로젝트의 공개 키 설정을 확인해 주세요.";
+      } else if (message.includes("failed to fetch") || message.includes("networkerror") || message.includes("network request failed")) {
+        explanation = "인증 서버와 통신하지 못했습니다. 인터넷 연결, 브라우저 차단 기능 또는 프로젝트 상태를 확인해 주세요.";
+      } else if (message.includes("database error")) {
+        explanation = "사용자 정보 저장 중 데이터베이스 오류가 발생했습니다. Supabase Authentication 로그를 확인해 주세요.";
+      } else if (status >= 500) {
+        explanation = context === "signup" ?
+          "회원가입 처리 중 인증 서버 오류가 발생했습니다. 메일 발송(SMTP) 또는 Auth 로그를 확인해 주세요." :
+          "인증 서버 내부 오류입니다. 잠시 후 다시 시도해 주세요.";
+      } else {
+        explanation = "인증 요청이 실패했습니다. 아래 오류코드를 알려주면 원인을 확인할 수 있습니다.";
+      }
+    }
+    // Display only the server-supplied error *code* and HTTP status,
+    // never a raw exception or any user's email, password or token.
+    const detail = [
+      code ? "코드: " + code : "",
+      Number.isInteger(status) && status >= 400 && status <= 599 ? "HTTP " + status : ""
+    ].filter(Boolean).join(" / ");
+    return explanation + (detail ? " (" + detail + ")" : "");
   }
 
   function assertConnected() {
@@ -128,14 +165,14 @@
     return false;
   }
 
-  async function runForm(form, operation) {
+  async function runForm(form, operation, context = "") {
     if (!assertConnected()) return;
     if (!form.reportValidity()) return;
     const submit = form.querySelector('[type="submit"]');
     submit.disabled = true;
     setNotice("처리하고 있습니다...", "info");
     try { await operation(new FormData(form)); }
-    catch (error) { setNotice(simpleError(error), "error"); }
+    catch (error) { setNotice(simpleError(error, context), "error"); }
     finally { submit.disabled = false; }
   }
 
@@ -188,7 +225,7 @@
       } else {
         setNotice("가입 요청을 받았습니다. 인증 메일을 확인해 주세요. 이미 가입된 이메일이어도 같은 안내가 표시될 수 있습니다.", "success");
       }
-    });
+    }, "signup");
   });
 
   $("#forgotForm").addEventListener("submit", event => {
@@ -284,7 +321,7 @@
       currentUser = data?.user || null;
       connected = true;
       updateHeader();
-      setBanner("인증 서비스 연결됨", "ready");
+      setBanner("인증 설정 로드됨 · 서버 확인은 가입 시 진행", "ready");
       if (location.hash.includes("error=")) {
         openModal("login");
         setNotice("이메일 인증 또는 재설정 링크가 만료되었거나 유효하지 않습니다. 다시 요청해 주세요.", "error");
