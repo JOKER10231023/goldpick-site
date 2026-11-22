@@ -170,6 +170,8 @@ function decimal(input) {
 async function reconcile(order, env) {
   if (!order?.provider_payment_id || order.fulfilled_at) return order;
   const paymentId = String(order.provider_payment_id);
+  // A failed provider request must not starve other pending orders in cron.
+  await patchOrder(order.id,{last_checked_at:new Date().toISOString()},env);
   const p = await npCall("/payment/" + encodeURIComponent(paymentId), env);
   const status = providerState(p.payment_status);
   const sameId = String(p.payment_id) === paymentId;
