@@ -115,7 +115,7 @@
     }
   });
 
-  $("[data-auth-view]").forEach(button => {
+  $$("[data-auth-view]").forEach(button => {
     button.addEventListener("click", () => {
       const view = button.dataset.authView;
       setView(view);
