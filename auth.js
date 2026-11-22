@@ -18,7 +18,7 @@
     unexpected_failure: "인증 서버 내부 오류입니다. 가입 중이었다면 인증 메일 발송 또는 데이터베이스 설정을 확인해 주세요.",
     request_timeout: "인증 요청 시간이 초과됐습니다. 연결 상태를 확인하고 다시 시도해 주세요.",
     captcha_failed: "인증 문자 또는 보안 검증이 실패했습니다. 설정을 확인해 주세요.",
-    email_not_confirmed: "먼저 이메일 인증을 완료해 주세요.",
+    email_not_confirmed: "Supabase에서 이메일 인증이 활성화되어 있습니다. Authentication → Providers → Email에서 Confirm email을 꺼 주세요.",
     weak_password: "비밀번호가 너무 단순합니다. 더 안전하게 설정해 주세요.",
     user_already_exists: "이미 등록된 이메일입니다.",
     email_address_not_authorized: "현재 테스트용 이메일만 발송할 수 있습니다. 운영자에게 메일 설정을 요청해 주세요.",
@@ -220,8 +220,7 @@
       }
       const {data: result, error} = await client.auth.signUp({
         email: String(data.get("email")).trim(),
-        password,
-        options: {emailRedirectTo: redirectedHome()}
+        password
       });
       if (error) throw error;
       form.reset();
@@ -231,7 +230,7 @@
         setView("account");
         setNotice("회원가입 및 로그인이 완료되었습니다.", "success");
       } else {
-        setNotice("가입 요청을 받았습니다. 인증 메일을 확인해 주세요. 이미 가입된 이메일이어도 같은 안내가 표시될 수 있습니다.", "success");
+        setNotice("가입 요청은 접수됐지만 즉시 로그인되지 않았습니다. Supabase에서 이메일 확인 기능이 꺼져 있는지 확인해 주세요.", "info");
       }
     }, "signup");
   });
