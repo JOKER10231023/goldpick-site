@@ -209,6 +209,12 @@ begin
  if coalesce(p_enabled,false) and (v_address='' or v_count=0) then
    return jsonb_build_object('ok',false,'message','주소와 한 개 이상의 이용권 가격을 입력해 주세요.');
  end if;
+ if coalesce(p_enabled,false) and
+    ((v_coin='xrp' and v_network='xrpl') or (v_coin='gram' and v_network='ton'))
+    and v_tag='' then
+   return jsonb_build_object('ok',false,
+     'message','이 코인은 입금 태그/메모 누락 시 자금이 분실될 수 있으니 태그를 입력해 주세요.');
+ end if;
  insert into public.gp_direct_wallets(coin,network,address,destination_tag,enabled,updated_by)
  values(v_coin,v_network,v_address,v_tag,coalesce(p_enabled,false),auth.uid())
  on conflict(coin,network) do update set
