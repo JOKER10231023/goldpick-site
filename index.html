@@ -12,11 +12,14 @@
 <link rel="stylesheet" href="signature.css">
 <link rel="stylesheet" href="auth.css">
 <link rel="stylesheet" href="member.css?v=2">
+<link rel="stylesheet" href="payment.css?v=1">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
 <script src="auth.js?v=7" defer></script>
 <script src="member.js?v=1" defer></script>
 <script src="admin.js?v=1" defer></script>
+<script src="payment-config.js" defer></script>
+<script src="payment.js?v=1" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -105,7 +108,7 @@
 <div class="pricing">
 <article class="price-card reveal"><span class="price-kicker">무료 이용</span><h3>무료 분석</h3><p>Gold Pick을 가볍게 둘러보는 기본 콘텐츠</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>공개 분석 콘텐츠 예정</li><li><svg class="icon"><use href="#ic-check"/></svg>이용 방법 확인</li><li><svg class="icon"><use href="#ic-check"/></svg>기본 정보 제공 예정</li></ul><a href="#preview" class="btn ghost">미리보기 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></article>
 <article class="price-card highlight reveal" data-delay="1"><span class="price-kicker">인기 구성안 · 미출시</span><h3>단일 분석</h3><p>관심 있는 콘텐츠를 개별적으로 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>관심 있는 콘텐츠 선택</li><li><svg class="icon"><use href="#ic-check"/></svg>핵심 요약 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>가격은 출시 시 안내</li></ul><button type="button" class="btn primary" disabled>준비 중</button></article>
-<article class="price-card reveal" data-delay="2"><span class="price-kicker">프리미엄 구성안 · 미출시</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 및 일정 미정</li></ul><button type="button" class="btn ghost" disabled>준비 중</button></article>
+<article class="price-card reveal" data-delay="2"><span class="price-kicker">프리미엄 구성안 · 미출시</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 및 일정 미정</li></ul><button type="button" class="btn ghost" id="planPaymentOpen">코인 결제 안내 <svg class="icon"><use href="#ic-arrow"/></svg></button></article>
 </div></div></section>
 
 <section class="section member-showcase-section" id="vip-lounge">
@@ -210,6 +213,7 @@
 <div class="auth-account-buttons member-actions">
 <button type="button" class="btn primary" id="memberVipOpen">VIP 라운지 입장 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 <button type="button" class="btn ghost" id="memberRefresh">멤버십 새로고침</button>
+<button type="button" class="btn ghost member-payment-button" id="memberPaymentOpen">코인으로 VIP 구매·연장</button>
 <button type="button" class="btn ghost member-admin-button" id="adminPanelOpen" hidden>VIP 관리자 패널</button>
 <button type="button" class="btn ghost logout-button" id="logoutButton">로그아웃 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 </div>
@@ -218,7 +222,7 @@
 <section class="auth-view" data-view="vip" hidden>
 <div class="auth-head"><span class="eyebrow">EXCLUSIVE MEMBER ACCESS</span><h2 id="vipTitle">VIP 라운지</h2><p>이용권이 활성화된 회원에게만 공개되는 공간입니다.</p></div>
 <div class="vip-access-state" id="vipAccessState" role="status" aria-live="polite">VIP 이용권을 확인하고 있습니다.</div>
-<div id="vipLocked" class="vip-locked" hidden><div class="vip-lock-icon">◆</div><h3 id="vipLockedTitle">VIP 전용</h3><p id="vipLockedText">멤버십 확인 후 이용할 수 있습니다.</p><p class="vip-lock-footnote">VIP 이용권은 관리자가 발급하며, 결제 기능은 아직 제공하지 않습니다.</p></div>
+<div id="vipLocked" class="vip-locked" hidden><div class="vip-lock-icon">◆</div><h3 id="vipLockedTitle">VIP 전용</h3><p id="vipLockedText">멤버십 확인 후 이용할 수 있습니다.</p><p class="vip-lock-footnote">코인 자동결제는 운영자 설정이 완료되면 이용할 수 있습니다.</p><button type="button" class="btn ghost vip-lock-pay" id="vipLockedPaymentOpen">코인으로 VIP 구매</button></div>
 <div id="vipUnlocked" hidden>
 <div class="vip-member-ribbon"><span>✦ VIP MEMBER</span><span id="vipAccessExpires">—</span></div>
 <div class="vip-article-head"><strong>VIP 콘텐츠</strong><small>공개된 콘텐츠만 표시됩니다.</small></div>
@@ -226,6 +230,37 @@
 <div class="vip-detail" id="vipArticleDetail" hidden><button type="button" class="vip-detail-back" id="vipArticleBack">← 콘텐츠 목록</button><h3 id="vipArticleTitle">—</h3><div id="vipArticleBody"></div></div>
 </div>
 <button type="button" class="btn ghost vip-return" id="vipToAccount">← 마이페이지로 돌아가기</button>
+</section>
+
+<section class="auth-view" data-view="payment" hidden>
+<div class="auth-head"><span class="eyebrow">GOLD PICK CRYPTO CHECKOUT</span><h2 id="paymentTitle">VIP 코인 결제</h2><p>입금 주소는 결제마다 발급되며, 확인된 결제만 자동 적용됩니다.</p></div>
+<div class="pay-banner" id="payConnection" role="status" aria-live="polite">결제 서버 연결 상태를 확인하고 있습니다.</div>
+<div class="pay-purchase" id="payPurchase">
+<div class="pay-field-row">
+<label class="auth-field"><span>VIP 이용 기간</span><select id="payDays" aria-label="VIP 이용 기간" disabled><option>가격 설정 전</option></select></label>
+<label class="auth-field"><span>결제 코인 · 네트워크</span><select id="payCoin" aria-label="코인 종류와 네트워크" disabled><option>연동 준비 중</option></select></label>
+</div>
+<div class="pay-price-box"><small>이용권 판매 가격</small><strong id="payPrice">설정 전</strong><span>정확한 코인 송금 수량은 결제 요청 후 표시됩니다.</span></div>
+<button type="button" class="btn primary pay-full-btn" id="payCreate" disabled>결제 주소 발급하기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+<p class="pay-precaution">발급된 주소와 코인 네트워크가 일치해야 해요. 네트워크 수수료·결제 서비스 최소 금액이 적용될 수 있습니다.</p>
+</div>
+<div class="pay-invoice" id="payInvoice" hidden>
+<div class="pay-invoice-top"><span>PAYMENT REQUEST</span><strong id="payInvoiceStatus">입금 대기</strong></div>
+<div class="pay-amount"><small>보낼 코인 수량</small><strong id="payAmount">—</strong><button type="button" class="pay-copy" id="payCopyAmount">수량 복사</button></div>
+<div class="pay-address"><small>입금 주소 · <span id="payNetwork">—</span></small><code id="payAddress">—</code><button type="button" class="pay-copy" id="payCopyAddress">주소 복사</button></div>
+<div class="pay-memo" id="payMemoWrap" hidden><small>필수 메모 / 태그</small><code id="payMemo">—</code><button type="button" class="pay-copy" id="payCopyMemo">메모 복사</button></div>
+<div class="pay-invoice-details"><span id="payInvoicePrice">—</span><span id="payExpires">—</span></div>
+<div class="pay-waiting" id="payWaiting" role="status" aria-live="polite">입금 감지 중 · 결제가 완료되면 자동으로 VIP가 활성화됩니다.</div>
+<button type="button" class="btn ghost pay-full-btn" id="payRefresh">입금 상태 지금 확인하기</button>
+<details class="pay-txid"><summary>자동 감지가 안 되나요? TXID로 재확인</summary>
+<p>송금한 코인의 거래 내역에서 트랜잭션 ID(TXID)를 복사해 넣어주세요. TXID만으로 VIP가 지급되지는 않으며, 결제 서비스 확인 후 처리됩니다.</p>
+<form id="payTxidForm" class="auth-form"><label class="auth-field"><span>트랜잭션 ID (64자리)</span><input id="payTxid" name="txid" type="text" minlength="64" maxlength="64" spellcheck="false" autocomplete="off" pattern="[a-fA-F0-9]{64}" placeholder="64자리 TXID" required></label>
+<button class="btn ghost pay-full-btn" type="submit">TXID 제출 및 재검증</button></form>
+</details>
+<button type="button" class="pay-new-order" id="payNewOrder">다른 이용권 결제하기</button>
+</div>
+<div class="pay-history"><div class="pay-history-title">최근 결제 내역 <button type="button" id="payHistoryReload">새로고침</button></div><div id="payHistoryList" class="pay-history-list"><p class="pay-history-empty">결제 내역이 없습니다.</p></div></div>
+<button type="button" class="btn ghost vip-return" id="payBackAccount">← 마이페이지로 돌아가기</button>
 </section>
 
 <section class="auth-view" data-view="admin" hidden>
