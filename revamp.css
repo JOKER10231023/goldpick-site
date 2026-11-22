@@ -118,3 +118,10 @@ html{scroll-padding-top:85px}body{background:radial-gradient(ellipse 75% 25% at 
 
 /* Prompt V3 – analysis-stage control */
 #gpStudio #gpAiStage{width:100%;min-height:46px;border:1px solid #d0b07875;border-radius:10px;padding:10px 12px;background:#0b100c;color:#f3ecd9;font-size:13px}
+
+/* AI sports evidence audit box */
+#gpAiDataStatus.gp-ai-data-status{margin-top:12px;padding:12px;border:1px solid rgba(218,181,111,.35);border-radius:11px;background:rgba(218,181,111,.08);font-size:12px;line-height:1.7;color:#e9dfc9;overflow-wrap:anywhere}
+#gpAiDataStatus.gp-ai-data-status[hidden]{display:none!important}
+#gpAiDataStatus strong{display:block;margin-bottom:4px;color:#f1d298;font-size:13px}
+#gpAiDataStatus p{margin:4px 0 8px;color:#cbc4b1}
+#gpAiDataStatus a{display:inline-block;margin:3px 7px 3px 0;padding:4px 10px;border:1px solid rgba(218,181,111,.5);border-radius:7px;color:#f0d58a;text-decoration:none}
