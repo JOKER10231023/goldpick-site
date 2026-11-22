@@ -13,6 +13,7 @@ create table if not exists public.goldpick_crypto_orders (
   pay_extra_id text,
   provider_payment_id text unique,
   provider_status text not null default 'creating',
+  last_checked_at timestamptz,
   submitted_txid text,
   submitted_at timestamptz,
   txid_submission_count integer not null default 0,
@@ -139,6 +140,8 @@ begin
     return jsonb_build_object('ok',false,'reason','payment_mismatch_or_underpaid');
   end if;
 
+  -- Serialize simultaneous payments for the same customer, including first grants.
+  perform 1 from auth.users where id = v_order.user_id for update;
   select * into v_existing from public.vip_memberships
     where user_id = v_order.user_id for update;
   if found and v_existing.expires_at > now() then
