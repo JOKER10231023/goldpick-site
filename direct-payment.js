@@ -108,7 +108,7 @@
     el("directOrderTagWrap").hidden=!order.tag;
     setText("directOrderId",order.id);
     const hints={
-      awaiting_transfer:isLtc(order)?"표시된 LTC 수량을 정확히 송금하세요. 서버가 블록체인에서 입금을 자동 감지하며 6회 확인 후 VIP가 자동 지급됩니다. TXID 제출은 필요하지 않습니다.":"송금 후 TXID를 제출하세요. 관리자 확인 후 VIP가 지급됩니다.",
+      awaiting_transfer:isLtc(order)?"LTC 자동결제: 표시된 수량을 정확히 송금하면 블록체인 6회 확인 후 관리자 승인 없이 VIP가 자동 지급됩니다. TXID 제출은 필요하지 않습니다.":"송금 후 TXID를 제출하세요. 관리자 확인 후 VIP가 지급됩니다.",
       txid_submitted:"TXID가 접수됐습니다. 관리자 검토 중입니다.",
       approved:"검증된 입금에 대한 VIP가 지급됐습니다. 마이페이지에서 확인하세요.",
       rejected:"결제 요청이 반려됐습니다. 운영자에게 문의해 주세요."
