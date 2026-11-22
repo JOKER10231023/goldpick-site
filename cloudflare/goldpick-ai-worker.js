@@ -30,14 +30,37 @@ export default {
   if(!home||!away)return respond({error:"홈팀과 원정팀을 모두 입력해 주세요."},400);
   const guide=`너는 Gold Pick 스포츠 기사 초안 작성 도우미다. 반드시 한국어. 사용자가 제공한 정보만 확정 사실로 다룬다. 인터넷 접속이나 현재 실시간 점수/라인업/최근 전적/부상 여부를 확인한 척하지 않는다. 외부에서 검증하지 못한 통계, 확률, 배당, 상대 전적, 실시간 스코어와 결과를 절대 만들지 않는다. 근거가 없으면 '확인된 최신 자료가 없어 추가 검증이 필요하다'고 명시한다. 이미 시작했거나 끝난 경기는 사전 예측이 아니라 사후/실시간 분석임을 명확히 한다. 사용자가 작성한 참고정보도 독립 검증되지 않았다고 설명한다. 객관적이고 읽기 쉬운 프리미엄 스포츠 기사로 작성한다. 확정적인 적중/수익 보장 표현 금지. 제목 160자 이내, 전망 300자 이내, 본문 10000자 이내. 본문에는 분석 개요, 확인된 정보, 핵심 변수, 불확실성, 종합 전망, 작성 시점 유의사항을 포함한다. 입력 자료가 제한적이면 이를 솔직히 표기. 특히 누락된 경기 기록을 지어내지 않는다. JSON만 응답: {"title":"...","prediction":"...","body":"..."}.`;
   const prompt=`현재 시각: ${new Date().toISOString()} UTC. 종목: ${sport}. 경기: ${home} 대 ${away}. 경기 시작 시간(입력값): ${matchAt||"미입력"}. 작성 유형: ${template}. 사용자가 입력한 확인용 참고사항(검증 안 됨): ${context||"없음"}. 위 정보에 맞게 한국어 게시글 초안을 작성하라.`;
-  let ai;
-  try{
-   ai=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",{method:"POST",headers:{"x-goog-api-key":env.GEMINI_API_KEY,"content-type":"application/json"},body:JSON.stringify({systemInstruction:{parts:[{text:guide}]},contents:[{role:"user",parts:[{text:prompt}]}],generationConfig:{responseMimeType:"application/json",maxOutputTokens:4096,temperature:0.45}})});
-  }catch{return respond({error:"Gemini 서버 연결에 실패했습니다."},502);}
-  if(!ai.ok){
-   const code=ai.status;
-   return respond({error:code===429?"Gemini 사용량 제한에 도달했습니다. 잠시 후 다시 시도해 주세요.":code===400||code===403?"Gemini API 키/모델 사용 권한을 확인해 주세요.":"Gemini 요청 실패 (HTTP "+code+")"},502);
+  // Gemini 2.5 is unavailable for many new API projects (404).
+  // Try current supported models, with a safe fallback for 404/503.
+  const models=["gemini-3.5-flash-lite","gemini-3.8-flash"];
+  const payload=JSON.stringify({
+    systemInstruction:{parts:[{text:guide}]},
+    contents:[{role:"user",parts:[{text:prompt}]}],
+    generationConfig:{responseMimeType:"application/json",maxOutputTokens:8192,temperature:0.45}
+  });
+  let ai=null,usedModel="",lastError="";
+  for(const model of models){
+    let response;
+    try{
+      response=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+encodeURIComponent(model)+":generateContent",{
+        method:"POST",
+        headers:{"x-goog-api-key":env.GEMINI_API_KEY,"content-type":"application/json"},
+        body:payload
+      });
+    }catch(err){
+      lastError="Gemini 서버에 연결할 수 없습니다.";
+      continue;
+    }
+    if(response.ok){ai=response;usedModel=model;break;}
+    const code=response.status;
+    let googleMessage="";
+    try{const detail=await response.json();googleMessage=String(detail?.error?.message||"").slice(0,180);}catch{}
+    lastError=code===429?"Gemini 사용량 제한(429)에 도달했습니다. 잠시 후 다시 시도해 주세요.":
+      code===401||code===403?"Gemini API 키의 권한 또는 활성화 상태를 확인해 주세요. ("+code+")":
+      "Gemini 모델 "+model+" 요청 실패 (HTTP "+code+"). "+googleMessage;
+    if(![404,503].includes(code))break;
   }
+  if(!ai)return respond({error:lastError||"Gemini 요청 실패"},502);
   let article;
   try{
    const payload=await ai.json();
@@ -45,6 +68,6 @@ export default {
    article=JSON.parse(text);
    if(!article.title||!article.body)throw Error("blank");
   }catch{return respond({error:"Gemini 응답을 읽지 못했습니다. 다시 생성해 주세요."},502);}
-  return respond({title:cut(article.title,160),prediction:cut(article.prediction,300),body:cut(article.body,20000),generatedAt:new Date().toISOString()});
+  return respond({title:cut(article.title,160),prediction:cut(article.prediction,300),body:cut(article.body,20000),generatedAt:new Date().toISOString(),model:usedModel});
  }
 };
