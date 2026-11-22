@@ -78,3 +78,13 @@ html{scroll-padding-top:85px}body{background:radial-gradient(ellipse 75% 25% at 
 #gpStudio .gp-paste-button{flex:0 0 auto;align-self:flex-start;min-height:43px;padding:9px 12px;border:1px solid #dbba7d88;border-radius:9px;background:linear-gradient(135deg,#393021,#221f19);color:#ffdf9f;font-size:12px;font-weight:800;white-space:nowrap;cursor:pointer}
 #gpStudio .gp-paste-button:active{transform:scale(.98)}
 @media(max-width:420px){#gpStudio .gp-paste-control:has(textarea){flex-direction:column}#gpStudio .gp-paste-control:has(textarea)>.gp-paste-button{align-self:flex-end}}
+
+/* V5 clipboard row: static HTML buttons remain visible even if editor JS fails. */
+#gpStudioForm .gp-clipboard-row{display:flex!important;align-items:stretch;gap:8px;min-width:0;width:100%;margin-top:7px}
+#gpStudioForm .gp-clipboard-row>input,#gpStudioForm .gp-clipboard-row>select,#gpStudioForm .gp-clipboard-row>textarea{display:block;flex:1 1 auto;min-width:0;width:100%!important;margin:0!important;max-width:none}
+#gpStudioForm .gp-clipboard-btn{display:flex!important;align-items:center;justify-content:center;align-self:flex-start;flex:0 0 auto;min-width:95px;min-height:47px;padding:10px 11px;border:1px solid #edc783a8;border-radius:10px;background:#372d20;color:#ffdea4;font-size:12px;font-weight:800;line-height:1.3;white-space:nowrap;visibility:visible!important;opacity:1!important;position:static!important}
+#gpStudioForm .gp-clipboard-row>textarea{min-height:175px}
+#gpStudioForm .gp-clipboard-photo-hint{display:block;margin-top:5px;color:#b9b09f;font-size:11px;font-weight:400}
+#gpStudioForm .gp-clipboard-row:focus-within .gp-clipboard-btn{border-color:#fff0bc}
+#gpStudioForm .gp-clipboard-btn:active{background:#5c452b}
+@media(max-width:420px){#gpStudioForm .gp-clipboard-row:has(textarea){flex-direction:column}#gpStudioForm .gp-clipboard-row:has(textarea)>.gp-clipboard-btn{align-self:flex-end}}
