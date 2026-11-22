@@ -50,3 +50,30 @@
 .auth-view .member-payment-button{grid-column:1/-1;background:#d8af6626;color:#f8d69b;border-color:#d4b26c75;margin:0}
 .vip-lock-pay{margin:18px 0 0;width:100%;max-width:280px;justify-content:center}
 @media(max-width:520px){.auth-dialog.payment-mode{padding:25px 19px}.pay-field-row{gap:8px}.pay-field-row select{font-size:10px;padding:0 8px}.pay-amount strong{font-size:18px}.pay-address code{font-size:11px}.pay-invoice{padding:17px 14px}}
+
+/* Direct wallet checkout: coin → network → wallet address */
+.direct-payment-grid,.direct-admin-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.direct-payment-grid .auth-field:last-child{grid-column:1/-1}
+.direct-payment-grid label{min-width:0}
+.direct-payment-grid select,.direct-admin-two select{width:100%;height:48px;padding:0 12px;border-radius:9px;border:1px solid #bda16d80;background:#131811;color:#f5ddb0;outline:none;font-size:12px}
+.direct-payment-grid select:disabled,.direct-admin-two select:disabled{opacity:.55}
+.direct-payment-grid select:focus,.direct-admin-two select:focus{border-color:#f1cb84;box-shadow:0 0 0 3px #d2aa6429}
+.direct-quote{background:radial-gradient(circle at 100% 0,#e0b7792c,transparent 56%),linear-gradient(130deg,#2b2718,#131910);border:1px solid #c3a36e74;border-radius:13px;padding:20px;margin:12px 0}
+.direct-quote-head,.direct-wallet-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;font-size:11px;color:#e7c994;font-weight:700}
+.direct-quote-head small{font-size:9px;color:#a99d8a;font-weight:500}
+.direct-quote>strong{display:block;font-family:'Outfit','Noto Sans KR',sans-serif;font-size:clamp(21px,5vw,27px);font-weight:800;color:#ffedc6;margin:15px 0 14px;overflow-wrap:anywhere}
+.direct-quote-line{display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #bd9c5b31;font-size:11px;color:#d9c39c}
+.direct-quote-line small{font-size:10px;color:#a99d8a}
+.direct-wallet{border:1px solid #ae946445;border-radius:12px;padding:17px;background:#0c120dee;margin:12px 0}
+.direct-wallet-head{font-size:11px;margin-bottom:12px}
+.direct-wallet code{display:block;word-break:break-all;overflow-wrap:anywhere;user-select:all;font:500 12px/1.85 ui-monospace,Consolas,monospace;color:#f2e8d8;padding:12px;border:1px solid #a9976659;border-radius:9px;background:#202418}
+#directPayTagWrap,#directOrderTagWrap{margin-top:17px}
+.direct-payment-note{font-size:10px;line-height:1.85;color:#d1b899;background:#99764020;border-left:2px solid #d6ae6f;padding:13px;margin:12px 0 16px}
+.direct-payment-note strong{color:#f0d8b1}
+#directPayOrder .direct-quote>strong{margin-bottom:9px}
+#directPayOrder .direct-quote .pay-copy{margin-top:3px}
+.direct-order-id{font-size:10px;color:#978c7b;word-break:break-all;margin:12px 0}
+#directTxidForm{margin:15px 0 10px}
+#directTxidForm input{font-size:11px}
+#directPaySetup[hidden],#directPayOrder[hidden],#directPayTagWrap[hidden],#directOrderTagWrap[hidden]{display:none!important}
+@media(max-width:520px){.direct-payment-grid{grid-template-columns:1fr 1fr}.direct-quote{padding:18px 15px}.direct-wallet{padding:15px 12px}.direct-quote-head{align-items:flex-start}.direct-quote-head small{max-width:160px;text-align:right}}
