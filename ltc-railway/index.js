@@ -1,4 +1,5 @@
 // Railway LTC payment watcher. Disabled by default until verified.
+const KRW_PRICES={1:1900,7:9900,30:29900,90:69900,365:149000};
 const required=["SUPABASE_URL","SUPABASE_SERVICE_ROLE_KEY"];
 const base=(process.env.LTC_EXPLORER_URL||"https://api.blockcypher.com/v1/ltc/main").replace(/\/$/,"");
 const delay=Number(process.env.POLL_INTERVAL_MS||120000);
@@ -9,6 +10,35 @@ async function rpc(fn,payload={}){
  if(!res.ok)throw Error(fn+" HTTP "+res.status+" "+JSON.stringify(data).slice(0,200));
  return data;
 }
+
+let lastPriceRefresh=0;
+async function refreshLtcPrices(){
+ const now=Date.now();
+ if(now-lastPriceRefresh<600000)return;
+ const url=process.env.SUPABASE_URL.replace(/\\/$/,"")+"/rest/v1/";
+ const headers={"apikey":process.env.SUPABASE_SERVICE_ROLE_KEY,"Authorization":"Bearer "+process.env.SUPABASE_SERVICE_ROLE_KEY};
+ const walletRes=await fetch(url+"gp_direct_wallets?select=coin,network&coin=eq.ltc&network=eq.litecoin",{headers});
+ if(!walletRes.ok)throw Error("Wallet lookup HTTP "+walletRes.status);
+ const wallets=await walletRes.json();
+ if(!wallets.length){console.log("LTC wallet not configured yet; waiting");return;}
+ const quoteRes=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=krw",{headers:{"accept":"application/json"}});
+ if(!quoteRes.ok)throw Error("LTC KRW rate HTTP "+quoteRes.status);
+ const quote=await quoteRes.json();
+ const rate=Number(quote?.litecoin?.krw);
+ if(!Number.isFinite(rate)||rate<1000||rate>10000000)throw Error("Invalid LTC/KRW quote");
+ const rows=Object.entries(KRW_PRICES).map(([days,krw])=>({
+  coin:"ltc",network:"litecoin",days:Number(days),
+  amount:(Math.ceil(krw/rate*1e8)/1e8).toFixed(8)
+ }));
+ const res=await fetch(url+"gp_direct_prices?on_conflict=coin,network,days",{
+  method:"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates,return=minimal"},
+  body:JSON.stringify(rows)
+ });
+ if(!res.ok)throw Error("Price update HTTP "+res.status+" "+(await res.text()).slice(0,200));
+ lastPriceRefresh=now;
+ console.log("LTC KRW prices refreshed",JSON.stringify({rate,prices:KRW_PRICES}));
+}
+
 async function transactions(address){
  if(!/^[A-Za-z0-9]{26,110}$/.test(address))throw Error("Invalid address");
  const u=new URL(base+"/addrs/"+encodeURIComponent(address)+"/full");
@@ -56,6 +86,6 @@ async function main(){
  if(process.env.LTC_AUTOPAY_ENABLED!=="true"){console.log("Disabled; set LTC_AUTOPAY_ENABLED=true only after end-to-end tests");setInterval(()=>{},3600000);return;}
  for(const key of required)if(!process.env[key])throw Error("Missing required secret "+key);
  if(!Number.isFinite(delay)||delay<60000)throw Error("Invalid poll interval");
- for(;;){try{await scan();}catch(e){console.error("watcher",String(e));}await new Promise(r=>setTimeout(r,delay));}
+ for(;;){try{await refreshLtcPrices();}catch(e){console.error("LTC KRW pricing",String(e));}try{await scan();}catch(e){console.error("watcher",String(e));}await new Promise(r=>setTimeout(r,delay));}
 }
 main().catch(e=>{console.error(e);process.exit(1);});
