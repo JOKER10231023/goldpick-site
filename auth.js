@@ -322,7 +322,8 @@
     if (event === "SIGNED_OUT") {
       currentUser = null;
       updateHeader();
-      if (activeView === "account") setView("login");
+      if (activeView === "account" || activeView === "vip") setView("login");
+      window.dispatchEvent(new CustomEvent("goldpick:session", {detail: {event: "SIGNED_OUT"}}));
       return;
     }
     if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "USER_UPDATED" || event === "INITIAL_SESSION") {
