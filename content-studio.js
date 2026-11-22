@@ -123,6 +123,36 @@ async function upload(files){
  }catch(err){status(uploadText(err),"error");console.error("Gold Pick photo upload",err);}
  finally{uploading=false;$("gpSavePost").disabled=false;$("gpImageInput").disabled=false;$("gpImageInput").value="";}
 }
+
+const AI_ENDPOINT="https://goldpick-ai.lovesdw1023.workers.dev/generate";
+const aiButton=$("gpAiGenerate");
+if(aiButton)aiButton.addEventListener("click",async()=>{
+ const el=$("gpAiStatus"),set=(message,kind="info")=>{el.textContent=message;el.dataset.kind=kind;};
+ const home=$("gpHome").value.trim(),away=$("gpAway").value.trim();
+ if(!home||!away){set("홈팀과 원정팀을 먼저 입력해 주세요.","error");return;}
+ const client=bridge.getClient();if(!client){set("관리자로 로그인해 주세요.","error");return;}
+ const {data:{session}}=await client.auth.getSession();
+ if(!session?.access_token){set("로그인이 만료됐습니다. 다시 로그인해 주세요.","error");return;}
+ if($("gpTitle").value.trim()||$("gpBody").value.trim()){
+  if(!confirm("현재 제목과 분석 내용을 AI 초안으로 바꿀까요?"))return;
+ }
+ aiButton.disabled=true;set("Gemini 분석 초안 작성 중...");
+ try{
+  const response=await fetch(AI_ENDPOINT,{method:"POST",headers:{"content-type":"application/json","authorization":"Bearer "+session.access_token},body:JSON.stringify({home,away,sport:$("gpSport").value,matchAt:$("gpMatchAt").value,template:$("gpTemplate").value,context:$("gpAiContext").value})});
+  const draft=await response.json().catch(()=>({}));
+  if(!response.ok)throw Error(draft.error||"Gemini 요청 실패");
+  if(!draft.title||!draft.body)throw Error("분석 초안이 비어 있습니다.");
+  $("gpTitle").value=draft.title.slice(0,160);
+  $("gpPrediction").value=String(draft.prediction||"").slice(0,300);
+  $("gpBody").value=draft.body.slice(0,20000);
+  ["gpTitle","gpPrediction","gpBody"].forEach(id=>$(id).dispatchEvent(new Event("input",{bubbles:true})));
+  set("✅ 초안 생성 완료! 내용을 확인하고 자료 저장 버튼을 누르세요.","success");
+  $("gpTitle").scrollIntoView({behavior:"smooth",block:"center"});
+ }catch(e){
+  const msg=/Failed to fetch|NetworkError|Load failed/i.test(String(e))?"Cloudflare AI Worker가 연결되지 않습니다. 배포 및 주소를 확인해 주세요.":e.message;
+  set("생성 실패: "+msg,"error");
+ }finally{aiButton.disabled=false;}
+});
 $("gpImageInput").addEventListener("change",e=>{const files=[...e.target.files];void upload(files)});
 $("gpNewPost").addEventListener("click",()=>fill());
 $("gpTemplate").addEventListener("change",editableTemplate);
