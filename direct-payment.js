@@ -72,7 +72,9 @@
     select.replaceChildren(...(days.length?
       days.map(d=>option(d,d+"일 VIP")):[option("","가격 설정 전")]));
     select.disabled=!days.length;
-    if(days.some(x=>String(x)===old))select.value=old;
+    if(requestedDays&&days.some(x=>String(x)===requestedDays)){
+      select.value=requestedDays;requestedDays=null;
+    }else if(days.some(x=>String(x)===old))select.value=old;
     renderPreview();
   }
   function renderPreview(){
@@ -126,6 +128,7 @@
     try{
       const arr=await rpc("gp_direct_offers");
       offers=Array.isArray(arr)?arr:[];
+      if(requestedDays){const ltc=offers.find(w=>w.coin==="ltc"&&w.network==="litecoin"&&w.prices?.[requestedDays]);if(ltc){el("directPayCoin").value="ltc";}}
       setupOptions();
       status(offers.length?
         "LTC는 자동 입금 확인 · 다른 코인은 관리자 검증 방식입니다. 송금 전 네트워크를 확인하세요.":
@@ -212,13 +215,18 @@
       status("복사했습니다. 전송 전 네트워크를 확인하세요.",true);
     }catch{status("자동 복사할 수 없습니다. 내용을 길게 눌러 복사해 주세요.");}
   }
-  async function open(){
+  let requestedDays=null;
+  async function open(days=null){
+    if(days!==null)requestedDays=String(days);
     if(!bridge.getUser()){bridge.openModal("login");return;}
     bridge.openModal("payment");
   }
-  for(const id of ["memberPaymentOpen","planPaymentOpen","vipLockedPaymentOpen"]){
-    el(id).addEventListener("click",()=>void open());
+  for(const id of ["memberPaymentOpen","vipLockedPaymentOpen"]){
+    const button=el(id);if(button)button.addEventListener("click",()=>void open());
   }
+  document.querySelectorAll("[data-gp-buy]").forEach(button=>{
+    button.addEventListener("click",()=>void open(button.dataset.gpBuy));
+  });
   el("directPayCoin").addEventListener("change",renderNetworks);
   el("directPayNetwork").addEventListener("change",renderDays);
   el("directPayDays").addEventListener("change",renderPreview);
