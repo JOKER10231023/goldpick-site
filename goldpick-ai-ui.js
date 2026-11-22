@@ -38,6 +38,7 @@ async function generate(){
     home,away,sport:get("gpSport")?.value||"",
     matchAt:get("gpMatchAt")?.value||"",
     template:get("gpTemplate")?.value||"detailed",
+    stage:get("gpAiStage")?.value||"auto",
     context:get("gpAiContext")?.value||""
    })
   });
