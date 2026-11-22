@@ -7,10 +7,11 @@
   let offers=[],orders=[],selectedOrder=null,opened=false,busy=false,poll=null;
   let loadToken=0;
   const statuses={
-    awaiting_transfer:"송금·TXID 입력 대기",
-    txid_submitted:"관리자 입금 확인 대기",
+    awaiting_transfer:"입금 확인 대기",
+    txid_submitted:"입금 검증 대기",
     approved:"VIP 지급 완료",rejected:"결제 반려"
   };
+  const isLtc=order=>String(order?.coin||"").toLowerCase()==="ltc";
   function setText(id,value){el(id).textContent=String(value);}
   function date(value){
     const d=new Date(value);
@@ -77,7 +78,10 @@
   function renderPreview(){
     const wallet=currentWallet();
     const amount=wallet?.prices?.[el("directPayDays").value];
-    setText("directPayAmount",amount?amount+" "+wallet.coin.toUpperCase():"미설정");
+    setText("directPayAmount",amount?(wallet.coin==="ltc"?"주문 생성 시 고유 수량 안내":amount+" "+wallet.coin.toUpperCase()):"미설정");
+    el("directPayCreate").textContent=wallet?.coin==="ltc"?"LTC 자동결제 주문 생성":"결제 요청 생성";
+    const guide=el("directPaymentNote");
+    if(guide)guide.textContent=wallet?.coin==="ltc"?"LTC 자동결제: 주문 생성 후 표시되는 고유 수량을 정확히 보내세요. 서버가 입금을 자동 감지해 6회 확인 후 VIP를 지급합니다. 주문 전 송금하거나 임의의 수량을 보내면 자동 처리되지 않습니다.":"다른 코인은 기존 수동 검증 방식입니다. 주문 생성 후 TXID를 제출해야 합니다.";
     setText("directPayNetworkLabel",wallet?.networkLabel||"—");
     setText("directPayAddress",wallet?.address||"등록된 입금 주소 없음");
     setText("directPayTag",wallet?.tag||"—");
@@ -92,7 +96,7 @@
     selectedOrder=order;
     el("directPaySetup").hidden=true;
     el("directPayOrder").hidden=false;
-    setText("directOrderStatus",statuses[order.status]||"상태 확인 중");
+    setText("directOrderStatus",isLtc(order)&&order.status==="awaiting_transfer"?"블록체인 자동 입금 감지 중":statuses[order.status]||"상태 확인 중");
     setText("directOrderPlan",order.days+"일 VIP · "+order.coin.toUpperCase());
     setText("directOrderAmount",order.amount+" "+order.coin.toUpperCase());
     setText("directOrderAddress",order.address);
@@ -100,19 +104,19 @@
     el("directOrderTagWrap").hidden=!order.tag;
     setText("directOrderId",order.id);
     const hints={
-      awaiting_transfer:"주소와 코인 네트워크를 확인하고 송금한 뒤 TXID를 제출하세요. 운영자가 검증하기 전에는 VIP가 지급되지 않습니다.",
-      txid_submitted:"TXID가 접수됐습니다. 관리자 검토 중이며 승인 전까지 VIP는 지급되지 않습니다.",
+      awaiting_transfer:isLtc(order)?"표시된 LTC 수량을 정확히 송금하세요. 서버가 블록체인에서 입금을 자동 감지하며 6회 확인 후 VIP가 자동 지급됩니다. TXID 제출은 필요하지 않습니다.":"송금 후 TXID를 제출하세요. 관리자 확인 후 VIP가 지급됩니다.",
+      txid_submitted:"TXID가 접수됐습니다. 관리자 검토 중입니다.",
       approved:"검증된 입금에 대한 VIP가 지급됐습니다. 마이페이지에서 확인하세요.",
       rejected:"결제 요청이 반려됐습니다. 운영자에게 문의해 주세요."
     };
     const msg=el("directOrderMessage");msg.textContent=hints[order.status]||"결제 상태를 확인하는 중입니다.";
     msg.dataset.kind=order.status==="approved"?"success":
       order.status==="rejected"?"warn":"info";
-    el("directTxidForm").hidden=["approved","rejected"].includes(order.status);
+    el("directTxidForm").hidden=isLtc(order)||["approved","rejected"].includes(order.status);
     el("directTxid").value=order.txid||"";
     clearPoll();
     if(opened && !["approved","rejected"].includes(order.status)){
-      poll=setInterval(()=>{if(!busy)void reloadOrder();},30000);
+      poll=setInterval(()=>{if(!busy)void reloadOrder();},isLtc(order)?12000:30000);
     }
   }
   async function loadOffers(){
@@ -122,7 +126,7 @@
       offers=Array.isArray(arr)?arr:[];
       setupOptions();
       status(offers.length?
-        "관리자가 등록한 코인 지갑입니다. 송금 전 코인·네트워크를 꼭 확인하세요.":
+        "LTC는 자동 입금 확인 · 다른 코인은 관리자 검증 방식입니다. 송금 전 네트워크를 확인하세요.":
         "현재 공개된 결제 지갑이 없습니다. 관리자가 주소와 가격을 등록해야 구매할 수 있습니다.",!!offers.length);
     }catch(e){
       offers=[];setupOptions();status(e.message);
@@ -150,7 +154,7 @@
       const root=el("directPayHistory");
       if(!orders.length){
         const p=document.createElement("p");
-        p.className="pay-history-empty";p.textContent="아직 결제 요청이 없습니다.";
+        p.className="pay-history-empty";p.textContent="아직 결제 내역이 없습니다.";
         root.replaceChildren(p);
       }else root.replaceChildren(...orders.map(historyRow));
       if(selectedOrder){
@@ -177,7 +181,7 @@
       });
       renderOrder(response.order);
       await loadHistory();
-      status("주문이 생성됐습니다. 송금 후 TXID를 접수해 주세요.",true);
+      status(isLtc(response.order)?"LTC 자동결제 주문 생성 완료! 주문 화면의 정확한 수량을 송금하세요.":"주문이 생성됐습니다. 송금 후 TXID를 접수해 주세요.",true);
     }catch(e){status(e.message);}
     finally{busy=false;renderPreview();}
   }
