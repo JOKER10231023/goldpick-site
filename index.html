@@ -18,7 +18,7 @@
 <script src="auth.js?v=8" defer></script>
 <script src="member.js?v=1" defer></script>
 <script src="admin.js?v=3" defer></script>
-<script src="direct-payment.js?v=1" defer></script>
+<script src="direct-payment.js?v=2" defer></script>
 <script src="direct-admin.js?v=1" defer></script>
 </head>
 <body>
@@ -104,11 +104,11 @@
 </div></section>
 
 <section class="section" id="plans"><div class="container">
-<div class="section-head reveal"><div class="eyebrow">이용 방식</div><h2 class="display">원하는 만큼, <span class="gradient-text">나에게 맞게.</span></h2><p>현재 이용권 구성을 소개합니다. 실제 코인 결제는 운영자 설정과 필요한 검토를 마친 뒤 활성화됩니다.</p></div>
+<div class="section-head reveal"><div class="eyebrow">이용 방식</div><h2 class="display">원하는 만큼, <span class="gradient-text">나에게 맞게.</span></h2><p>LTC 자동결제는 운영자가 입금 주소와 가격을 공개한 뒤 이용할 수 있습니다. 다른 코인은 수동 확인 방식입니다.</p></div>
 <div class="pricing">
 <article class="price-card reveal"><span class="price-kicker">무료 이용</span><h3>무료 분석</h3><p>Gold Pick을 가볍게 둘러보는 기본 콘텐츠</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>공개 분석 콘텐츠 예정</li><li><svg class="icon"><use href="#ic-check"/></svg>이용 방법 확인</li><li><svg class="icon"><use href="#ic-check"/></svg>기본 정보 제공 예정</li></ul><a href="#preview" class="btn ghost">미리보기 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></article>
 <article class="price-card highlight reveal" data-delay="1"><span class="price-kicker">인기 구성안 · 미출시</span><h3>단일 분석</h3><p>관심 있는 콘텐츠를 개별적으로 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>관심 있는 콘텐츠 선택</li><li><svg class="icon"><use href="#ic-check"/></svg>핵심 요약 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>가격은 출시 시 안내</li></ul><button type="button" class="btn primary" disabled>준비 중</button></article>
-<article class="price-card reveal" data-delay="2"><span class="price-kicker" id="vipPriceKicker">프리미엄 구성안 · 결제 연동 전</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li id="vipPriceExplanation"><svg class="icon"><use href="#ic-check"/></svg>이용권 가격은 결제 오픈 시 공개</li></ul><button type="button" class="btn ghost" id="planPaymentOpen">코인·네트워크 선택 <svg class="icon"><use href="#ic-arrow"/></svg></button></article>
+<article class="price-card reveal" data-delay="2"><span class="price-kicker" id="vipPriceKicker">프리미엄 구성안 · LTC 자동결제</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li id="vipPriceExplanation"><svg class="icon"><use href="#ic-check"/></svg>이용권 가격은 결제 오픈 시 공개</li></ul><button type="button" class="btn ghost" id="planPaymentOpen">VIP 결제하기 <svg class="icon"><use href="#ic-arrow"/></svg></button></article>
 </div></div></section>
 
 <section class="section member-showcase-section" id="vip-lounge">
@@ -138,7 +138,7 @@
 
 <section class="section" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">이용 안내</div><h2 class="display">궁금한 점은 <span class="gradient-text">쉽게 확인하세요.</span></h2><p>서비스가 준비된 범위를 명확하게 안내합니다.</p></div>
 <div class="faq reveal">
-<details><summary>지금 구매할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>지금은 결제 서버와 판매 가격을 설정하는 단계입니다. 결제 오픈 이후에는 VIP 이용권을 코인으로 결제하고, 실제 입금 확인 후 이용할 수 있습니다.</p></details>
+<details><summary>지금 구매할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>관리자가 LTC 지갑 주소와 가격을 공개하면 자동결제 주문을 생성할 수 있습니다. 블록체인 6회 확인 후 VIP가 자동 지급됩니다. 다른 코인은 관리자 검증 방식입니다.</p></details>
 <details><summary>스포츠 분석은 어떤 정보를 제공하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>경기 흐름과 팀 기록, 주요 변수를 이해하기 쉽게 설명하는 콘텐츠를 구상하고 있어. 현재 표시되는 분석은 모두 디자인 예시야.</p></details>
 <details><summary>적중률이나 결과를 보장하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>아니. 스포츠 경기의 결과는 보장할 수 없고, 실제 성과가 쌓이기 전에는 적중률이나 이용 후기를 만들어 게시하지 않을 거야.</p></details>
 </div></div></section>
@@ -146,7 +146,7 @@
 <section class="cta" id="end"><div class="container reveal"><div class="eyebrow center">GOLD PICK</div><h2 class="display">더 쉽고, 더 선명하게.<br><span class="gradient-text">분석의 기준을 높이다.</span></h2><p>Gold Pick의 새로운 화면을 미리 만나보세요.</p><a class="btn primary" href="#preview">분석 화면 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></div></section>
 </main>
 
-<footer class="footer"><div class="container"><div class="footer-main"><a href="#top" class="logo"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a><div class="footer-links"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></div></div><div class="footer-bottom"><span>© 2026 GOLD PICK. ALL RIGHTS RESERVED.</span><span>서비스 준비 중 · 수익 보장 없음 · 결제 오픈 전</span></div></div></footer>
+<footer class="footer"><div class="container"><div class="footer-main"><a href="#top" class="logo"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a><div class="footer-links"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></div></div><div class="footer-bottom"><span>© 2026 GOLD PICK. ALL RIGHTS RESERVED.</span><span>수익 보장 없음 · LTC 자동결제는 지갑 설정 후 이용 가능</span></div></div></footer>
 <div class="dialog-backdrop" id="loginOverlay" aria-hidden="true">
 <div class="dialog auth-dialog" id="authDialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
 <button type="button" class="close" id="loginClose" aria-label="로그인 창 닫기"><svg class="icon"><use href="#ic-close"/></svg></button>
@@ -233,7 +233,7 @@
 </section>
 
 <section class="auth-view" data-view="payment" hidden>
-<div class="auth-head"><span class="eyebrow">GOLD PICK · COIN CHECKOUT</span><h2 id="paymentTitle">VIP 코인 결제</h2><p>코인과 네트워크를 고르면 관리자가 등록한 입금 주소가 표시됩니다.</p></div>
+<div class="auth-head"><span class="eyebrow">GOLD PICK · COIN CHECKOUT</span><h2 id="paymentTitle">VIP 코인 결제</h2><p>LTC는 입금 자동 감지 후 VIP가 지급됩니다. 다른 코인은 관리자 검증 방식입니다.</p></div>
 <div class="pay-banner" id="directPayStatus" role="status" aria-live="polite">설정된 지갑 주소를 확인하는 중입니다.</div>
 <div id="directPaySetup">
 <div class="direct-payment-grid">
@@ -251,8 +251,8 @@
 <code id="directPayAddress">관리자가 등록한 주소가 여기에 표시됩니다.</code>
 <div id="directPayTagWrap" hidden><div class="direct-wallet-head"><span>필수 태그 / 메모</span><button type="button" id="directPayCopyTag" class="pay-copy">태그 복사</button></div><code id="directPayTag">—</code></div>
 </div>
-<div class="direct-payment-note">⚠️ 정확한 코인·네트워크·주소를 확인하세요. <strong>입금 주소만 보고 송금하면 주문과 자동 연결되지 않습니다.</strong> 아래에서 주문을 생성한 다음 거래 ID를 제출해야 하며, 운영자가 입금을 검증한 뒤 VIP가 지급됩니다.</div>
-<button type="button" class="btn primary pay-full-btn" id="directPayCreate" disabled>이 주소로 결제 요청 생성</button>
+<div class="direct-payment-note" id="directPaymentNote">LTC는 주문 생성 후 표시되는 고유 수량으로 자동결제합니다. 다른 코인은 기존 수동 검증 방식입니다.</div>
+<button type="button" class="btn primary pay-full-btn" id="directPayCreate" disabled>결제 주문 생성</button>
 </div>
 <div id="directPayOrder" hidden>
 <div class="pay-invoice-top"><span>PAYMENT ORDER</span><strong id="directOrderStatus">입금 확인 대기</strong></div>
@@ -274,8 +274,8 @@
 <button type="button" class="btn ghost pay-full-btn" id="directOrderRefresh">주문 상태 새로고침</button>
 <button type="button" class="pay-new-order" id="directOrderNew">다른 코인·네트워크 선택</button>
 </div>
-<div class="pay-history"><div class="pay-history-title">최근 결제 요청 <button type="button" id="directPayHistoryRefresh">새로고침</button></div>
-<div id="directPayHistory" class="pay-history-list"><p class="pay-history-empty">결제 요청이 없습니다.</p></div></div>
+<div class="pay-history"><div class="pay-history-title">최근 결제 내역 <button type="button" id="directPayHistoryRefresh">새로고침</button></div>
+<div id="directPayHistory" class="pay-history-list"><p class="pay-history-empty">결제 내역이 없습니다.</p></div></div>
 <button type="button" class="btn ghost vip-return" id="directPayBack">← 마이페이지로 돌아가기</button>
 </section>
 
