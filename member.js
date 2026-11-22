@@ -207,10 +207,12 @@
     bridge.openModal("vip");
   }
 
-  el("vipLoungeOpen").addEventListener("click", () => void openLounge());
-  el("memberVipOpen").addEventListener("click", () => {
-    bridge.setView("vip");
-  });
+  // Dedicated VIP portal has its own origin-scoped Supabase login session.
+  function openVipPortal() {
+    window.location.assign(el("gpVipGo")?.href || "/vip/");
+  }
+  el("vipLoungeOpen").addEventListener("click", openVipPortal);
+  el("memberVipOpen").addEventListener("click", openVipPortal);
   el("vipToAccount").addEventListener("click", () => bridge.setView("account"));
   el("memberRefresh").addEventListener("click", () => void fetchMembership());
   el("vipArticleBack").addEventListener("click", () => {
