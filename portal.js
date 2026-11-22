@@ -43,7 +43,7 @@ function card(p){
  a.append(tags,el("h3","",p.title));
  if(p.home_team||p.away_team)a.append(el("p","portal-teams",([p.home_team,p.away_team].filter(Boolean)).join("  VS  ")));
  if(p.prediction)a.append(el("p","portal-pick","예상 · "+p.prediction));
- a.append(el("div","portal-card-foot",(resultLabels[p.result]||resultLabels.pending)+"  ·  상세 분석 보기 ↗"));
+ const foot=el("div","portal-card-foot");const badge=el("span","portal-card-status",resultLabels[p.result]||resultLabels.pending);badge.dataset.result=p.result;foot.append(badge,el("span","","상세 분석 보기 ↗"));a.append(foot);
  return a;
 }
 function renderList(){
