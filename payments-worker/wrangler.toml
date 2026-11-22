@@ -10,6 +10,7 @@ SUPABASE_URL = "https://xyssumwioolllczqgwsr.supabase.co"
 SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vqCZirS5_x5r7B7zDb7TxQ_GAuQi_O2"
 SITE_ORIGIN = "https://goldpick.6uv0.xyz"
 PAYMENTS_ENABLED = "false"
+NOWPAYMENTS_ENVIRONMENT = "sandbox"
 PAY_COINS = "usdttrc20,ltc"
 VIP_PLANS_JSON = "{}"
 
