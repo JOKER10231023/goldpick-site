@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="auth.css">
 <link rel="stylesheet" href="member.css?v=4">
 <link rel="stylesheet" href="payment.css?v=2">
-<link rel="stylesheet" href="revamp.css?v=2">
+<link rel="stylesheet" href="revamp.css?v=5">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
 <script src="auth.js?v=8" defer></script>
@@ -21,8 +21,9 @@
 <script src="admin.js?v=4" defer></script>
 <script src="direct-payment.js?v=5" defer></script>
 <script src="direct-admin.js?v=2" defer></script>
-<script src="content-studio.js?v=4" defer></script>
+<script src="content-studio.js?v=5" defer></script>
 <script src="accuracy.js?v=1" defer></script>
+<script src="clipboard-tools.js?v=1" defer></script>
 
 </head>
 <body>
@@ -292,16 +293,16 @@
 <div class="auth-head"><span class="eyebrow">GOLD PICK ADMINISTRATION</span><h2 id="adminTitle">관리자 센터</h2><p>분석 자료 작성 · VIP 회원 관리 · 입금 설정</p></div>
 <div class="gp-admin-nav"><button type="button" id="gpGoEditor" class="btn primary">✍️ 분석 자료 작성</button><button type="button" id="gpGoMembers" class="btn ghost">👑 VIP 관리</button><button type="button" id="gpGoWallet" class="btn ghost">💳 결제 설정</button></div>
 <div class="gp-studio" id="gpStudio"><h3>✦ 분석 자료 관리</h3><p>템플릿을 선택하고 내용을 입력하면 무료/VIP 게시판에 자동 반영됩니다.</p><button type="button" class="btn ghost" id="gpNewPost">+ 새 자료 작성</button><form id="gpStudioForm" class="gp-studio-form">
-<label>템플릿<select id="gpTemplate"><option value="basic">기본 분석</option><option value="quick">간편 분석</option><option value="image">이미지 분석</option><option value="detailed">상세 분석</option></select></label>
-<label>공개 범위<select id="gpAccess"><option value="free">무료</option><option value="vip">VIP</option></select></label>
-<label>제목<input id="gpTitle" maxlength="160" required placeholder="분석 제목"></label>
-<div id="gpMatchFields"><label>종목<input id="gpSport" placeholder="축구 / 야구 / 농구"></label><label>홈팀<input id="gpHome"></label><label>원정팀<input id="gpAway"></label><label>경기 일시<input id="gpMatchAt" type="datetime-local"></label></div>
-<label id="gpPredictionField">예상 결과<input id="gpPrediction" maxlength="300" placeholder="예상 결과"></label>
-<label id="gpBodyField">분석 내용<textarea id="gpBody" rows="6" placeholder="분석 근거를 작성하세요"></textarea></label>
-<div id="gpImagesField"><label>이미지 첨부 (최대 8장, 각 5MB)<input id="gpImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label><span id="gpImageNames">0 / 8장 등록</span><div id="gpImagePreview" class="gp-image-preview" aria-label="첨부 사진 미리보기"></div><button type="button" id="gpClearImages">첨부 사진 전체 지우기</button></div>
-<label>경기 결과<select id="gpResult"><option value="pending">대기</option><option value="hit">적중</option><option value="miss">미적중</option><option value="void">적특</option></select></label>
-<label>게시 상태<select id="gpStatus"><option value="draft">임시저장</option><option value="published">발행 / 예약 발행</option></select></label>
-<label>공개 일시 (비워두면 즉시)<input id="gpPublishAt" type="datetime-local"></label>
+<label>템플릿<span class="gp-clipboard-row"><select id="gpTemplate"><option value="basic">기본 분석</option><option value="quick">간편 분석</option><option value="image">이미지 분석</option><option value="detailed">상세 분석</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpTemplate" aria-label="gpTemplate에 붙여넣기">📋 붙여넣기</button></span></label>
+<label>공개 범위<span class="gp-clipboard-row"><select id="gpAccess"><option value="free">무료</option><option value="vip">VIP</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpAccess" aria-label="gpAccess에 붙여넣기">📋 붙여넣기</button></span></label>
+<label>제목<span class="gp-clipboard-row"><input id="gpTitle" maxlength="160" required placeholder="분석 제목"><button class="gp-clipboard-btn" type="button" data-paste-for="gpTitle" aria-label="gpTitle에 붙여넣기">📋 붙여넣기</button></span></label>
+<div id="gpMatchFields"><label>종목<span class="gp-clipboard-row"><input id="gpSport" placeholder="축구 / 야구 / 농구"><button class="gp-clipboard-btn" type="button" data-paste-for="gpSport" aria-label="gpSport에 붙여넣기">📋 붙여넣기</button></span></label><label>홈팀<span class="gp-clipboard-row"><input id="gpHome"><button class="gp-clipboard-btn" type="button" data-paste-for="gpHome" aria-label="gpHome에 붙여넣기">📋 붙여넣기</button></span></label><label>원정팀<span class="gp-clipboard-row"><input id="gpAway"><button class="gp-clipboard-btn" type="button" data-paste-for="gpAway" aria-label="gpAway에 붙여넣기">📋 붙여넣기</button></span></label><label>경기 일시<span class="gp-clipboard-row"><input id="gpMatchAt" type="datetime-local"><button class="gp-clipboard-btn" type="button" data-paste-for="gpMatchAt" aria-label="gpMatchAt에 붙여넣기">📋 붙여넣기</button></span></label></div>
+<label id="gpPredictionField">예상 결과<span class="gp-clipboard-row"><input id="gpPrediction" maxlength="300" placeholder="예상 결과"><button class="gp-clipboard-btn" type="button" data-paste-for="gpPrediction" aria-label="gpPrediction에 붙여넣기">📋 붙여넣기</button></span></label>
+<label id="gpBodyField">분석 내용<span class="gp-clipboard-row"><textarea id="gpBody" rows="6" placeholder="분석 근거를 작성하세요"></textarea><button class="gp-clipboard-btn" type="button" data-paste-for="gpBody" aria-label="gpBody에 붙여넣기">📋 붙여넣기</button></span></label>
+<div id="gpImagesField"><label>이미지 첨부 (최대 8장, 각 5MB)<input id="gpImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple><span class="gp-clipboard-photo-hint">사진은 클립보드 텍스트 대신 파일 선택으로 첨부합니다.</span></label><span id="gpImageNames">0 / 8장 등록</span><div id="gpImagePreview" class="gp-image-preview" aria-label="첨부 사진 미리보기"></div><button type="button" id="gpClearImages">첨부 사진 전체 지우기</button></div>
+<label>경기 결과<span class="gp-clipboard-row"><select id="gpResult"><option value="pending">대기</option><option value="hit">적중</option><option value="miss">미적중</option><option value="void">적특</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpResult" aria-label="gpResult에 붙여넣기">📋 붙여넣기</button></span></label>
+<label>게시 상태<span class="gp-clipboard-row"><select id="gpStatus"><option value="draft">임시저장</option><option value="published">발행 / 예약 발행</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpStatus" aria-label="gpStatus에 붙여넣기">📋 붙여넣기</button></span></label>
+<label>공개 일시 (비워두면 즉시)<span class="gp-clipboard-row"><input id="gpPublishAt" type="datetime-local"><button class="gp-clipboard-btn" type="button" data-paste-for="gpPublishAt" aria-label="gpPublishAt에 붙여넣기">📋 붙여넣기</button></span></label>
 <button type="submit" class="btn primary" id="gpSavePost">자료 저장</button></form><p id="gpStudioMsg" role="status"></p><h4>등록된 자료</h4><div id="gpStudioList"></div></div><div class="admin-secure-strip"><svg class="icon"><use href="#ic-shield"/></svg><span>관리자 권한은 Supabase 서버에서 매 요청마다 검증됩니다.</span></div>
 <form id="vipAdminForm" class="auth-form vip-admin-form">
 <label class="auth-field"><span>회원 이메일 주소</span><input type="email" name="memberEmail" placeholder="member@example.com" maxlength="254" required autocomplete="off"></label>
