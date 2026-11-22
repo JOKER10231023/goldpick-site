@@ -20,7 +20,7 @@
     finished:"VIP 지급 완료", partially_paid:"입금액 부족",
     expired:"결제 시간 만료", failed:"결제 실패",
     refunded:"환불 처리", needs_review:"관리자 검토 필요",
-    verifying:"재확인 중"
+    verifying:"재확인 중", sandbox_finished:"샌드박스 완료"
   };
   const label = name => koStatus[name] || "확인 중";
   const setText = (id, str) => { el(id).textContent = String(str); };
@@ -75,7 +75,7 @@
     try {
       settings=await request("/v1/config",{auth:false});
       connection(settings.enabled
-        ? "코인 결제 연동 준비 완료 · 송금 주소는 결제 요청 시 발급됩니다."
+        ? (settings.mode === "sandbox" ? "샌드박스 테스트 모드 · 실제 코인을 절대 송금하지 마세요." : "실제 코인 결제 연결됨 · 결제 요청 시 주소가 발급됩니다.")
         : "코인 결제 서비스 준비 중 · 현재 입금은 받지 않습니다.",!!settings.enabled);
     } catch {
       settings={enabled:false,plans:[],coins:[]};
@@ -98,6 +98,14 @@
     coins.disabled=!settings?.enabled || busy;
     el("payCreate").disabled=!settings?.enabled || busy;
     renderPrice();
+    const kicker=el("vipPriceKicker"),explanation=el("vipPriceExplanation");
+    if (settings?.enabled && settings.mode==="live") {
+      kicker.textContent="코인 자동결제 이용권";
+      explanation.lastChild.textContent="코인 송금 후 자동 VIP 지급";
+    } else if (settings?.mode==="sandbox" && settings?.enabled) {
+      kicker.textContent="코인 결제 테스트 중";
+      explanation.lastChild.textContent="샌드박스 테스트 · 실제 송금 금지";
+    }
   }
   function renderPrice() {
     const selected=settings?.plans?.find(p=>String(p.days)===el("payDays").value);
@@ -120,6 +128,8 @@
       message("결제 완료! VIP 이용권이 지급됐습니다. 마이페이지에서 확인해 주세요.","success");
     } else if (["failed","expired","refunded"].includes(order.status)) {
       message("결제 요청이 "+label(order.status)+" 상태입니다. 입금했다면 TXID를 제출해 주세요.","warn");
+    } else if (order.status==="sandbox_finished") {
+      message("샌드박스 테스트가 완료됐습니다. 실제 결제가 아니므로 VIP는 지급되지 않습니다.","success");
     } else if (order.status==="needs_review") {
       message("결제 정보에 추가 확인이 필요합니다. TXID를 등록하고 운영자에게 문의해 주세요.","warn");
     } else if (order.status==="partially_paid") {
@@ -258,7 +268,7 @@
     await loadSettings();
     if (!viewOpen || call!==initId) return;
     if (settings?.enabled) {
-      await loadHistory();
+      if (apiOK) await loadHistory();
     }
   }
   for (const id of ["memberPaymentOpen","planPaymentOpen","vipLockedPaymentOpen"]) {
