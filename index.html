@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="auth.css">
 <link rel="stylesheet" href="member.css?v=4">
 <link rel="stylesheet" href="payment.css?v=2">
+<link rel="stylesheet" href="revamp.css?v=1">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
 <script src="auth.js?v=8" defer></script>
@@ -20,8 +21,9 @@
 <script src="admin.js?v=4" defer></script>
 <script src="direct-payment.js?v=5" defer></script>
 <script src="direct-admin.js?v=2" defer></script>
-<script src="content-studio.js?v=2" defer></script>
-<script src="analysis-feed.js?v=1" defer></script>
+<script src="content-studio.js?v=3" defer></script>
+<script src="accuracy.js?v=1" defer></script>
+<script src="portal-links.js?v=1" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -43,7 +45,7 @@
 <div class="topbar"><div class="container"><span><i></i>골드픽 · 프리미엄 스포츠 분석</span><span class="right">서비스 미리보기</span></div></div>
 <header class="header" id="header"><div class="container nav-inner">
 <a href="#top" class="logo" aria-label="Gold Pick 홈"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a>
-<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#analysis">분석 자료</a><a href="#plans">이용권</a><a href="#vip-lounge">VIP 라운지</a><a href="#faq">이용 안내</a></nav>
+<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#analysis">분석 자료</a><a href="#plans">이용권</a><a href="#analysis">VIP 자료</a><a href="#faq">이용 안내</a></nav>
 <div class="actions"><button id="loginOpen" type="button" class="btn ghost small"><svg class="icon"><use href="#ic-user"/></svg><span id="loginLabel">로그인</span></button><button id="signupOpen" type="button" class="btn primary small join-button">회원가입</button><button id="menuToggle" type="button" class="menu-button" aria-label="메뉴" aria-expanded="false" aria-controls="mobileNav"><svg class="icon"><use href="#ic-menu"/></svg></button></div>
 </div></header>
 
@@ -58,7 +60,7 @@
 <span class="pop headline-accent"><span class="gradient-text">분석의 차이.</span></span>
 </h1>
 <p class="hero-copy"><strong>확실한 결과를 약속하지는 않습니다.</strong><br>대신, 경기를 읽는 근거를 더 명확하게 보여주는 경험을 준비합니다.</p>
-<div class="hero-cta"><a class="btn primary" href="#plans">이용권 살펴보기 <svg class="icon"><use href="#ic-arrow"/></svg></a><a class="btn ghost" href="#preview">분석 미리보기 <svg class="icon"><use href="#ic-eye"/></svg></a></div>
+<div class="hero-cta"><a class="btn primary" href="#plans">이용권 살펴보기 <svg class="icon"><use href="#ic-arrow"/></svg></a><a class="btn ghost" href="#analysis">무료·VIP 자료 보기 <svg class="icon"><use href="#ic-eye"/></svg></a></div>
 <div class="hero-trust"><span><svg class="icon"><use href="#ic-check"/></svg>쉬운 정보 구성</span><span><svg class="icon"><use href="#ic-shield"/></svg>투명한 기록 지향</span><span><svg class="icon"><use href="#ic-spark"/></svg>프리미엄 경험</span></div>
 </div>
 <div class="hero-art" aria-hidden="true"><div class="center-glow"></div><div class="orbit"></div><div class="orbit b"></div><div class="vip-card"><div class="vip-inner">
@@ -92,20 +94,19 @@
 </div>
 </div></section>
 
-<section class="section showcase" id="preview"><div class="container showcase-grid">
-<div class="showcase-copy reveal"><div class="eyebrow">분석 화면 미리보기</div><h2 class="display">핵심만 남기고,<br><span class="gradient-text">선명하게 보여주다.</span></h2><p>긴 설명을 읽기 전에 중요한 부분부터 확인할 수 있도록. 복잡한 분석을 보기 좋은 정보로 정리하는 방식을 구상하고 있습니다.</p>
-<div class="showcase-bullets"><span><svg class="icon"><use href="#ic-check"/></svg>읽기 쉬운 핵심 요약</span><span><svg class="icon"><use href="#ic-check"/></svg>시각적으로 정리된 흐름</span><span><svg class="icon"><use href="#ic-check"/></svg>정보 출처 표시 계획</span></div></div>
-<div class="preview reveal" data-delay="1"><div class="preview-top"><strong>GOLD PICK / 적중률 기록</strong><span class="preview-tag">운영자 제공 기록</span></div>
-<div class="preview-body"><span class="preview-time">기존 운영 기록 · 독립 검증 전</span><h3 class="preview-title">기존 적중률 93.4%</h3>
-<div class="preview-chart"><svg viewBox="0 0 420 175" preserveAspectRatio="none" role="img" aria-label="가상 데이터를 사용한 샘플 그래프"><defs><linearGradient id="shade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8bf7b" stop-opacity=".35"/><stop offset="1" stop-color="#e8bf7b" stop-opacity="0"/></linearGradient></defs>
-<path d="M0 38H420M0 78H420M0 118H420M0 155H420" stroke="#c9a76c29" stroke-dasharray="4 7"/>
-<path d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24 L420 175 L0 175Z" fill="url(#shade)"/>
-<path class="line-chart" d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24" fill="none" stroke="#e9ca88" stroke-width="3" stroke-linecap="round"/></svg></div>
-<div class="preview-rows"><div class="preview-row"><span>전력 비교</span><div><i style="--bar:74%"></i></div></div><div class="preview-row"><span>최근 흐름</span><div><i style="--bar:59%"></i></div></div><div class="preview-row"><span>주요 변수</span><div><i style="--bar:83%"></i></div></div></div>
-<div class="preview-bottom">93.4%는 운영자가 제공한 기존 수치이며, 실시간 집계 또는 독립 검증된 적중률이 아닙니다. 그래프는 디자인 예시입니다.</div></div></div>
+<section class="section gp-accuracy-section" id="preview">
+<div class="container gp-accuracy-shell">
+<div class="gp-accuracy-copy"><span class="eyebrow">LIVE ACCURACY · GOLD PICK</span><h2 class="display">실시간<br><span class="gradient-text">적중률.</span></h2><p>게시된 분석의 확정 결과를 기준으로 집계됩니다. 적중과 미적중만 계산하고 대기·적특은 제외합니다.</p></div>
+<div class="gp-accuracy-box"><strong class="gp-accuracy-number" id="gpAccuracyPercent" aria-live="polite">-%</strong></div>
 </div></section>
 
-<section class="section gp-feed-section" id="analysis"><div class="container"><div class="section-head"><div class="eyebrow">GOLD PICK ANALYSIS</div><h2 class="display">무료 · VIP <span class="gradient-text">분석 자료</span></h2><p>무료 분석은 누구나, VIP 분석은 활성 멤버십 회원에게만 공개됩니다.</p></div><div class="gp-feed-grid" id="gpPublicPosts"><p class="gp-empty">자료를 불러오는 중...</p></div><p class="gp-feed-note">VIP 자료는 로그인 및 이용권 인증 후 표시됩니다. 결과는 사후에 갱신될 수 있습니다.</p></div></section>
+<section class="section gp-access-section" id="analysis"><div class="container">
+<div class="gp-access-heading"><span class="eyebrow">GOLD PICK · ANALYSIS</span><h2 class="display">분석 자료, <span class="gradient-text">한곳에서.</span></h2><p>무료 콘텐츠와 VIP 전용 콘텐츠를 분리했습니다. 원하는 자료실로 바로 이동하세요.</p></div>
+<div class="gp-access-grid">
+<article class="gp-access-card free"><span class="gp-access-kicker">01 / OPEN ACCESS</span><h3>무료 분석 자료</h3><p>회원가입 없이 공개된 경기 분석과 예상을 읽을 수 있습니다.</p><a id="gpFreeGo" class="btn ghost" href="/free/">무료 자료 보러가기&nbsp; ↗</a></article>
+<article class="gp-access-card vip"><span class="gp-access-kicker">02 / PREMIUM MEMBERS</span><h3>VIP 전용 자료</h3><p>VIP 회원 인증 후 전용 경기 분석과 첨부 이미지를 확인하세요.</p><a id="gpVipGo" class="btn primary" href="/vip/">VIP 자료 보러가기&nbsp; ↗</a></article>
+</div><p class="gp-access-note">VIP 자료는 활성 이용권이 있는 계정에만 공개됩니다.</p>
+</div></section>
 <section class="section gp-pricing-section" id="plans"><div class="container">
 <div class="gp-pricing-heading reveal"><span class="gp-pricing-eyebrow"><i></i> GOLD PICK PREMIUM MEMBERSHIP</span><h2 class="display">더 깊은 인사이트,<br><span class="gradient-text">합리적인 멤버십.</span></h2><p>필요한 기간만 선택하세요. VIP 전용 콘텐츠를 이용할 수 있습니다.</p></div>
 <div class="gp-price-grid">
@@ -122,9 +123,9 @@
 <section class="section member-showcase-section" id="vip-lounge">
 <div class="container"><div class="member-showcase reveal">
 <div class="member-showcase-copy"><span class="eyebrow">GOLD PICK VIP LOUNGE</span><h2 class="display">멤버십을 한눈에.<br><span class="gradient-text">VIP 전용 공간.</span></h2>
-<p>마이페이지에서 내 가입일·멤버십 상태·만료일을 확인하세요. VIP 전용 콘텐츠는 관리자 발급과 공개 후, 서버에서 권한을 확인한 회원에게만 표시됩니다.</p>
+<p>마이페이지에서 이용권을 확인하고 VIP 전용 분석 자료실로 이동하세요. VIP 콘텐츠는 서버에서 이용권 권한을 확인한 회원에게만 표시됩니다.</p>
 <div class="member-showcase-tags"><span>멤버십 조회</span><span>만료일 안내</span><span>VIP 전용 콘텐츠</span></div>
-<button type="button" class="btn primary" id="vipLoungeOpen">VIP 라운지 보기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+<button type="button" class="btn primary" id="vipLoungeOpen">VIP 자료 보러가기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 </div><div class="member-showcase-art" aria-hidden="true"><div class="member-showcase-emblem">GP</div><span>GOLD PICK / VIP ACCESS</span><strong>EXCLUSIVE<br>INSIGHTS</strong><small>MEMBERSHIP EXPERIENCE</small></div>
 </div></div>
 </section>
@@ -147,11 +148,11 @@
 <section class="section" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">이용 안내</div><h2 class="display">궁금한 점은 <span class="gradient-text">쉽게 확인하세요.</span></h2><p>서비스가 준비된 범위를 명확하게 안내합니다.</p></div>
 <div class="faq reveal">
 <details><summary>지금 구매할 수 있나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>관리자가 LTC 지갑 주소와 가격을 공개하면 자동결제 주문을 생성할 수 있습니다. 블록체인 6회 확인 후 VIP가 자동 지급됩니다. 다른 코인은 관리자 검증 방식입니다.</p></details>
-<details><summary>스포츠 분석은 어떤 정보를 제공하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>경기 흐름과 팀 기록, 주요 변수를 이해하기 쉽게 설명하는 콘텐츠를 구상하고 있어. 현재 표시되는 분석은 모두 디자인 예시야.</p></details>
-<details><summary>적중률이나 결과를 보장하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>아니. 스포츠 경기의 결과는 보장할 수 없고, 실제 성과가 쌓이기 전에는 적중률이나 이용 후기를 만들어 게시하지 않을 거야.</p></details>
+<details><summary>스포츠 분석은 어떤 정보를 제공하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>무료·VIP 전용 게시판에서 경기 정보, 예상 결과, 분석 이유와 첨부 이미지를 확인할 수 있습니다. 공개 전 자료는 보이지 않습니다.</p></details>
+<details><summary>적중률이나 결과를 보장하나요?<svg class="icon"><use href="#ic-plus"/></svg></summary><p>아니요. 적중률은 발행된 분석의 적중 ÷ (적중 + 미적중)으로 자동 집계합니다. 대기·적특·임시저장 자료는 계산에서 제외하며, 확정된 결과가 없으면 -%로 표시됩니다. 결과를 보장하지 않습니다.</p></details>
 </div></div></section>
 
-<section class="cta" id="end"><div class="container reveal"><div class="eyebrow center">GOLD PICK</div><h2 class="display">더 쉽고, 더 선명하게.<br><span class="gradient-text">분석의 기준을 높이다.</span></h2><p>Gold Pick의 새로운 화면을 미리 만나보세요.</p><a class="btn primary" href="#preview">분석 화면 보기 <svg class="icon"><use href="#ic-arrow"/></svg></a></div></section>
+<section class="cta" id="end"><div class="container reveal"><div class="eyebrow center">GOLD PICK</div><h2 class="display">더 쉽고, 더 선명하게.<br><span class="gradient-text">분석의 기준을 높이다.</span></h2><p>무료·VIP 분석 자료를 각자의 전용 공간에서 확인해 보세요.</p><a class="btn primary" href="#analysis">자료실 바로가기 <svg class="icon"><use href="#ic-arrow"/></svg></a></div></section>
 </main>
 
 <footer class="footer"><div class="container"><div class="footer-main"><a href="#top" class="logo"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a><div class="footer-links"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></div></div><div class="footer-bottom"><span>© 2026 GOLD PICK. ALL RIGHTS RESERVED.</span><span>수익 보장 없음 · LTC 자동결제는 지갑 설정 후 이용 가능</span></div></div></footer>
@@ -297,7 +298,7 @@
 <div id="gpMatchFields"><label>종목<input id="gpSport" placeholder="축구 / 야구 / 농구"></label><label>홈팀<input id="gpHome"></label><label>원정팀<input id="gpAway"></label><label>경기 일시<input id="gpMatchAt" type="datetime-local"></label></div>
 <label id="gpPredictionField">예상 결과<input id="gpPrediction" maxlength="300" placeholder="예상 결과"></label>
 <label id="gpBodyField">분석 내용<textarea id="gpBody" rows="6" placeholder="분석 근거를 작성하세요"></textarea></label>
-<div id="gpImagesField"><label>이미지 첨부 (최대 8장, 각 5MB)<input id="gpImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label><span id="gpImageNames">0장 첨부됨</span><button type="button" id="gpClearImages">이미지 목록 초기화</button></div>
+<div id="gpImagesField"><label>이미지 첨부 (최대 8장, 각 5MB)<input id="gpImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label><span id="gpImageNames">0 / 8장 등록</span><div id="gpImagePreview" class="gp-image-preview" aria-label="첨부 사진 미리보기"></div><button type="button" id="gpClearImages">첨부 사진 전체 지우기</button></div>
 <label>경기 결과<select id="gpResult"><option value="pending">대기</option><option value="hit">적중</option><option value="miss">미적중</option><option value="void">적특</option></select></label>
 <label>게시 상태<select id="gpStatus"><option value="draft">임시저장</option><option value="published">발행 / 예약 발행</option></select></label>
 <label>공개 일시 (비워두면 즉시)<input id="gpPublishAt" type="datetime-local"></label>
