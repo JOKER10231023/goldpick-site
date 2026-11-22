@@ -230,5 +230,12 @@
       if (state?.status === "vip") void loadVipArticles();
     }, 0);
   });
+  window.addEventListener("goldpick:session", event => {
+    if (event.detail?.event !== "SIGNED_OUT") return;
+    ++requestId; // Ignore in-flight entitlement responses.
+    membership = {status: "loading"};
+    clearVipArticles();
+    renderMembership();
+  });
   renderMembership();
 })();
