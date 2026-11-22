@@ -1,0 +1,52 @@
+/* Gold Pick coin checkout / mobile-first, premium dark + gold */
+.auth-dialog.payment-mode{width:min(100%,640px);max-width:640px}
+.pay-banner{border:1px solid #b89a635e;border-radius:10px;padding:13px 14px;color:#d9bf88;background:#261f137c;font-size:11px;line-height:1.7;margin:0 0 19px}
+.pay-banner[data-state="ready"]{border-color:#adc58b69;color:#d9eabd;background:#26452a37}
+.pay-field-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.pay-field-row label{min-width:0}
+.pay-field-row select{display:block;width:100%;height:49px;padding:0 12px;color:#f8e3b4;background:#12170f;border:1px solid #baa06b69;border-radius:9px;font-size:11px;outline:none}
+.pay-field-row select:disabled{opacity:.6}
+.pay-field-row select:focus{border-color:#e4bf7c;box-shadow:0 0 0 3px #caa96926}
+.pay-price-box{display:flex;flex-direction:column;gap:7px;padding:20px 19px;margin:1px 0 16px;border:1px solid #c4a46d52;border-radius:13px;background:radial-gradient(circle at 92% 0%,#e1bc6d25,transparent 52%),#18190e}
+.pay-price-box small{font-size:10px;color:#b9a987}
+.pay-price-box strong{font-size:24px;line-height:1.3;color:#fce5b0;letter-spacing:-.03em}
+.pay-price-box span{font-size:10px;color:#aa9f88;line-height:1.7}
+.pay-full-btn{width:100%;min-height:47px;justify-content:center}
+.pay-full-btn:disabled{opacity:.54;pointer-events:none}
+.pay-precaution{font-size:10px;line-height:1.8;color:#b6a488;margin:13px 0 0}
+.pay-invoice{border:1px solid #cba56a67;border-radius:15px;background:linear-gradient(135deg,#292415,#101811);padding:20px 19px}
+.pay-invoice-top{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:18px}
+.pay-invoice-top span{font-size:10px;letter-spacing:.13em;color:#b3a181}
+.pay-invoice-top strong{font-size:10px;padding:7px 11px;border-radius:50px;background:#dbb26820;border:1px solid #dbb2686e;color:#f0d3a0}
+.pay-amount{position:relative;background:#0e130ecc;padding:16px;border-radius:10px;border:1px solid #bfa76f45;margin-bottom:11px}
+.pay-amount small,.pay-address small,.pay-memo small{display:block;font-size:10px;color:#b1a184;margin-bottom:10px}
+.pay-amount strong{display:block;font-family:'Outfit','Noto Sans KR',sans-serif;font-size:21px;color:#ffe5ad;overflow-wrap:anywhere;margin-right:72px}
+.pay-copy{border:1px solid #c7a66c70;background:#aa8b5317;color:#efd29d;border-radius:7px;font-size:10px;padding:7px 10px;cursor:pointer}
+.pay-copy:hover{background:#aa8b5335}
+.pay-amount .pay-copy{position:absolute;right:13px;top:35px}
+.pay-address,.pay-memo{background:#0e130ecc;padding:14px 15px;border-radius:10px;border:1px solid #bfa76f45;margin-bottom:10px}
+.pay-address code,.pay-memo code{display:block;font:500 12px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;color:#e8e2d5;word-break:break-all;margin-bottom:11px;user-select:all}
+.pay-invoice-details{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin:15px 0;color:#baa98c;font-size:10px}
+.pay-waiting{border:1px solid #b09a6457;padding:13px;border-radius:9px;color:#dbc79e;font-size:11px;line-height:1.8;margin:12px 0 13px}
+.pay-waiting[data-kind="success"]{border-color:#9dba8080;background:#5a8d4022;color:#d5f2c0}
+.pay-waiting[data-kind="warn"]{border-color:#bb7b6175;background:#9c503222;color:#f3bdab}
+.pay-invoice .btn{margin-bottom:5px}
+.pay-txid{margin-top:19px;border:1px solid #a88c5b48;border-radius:9px;padding:0 13px;color:#e0c59b;background:#13170e}
+.pay-txid summary{padding:14px 2px;font-weight:700;font-size:11px;cursor:pointer;line-height:1.5}
+.pay-txid p{font-size:10px;line-height:1.9;color:#b8ae9b;margin:0 0 14px}
+.pay-txid input{font-size:11px}
+.pay-txid form{padding-bottom:14px}
+.pay-new-order{display:block;margin:16px auto 0;border:0;background:transparent;color:#dec392;font-size:11px;text-decoration:underline;cursor:pointer}
+.pay-history{margin-top:23px}
+.pay-history-title{display:flex;justify-content:space-between;align-items:center;color:#eed39d;font-weight:800;font-size:13px;margin-bottom:12px}
+.pay-history-title button{color:#d8b981;background:transparent;border:0;font-size:11px;cursor:pointer}
+.pay-history-list{max-height:245px;overflow:auto;display:grid;gap:8px}
+.pay-history-row{width:100%;border:1px solid #b5a06d40;border-radius:9px;background:#171a12;padding:12px 13px;display:flex;justify-content:space-between;align-items:center;text-align:left;gap:10px;cursor:pointer}
+.pay-history-row:hover{border-color:#dfbb7c}
+.pay-history-row strong{font-size:11px;color:#e4d1ae;display:block;margin-bottom:5px}
+.pay-history-row small{font-size:9px;color:#b3a58f}
+.pay-history-row em{font-style:normal;font-size:10px;color:#eecb8c;white-space:nowrap}
+.pay-history-empty{font-size:11px;text-align:center;padding:23px;color:#ab9b85;border:1px dashed #b5a06d3b;border-radius:10px}
+.auth-view .member-payment-button{grid-column:1/-1;background:#d8af6626;color:#f8d69b;border-color:#d4b26c75;margin:0}
+.vip-lock-pay{margin:18px 0 0;width:100%;max-width:280px;justify-content:center}
+@media(max-width:520px){.auth-dialog.payment-mode{padding:25px 19px}.pay-field-row{gap:8px}.pay-field-row select{font-size:10px;padding:0 8px}.pay-amount strong{font-size:18px}.pay-address code{font-size:11px}.pay-invoice{padding:17px 14px}}
