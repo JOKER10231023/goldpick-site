@@ -123,43 +123,6 @@ async function upload(files){
  }catch(err){status(uploadText(err),"error");console.error("Gold Pick photo upload",err);}
  finally{uploading=false;$("gpSavePost").disabled=false;$("gpImageInput").disabled=false;$("gpImageInput").value="";}
 }
-/* One-tap clipboard paste for mobile and desktop editor text fields. */
-function installPasteButtons(){
- const fields=[...root.querySelectorAll("#gpStudioForm input:not([type=file]):not([type=datetime-local]), #gpStudioForm textarea")];
- for(const field of fields){
-  if(field.dataset.pasteReady)return;
-  field.dataset.pasteReady="true";
-  const wrap=make("span","gp-paste-control");
-  field.parentNode.insertBefore(wrap,field);
-  wrap.append(field);
-  const button=make("button","gp-paste-button","📋 붙여넣기");
-  button.type="button";
-  button.setAttribute("aria-label",field.id+" 입력칸에 클립보드 텍스트 붙여넣기");
-  wrap.append(button);
-  button.addEventListener("click",async()=>{
-   try{
-    if(!navigator.clipboard?.readText)throw Error("unsupported");
-    const pasted=await navigator.clipboard.readText();
-    if(!pasted){status("클립보드에 복사된 텍스트가 없습니다.","error");field.focus();return;}
-    const start=typeof field.selectionStart==="number"?field.selectionStart:field.value.length;
-    const end=typeof field.selectionEnd==="number"?field.selectionEnd:field.value.length;
-    const before=field.value,limit=field.maxLength>0?field.maxLength:Infinity;
-    const next=before.slice(0,start)+pasted+before.slice(end);
-    if(next.length>limit){status("붙여넣을 글이 입력칸 글자 수 제한을 초과합니다. 내용을 줄여 주세요.","error");field.focus();return;}
-    field.value=next;
-    field.dispatchEvent(new Event("input",{bubbles:true}));
-    field.dispatchEvent(new Event("change",{bubbles:true}));
-    field.focus();
-    if(field.setSelectionRange){const pos=start+pasted.length;field.setSelectionRange(pos,pos);}
-    status("클립보드 내용을 붙여넣었습니다. ‘자료 저장’을 누르면 반영됩니다.","success");
-   }catch(err){
-    field.focus();
-    status("브라우저에서 클립보드 접근이 차단됐습니다. 입력칸을 길게 누른 후 ‘붙여넣기’를 선택하거나, 브라우저의 클립보드 권한을 허용해 주세요.","error");
-   }
-  });
- }
-}
-installPasteButtons();
 $("gpImageInput").addEventListener("change",e=>{const files=[...e.target.files];void upload(files)});
 $("gpNewPost").addEventListener("click",()=>fill());
 $("gpTemplate").addEventListener("change",editableTemplate);
