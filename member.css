@@ -64,3 +64,23 @@
 .member-showcase-art small{font-size:9px;color:#b6a68c;letter-spacing:.1em}
 @media(max-width:700px){.member-showcase{grid-template-columns:1fr}.member-showcase-art{display:none}}
 @media(max-width:520px){.auth-dialog.member-mode{padding:24px 19px}.member-pass{padding:20px}.member-pass-main strong{font-size:23px}.member-metrics{gap:6px}.member-metrics>div{padding:12px 9px}.member-metrics strong{font-size:11px}.member-actions{grid-template-columns:1fr 1fr}.member-actions .btn{font-size:10px}.vip-member-ribbon{flex-direction:column;align-items:flex-start}.member-showcase{padding:27px 23px}.member-showcase h2{font-size:33px}}
+
+/* Restricted VIP administration */
+#adminPanelOpen[hidden],.auth-view [hidden],.member-admin-button[hidden]{display:none!important}
+.member-actions .member-admin-button{grid-column:1/-1;background:#dbb46e12;color:#f1d8a8;border-color:#b6915469}
+.admin-secure-strip{display:flex;gap:8px;align-items:flex-start;background:#b69c6120;border:1px solid #bba16b5e;color:#dbcfaf;border-radius:10px;padding:12px 13px;font-size:11px;line-height:1.7;margin-bottom:20px}
+.admin-secure-strip .icon{width:16px;height:16px;flex:none;color:#f1d08b}
+.vip-admin-form .auth-field input{height:51px}
+.vip-admin-duration{border:1px solid #ad946348;background:#11150f;border-radius:12px;padding:15px;margin:5px 0 16px}
+.vip-admin-duration .auth-field{margin:0 0 10px}
+.vip-admin-duration select{display:block;width:100%;height:48px;border:1px solid #c0a37380;border-radius:9px;background:#1a1d17;color:#ffe6b7;padding:0 15px;font-size:12px;outline:none}
+.vip-admin-duration select:focus{border-color:#e6bd76;box-shadow:0 0 0 3px #d5af6430}
+.vip-admin-duration p{font-size:10px;color:#b8ac95;line-height:1.8;margin:0}
+.vip-admin-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.vip-admin-actions .btn{min-height:45px;font-size:11px;padding:10px;justify-content:center}
+.vip-admin-actions .btn:disabled{opacity:.5;pointer-events:none}
+.vip-admin-actions .vip-admin-danger{border-color:#b86e6388;color:#f4b8a7;background:#8e352b24}
+.vip-admin-actions .vip-admin-danger:hover{background:#953b303e}
+.vip-admin-result{margin-top:18px;padding:16px;border-radius:11px;border:1px solid #af96634a;background:#171912;color:#dec69c;font-size:12px;line-height:1.85;white-space:pre-line;overflow-wrap:anywhere}
+.vip-admin-result[data-kind="success"]{color:#d8efc1;background:#71864b24;border-color:#a7bd8b70}
+.vip-admin-result[data-kind="error"]{color:#f1b7a6;background:#a5484320;border-color:#d28d7d70}
