@@ -153,8 +153,8 @@ $("gpStudioForm").addEventListener("submit",async e=>{
  $("gpSavePost").disabled=true;status("자료 저장 중...");
  try{
   await rpc("gp_analysis_admin_save",{p_data:p});
-  status("분석 자료 저장 완료! 홈페이지와 게시판에 반영됩니다.","success");
-  fill();await load();window.dispatchEvent(new Event("gp:posts-updated"));
+  fill();status("분석 자료 저장 완료! 홈페이지와 게시판에 반영됩니다.","success");
+  await load();window.dispatchEvent(new Event("gp:posts-updated"));
  }catch(err){status("저장 실패: "+(err?.message||"다시 시도해 주세요."),"error");}
  finally{$("gpSavePost").disabled=false;}
 });
