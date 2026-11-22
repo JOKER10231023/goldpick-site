@@ -88,3 +88,8 @@ html{scroll-padding-top:85px}body{background:radial-gradient(ellipse 75% 25% at 
 #gpStudioForm .gp-clipboard-row:focus-within .gp-clipboard-btn{border-color:#fff0bc}
 #gpStudioForm .gp-clipboard-btn:active{background:#5c452b}
 @media(max-width:420px){#gpStudioForm .gp-clipboard-row:has(textarea){flex-direction:column}#gpStudioForm .gp-clipboard-row:has(textarea)>.gp-clipboard-btn{align-self:flex-end}}
+
+/* Clipboard actions on VIP administration and payment inputs */
+#vipAdminForm .gp-clipboard-row,#directWalletAdminPanel .gp-clipboard-row,#directAdminReviews .gp-clipboard-row{display:flex!important;align-items:stretch;gap:8px;width:100%;min-width:0}
+#vipAdminForm .gp-clipboard-row>input,#vipAdminForm .gp-clipboard-row>select,#directWalletAdminPanel .gp-clipboard-row>input,#directWalletAdminPanel .gp-clipboard-row>select,#directAdminReviews .gp-clipboard-row>input,#directAdminReviews .gp-clipboard-row>select{flex:1 1 auto;min-width:0;width:100%}
+#vipAdminForm .gp-clipboard-btn,#directWalletAdminPanel .gp-clipboard-btn,#directAdminReviews .gp-clipboard-btn{flex:0 0 auto;align-self:center;min-height:43px;padding:8px 10px;border:1px solid #edc783a8;border-radius:9px;background:#372d20;color:#ffdea4;font-size:11px;font-weight:800;white-space:nowrap}
