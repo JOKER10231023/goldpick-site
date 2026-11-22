@@ -72,7 +72,7 @@ begin
     return jsonb_build_object('ok', false, 'message', '이메일 주소를 확인해 주세요.');
   end if;
 
-  if v_action not in ('lookup','grant','extend','revoke') then
+  if v_action is null or v_action not in ('lookup','grant','extend','revoke') then
     return jsonb_build_object('ok', false, 'message', '지원되지 않는 작업입니다.');
   end if;
 
