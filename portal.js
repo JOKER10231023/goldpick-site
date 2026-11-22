@@ -90,7 +90,7 @@ async function refreshUser(){
  if(!sb)return;
  try{const {data}=await sb.auth.getUser();user=data?.user||null;}catch{user=null;}
  if(mode==="free"){setHidden("portalGate",true);setHidden("portalContent",false);if(!loaded)await loadArticles();return;}
- $("portalLogin").hidden=!!user;$("portalLogout").hidden=!user;
+ $("portalLoginForm").hidden=!!user;$("portalLogout").hidden=!user;
  if(!user){setHidden("portalGate",false);setHidden("portalContent",true);$("portalGateState").textContent="회원 계정으로 로그인하면 VIP 이용권을 확인합니다.";return;}
  $("portalGateState").textContent="VIP 이용권 확인 중...";
  try{
