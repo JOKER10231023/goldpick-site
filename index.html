@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="luxe.css">
 <link rel="stylesheet" href="signature.css">
 <link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="member.css?v=1">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
-<script src="auth.js?v=6" defer></script>
+<script src="auth.js?v=7" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -35,7 +36,7 @@
 <div class="topbar"><div class="container"><span><i></i>골드픽 · 프리미엄 스포츠 분석</span><span class="right">서비스 미리보기</span></div></div>
 <header class="header" id="header"><div class="container nav-inner">
 <a href="#top" class="logo" aria-label="Gold Pick 홈"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a>
-<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#faq">이용 안내</a></nav>
+<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#vip-lounge">VIP 라운지</a><a href="#faq">이용 안내</a></nav>
 <div class="actions"><button id="loginOpen" type="button" class="btn ghost small"><svg class="icon"><use href="#ic-user"/></svg><span id="loginLabel">로그인</span></button><button id="signupOpen" type="button" class="btn primary small join-button">회원가입</button><button id="menuToggle" type="button" class="menu-button" aria-label="메뉴" aria-expanded="false" aria-controls="mobileNav"><svg class="icon"><use href="#ic-menu"/></svg></button></div>
 </div></header>
 
@@ -104,6 +105,16 @@
 <article class="price-card highlight reveal" data-delay="1"><span class="price-kicker">인기 구성안 · 미출시</span><h3>단일 분석</h3><p>관심 있는 콘텐츠를 개별적으로 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>관심 있는 콘텐츠 선택</li><li><svg class="icon"><use href="#ic-check"/></svg>핵심 요약 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>가격은 출시 시 안내</li></ul><button type="button" class="btn primary" disabled>준비 중</button></article>
 <article class="price-card reveal" data-delay="2"><span class="price-kicker">프리미엄 구성안 · 미출시</span><h3>VIP 멤버십</h3><p>기간별로 심층 콘텐츠를 열람하는 방식</p><ul><li><svg class="icon"><use href="#ic-check"/></svg>심층 분석 제공 구상</li><li><svg class="icon"><use href="#ic-check"/></svg>기간별 이용권 계획</li><li><svg class="icon"><use href="#ic-check"/></svg>가격 및 일정 미정</li></ul><button type="button" class="btn ghost" disabled>준비 중</button></article>
 </div></div></section>
+
+<section class="section member-showcase-section" id="vip-lounge">
+<div class="container"><div class="member-showcase reveal">
+<div class="member-showcase-copy"><span class="eyebrow">GOLD PICK VIP LOUNGE</span><h2 class="display">멤버십을 한눈에.<br><span class="gradient-text">VIP 전용 공간.</span></h2>
+<p>마이페이지에서 내 가입일·멤버십 상태·만료일을 확인하세요. VIP 전용 콘텐츠는 관리자 발급과 공개 후, 서버에서 권한을 확인한 회원에게만 표시됩니다.</p>
+<div class="member-showcase-tags"><span>멤버십 조회</span><span>만료일 안내</span><span>VIP 전용 콘텐츠</span></div>
+<button type="button" class="btn primary" id="vipLoungeOpen">VIP 라운지 보기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+</div><div class="member-showcase-art" aria-hidden="true"><div class="member-showcase-emblem">GP</div><span>GOLD PICK / VIP ACCESS</span><strong>EXCLUSIVE<br>INSIGHTS</strong><small>MEMBERSHIP EXPERIENCE</small></div>
+</div></div>
+</section>
 
 <div class="container" id="responsible"><div class="risk-band reveal">
 <div><div class="eyebrow">IMPORTANT NOTICE</div><h2 class="risk-heading">스포츠 분석 ≠ <span class="gradient-text">수익 보장</span></h2></div>
@@ -180,10 +191,38 @@
 </section>
 
 <section class="auth-view" data-view="account" hidden>
-<div class="auth-head"><span class="eyebrow">GOLD PICK ACCOUNT</span><h2 id="accountTitle">마이페이지</h2><p>로그인된 내 계정을 확인하세요.</p></div>
-<div class="auth-welcome"><strong>로그인된 이메일</strong><span id="accountEmail">—</span><small id="accountVerified">계정 상태 확인 중</small></div>
-<div class="auth-note"><svg class="icon"><use href="#ic-shield"/></svg><span>현재 기본 계정 기능만 제공됩니다. 향후 VIP 권한은 서버 측에서 검증하여 연결해야 합니다.</span></div>
-<div class="auth-account-buttons"><button type="button" class="btn ghost logout-button" id="logoutButton">로그아웃 <svg class="icon"><use href="#ic-arrow"/></svg></button></div>
+<div class="auth-head"><span class="eyebrow">GOLD PICK MEMBER CENTER</span><h2 id="accountTitle">마이페이지</h2><p>내 계정과 멤버십을 관리하세요.</p></div>
+<div class="member-pass" id="memberPass" data-level="loading">
+<div class="member-pass-top"><span>GOLD PICK / MEMBERSHIP</span><span class="member-pass-mark">GP</span></div>
+<div class="member-pass-main"><div><small>현재 이용권</small><strong id="memberTier">확인 중...</strong></div><span class="member-pass-badge" id="memberBadge">LOADING</span></div>
+<p id="memberDescription">서버에서 이용권을 확인하고 있습니다.</p>
+</div>
+<div class="member-metrics">
+<div><span>가입일</span><strong id="memberJoined">—</strong></div>
+<div><span>이용권 만료</span><strong id="memberExpires">—</strong></div>
+<div><span>남은 기간</span><strong id="memberRemaining">—</strong></div>
+</div>
+<div class="member-profile"><div class="member-profile-label">내 계정 <span>ACCOUNT</span></div>
+<div class="auth-welcome"><strong>가입한 이메일</strong><span id="accountEmail">—</span><small id="accountVerified">계정 상태 확인 중</small></div></div>
+<div class="member-status-info" id="memberStatusInfo" role="status" aria-live="polite">멤버십을 확인하고 있습니다.</div>
+<div class="auth-account-buttons member-actions">
+<button type="button" class="btn primary" id="memberVipOpen">VIP 라운지 입장 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+<button type="button" class="btn ghost" id="memberRefresh">멤버십 새로고침</button>
+<button type="button" class="btn ghost logout-button" id="logoutButton">로그아웃 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+</div>
+</section>
+
+<section class="auth-view" data-view="vip" hidden>
+<div class="auth-head"><span class="eyebrow">EXCLUSIVE MEMBER ACCESS</span><h2 id="vipTitle">VIP 라운지</h2><p>이용권이 활성화된 회원에게만 공개되는 공간입니다.</p></div>
+<div class="vip-access-state" id="vipAccessState" role="status" aria-live="polite">VIP 이용권을 확인하고 있습니다.</div>
+<div id="vipLocked" class="vip-locked" hidden><div class="vip-lock-icon">◆</div><h3 id="vipLockedTitle">VIP 전용</h3><p id="vipLockedText">멤버십 확인 후 이용할 수 있습니다.</p><p class="vip-lock-footnote">VIP 이용권은 관리자가 발급하며, 결제 기능은 아직 제공하지 않습니다.</p></div>
+<div id="vipUnlocked" hidden>
+<div class="vip-member-ribbon"><span>✦ VIP MEMBER</span><span id="vipAccessExpires">—</span></div>
+<div class="vip-article-head"><strong>VIP 콘텐츠</strong><small>공개된 콘텐츠만 표시됩니다.</small></div>
+<div class="vip-articles" id="vipArticleList"><p class="vip-empty">콘텐츠를 불러오고 있습니다.</p></div>
+<div class="vip-detail" id="vipArticleDetail" hidden><button type="button" class="vip-detail-back" id="vipArticleBack">← 콘텐츠 목록</button><h3 id="vipArticleTitle">—</h3><div id="vipArticleBody"></div></div>
+</div>
+<button type="button" class="btn ghost vip-return" id="vipToAccount">← 마이페이지로 돌아가기</button>
 </section>
 
 <p class="auth-message" id="authNotice" role="status" aria-live="polite"></p>
