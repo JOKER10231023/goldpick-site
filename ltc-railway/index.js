@@ -15,7 +15,7 @@ let lastPriceRefresh=0;
 async function refreshLtcPrices(){
  const now=Date.now();
  if(now-lastPriceRefresh<600000)return;
- const url=process.env.SUPABASE_URL.replace(/\\/$/,"")+"/rest/v1/";
+ const url=process.env.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/";
  const headers={"apikey":process.env.SUPABASE_SERVICE_ROLE_KEY,"Authorization":"Bearer "+process.env.SUPABASE_SERVICE_ROLE_KEY};
  const walletRes=await fetch(url+"gp_direct_wallets?select=coin,network&coin=eq.ltc&network=eq.litecoin",{headers});
  if(!walletRes.ok)throw Error("Wallet lookup HTTP "+walletRes.status);
