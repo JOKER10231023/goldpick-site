@@ -64,7 +64,9 @@ function sportsPaths(sport,home,away){
 async function sportsJson(path,params=""){
  const url=ESPN_ROOT+path+params;
  try{
-  const response=await fetch(url,{signal:AbortSignal.timeout(5500),headers:{"accept":"application/json"}});
+  const opts={headers:{"accept":"application/json"}};
+  if(typeof AbortSignal!=="undefined"&&typeof AbortSignal.timeout==="function")opts.signal=AbortSignal.timeout(5500);
+  const response=await fetch(url,opts);
   if(!response.ok)return null;
   const raw=await response.text();
   if(raw.length>900000)return null;
