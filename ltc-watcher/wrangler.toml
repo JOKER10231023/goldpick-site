@@ -1,0 +1,13 @@
+name = "goldpick-ltc-watcher"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[triggers]
+crons = ["*/2 * * * *"]
+
+[vars]
+LTC_AUTOPAY_ENABLED = "false"
+SUPABASE_URL = "https://xyssumwioolllczqgwsr.supabase.co"
+LTC_EXPLORER_URL = "https://api.blockcypher.com/v1/ltc/main"
+# Set SUPABASE_SERVICE_ROLE_KEY with wrangler secret put.
+# Optional: BLOCKCYPHER_TOKEN with wrangler secret put.
