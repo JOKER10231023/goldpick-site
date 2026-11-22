@@ -120,7 +120,7 @@ begin
       starts_at = excluded.starts_at, expires_at = excluded.expires_at;
   else
     v_start := case when v_old_end > v_now then coalesce(v_start, v_now) else v_now end;
-    v_end := pg_catalog.greatest(coalesce(v_old_end, v_now), v_now)
+    v_end := greatest(coalesce(v_old_end, v_now), v_now)
              + pg_catalog.make_interval(days => p_days);
     insert into public.vip_memberships (user_id, starts_at, expires_at)
       values (v_user_id, v_start, v_end)
