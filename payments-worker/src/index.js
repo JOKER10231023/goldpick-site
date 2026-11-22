@@ -6,7 +6,9 @@
  * SECURITY: This Worker is the only creator of orders and VIP credits.
  * Frontend/TXID/webhook text can never directly activate VIP.
  */
-const NP = "https://api.nowpayments.io/v1";
+const npBase = env => env.NOWPAYMENTS_ENVIRONMENT === "live"
+  ? "https://api.nowpayments.io/v1"
+  : "https://api-sandbox.nowpayments.io/v1";
 let authCache = {token: "", until: 0};
 
 function out(payload, code = 200, origin = "", env = {}) {
@@ -53,6 +55,7 @@ function publicConfig(env) {
     ok: true, enabled: enabled(env), plans: enabled(env) ? readPlans(env) : [],
     coins: enabled(env) ? cryptoAllowed(env) : [],
     provider: "NOWPayments",
+    mode: env.NOWPAYMENTS_ENVIRONMENT === "live" ? "live" : "sandbox",
     note: enabled(env) ? "실시간 코인 견적은 결제 요청 시 확정됩니다." :
       "코인 결제 연결 전입니다. 현재 입금이나 VIP 자동 지급을 받지 않습니다."
   };
@@ -94,7 +97,7 @@ async function signedIn(request, env) {
 async function npToken(env) {
   if (authCache.token && Date.now() < authCache.until) return authCache.token;
   if (!env.NOWPAYMENTS_EMAIL || !env.NOWPAYMENTS_PASSWORD) return "";
-  const res = await fetch(NP + "/auth", {
+  const res = await fetch(npBase(env) + "/auth", {
     method: "POST", headers: {"Content-Type":"application/json"},
     body: JSON.stringify({email: env.NOWPAYMENTS_EMAIL, password: env.NOWPAYMENTS_PASSWORD})
   });
@@ -109,7 +112,7 @@ async function npCall(path, env, {method = "GET", body} = {}) {
   const go = async (authorization = "") => {
     const h = {...headers};
     if (authorization) h.Authorization = "Bearer " + authorization;
-    return fetch(NP + path, {method, headers: h,
+    return fetch(npBase(env) + path, {method, headers: h,
       body: body === undefined ? undefined : JSON.stringify(body)});
   };
   let res = await go();
@@ -185,6 +188,11 @@ async function reconcile(order, env) {
   const actual = decimal(p.actually_paid);
   const payinHash = typeof p.payin_hash === "string" ? p.payin_hash.trim() : "";
   if (status === "finished") {
+    // Sandbox receipts must NEVER grant VIP in the production database.
+    if (env.NOWPAYMENTS_ENVIRONMENT !== "live") {
+      await patchOrder(order.id, {provider_status:"sandbox_finished",last_checked_at:new Date().toISOString()},env);
+      return {...order,provider_status:"sandbox_finished"};
+    }
     if (!actual || Number(actual) < Number(order.pay_amount)) {
       await patchOrder(order.id, {
         provider_status: "needs_review",
@@ -271,7 +279,7 @@ async function getOne(orderId,user,env,origin) {
   if (!order) return fail("내 결제 요청을 찾지 못했습니다.",404,origin,env);
   const canCheck = !!order.provider_payment_id && !order.fulfilled_at &&
     Date.now()-new Date(order.last_checked_at || 0).getTime()>30000 &&
-    !["failed","refunded"].includes(order.provider_status);
+    !["failed","refunded","sandbox_finished"].includes(order.provider_status);
   if (canCheck) {
     try { await reconcile(order,env); } catch { /* retain old state */ }
     order = await readOrder(orderId,user.id,env) || order;
@@ -337,7 +345,7 @@ async function pollPending(env) {
   const rows = await supa(
     "/rest/v1/goldpick_crypto_orders?select=*&fulfilled_at=is.null"+
     "&provider_payment_id=not.is.null"+
-    "&provider_status=not.in.(failed,refunded)"+
+    "&provider_status=not.in.(failed,refunded,sandbox_finished)"+
     "&order=last_checked_at.asc.nullsfirst&limit=40",env);
   for (const order of rows) {
     if (order.last_checked_at &&
