@@ -55,13 +55,21 @@
   function setView(name) {
     if (name === "account" && !currentUser) name = "login";
     activeView = name;
+    // Carry the address already entered at login into the recovery form.
+    if (name === "forgot") {
+      const loginEmail = $("#loginForm input[name='email']");
+      const recoveryEmail = $("#forgotForm input[name='email']");
+      if (loginEmail?.value.trim() && recoveryEmail) recoveryEmail.value = loginEmail.value.trim();
+    }
     views.forEach(view => {
       view.hidden = view.dataset.view !== name;
     });
     setNotice("");
     if (name === "account") {
       $("#accountEmail").textContent = currentUser?.email || "이메일 정보 없음";
-      $("#accountVerified").textContent = currentUser?.email_confirmed_at ? "이메일 인증됨" : "이메일 미인증";
+      // Confirmation is disabled for password-only signup; a backend timestamp
+      // does not prove that this user owns the mailbox.
+      $("#accountVerified").textContent = "가입 시 이메일 소유 확인을 생략했습니다.";
     }
     const currentTitle = $(".auth-view:not([hidden]) h2");
     if (currentTitle) $("#authDialog").setAttribute("aria-labelledby", currentTitle.id);
@@ -107,8 +115,13 @@
     }
   });
 
-  $$("[data-auth-view]").forEach(button => {
-    button.addEventListener("click", () => setView(button.dataset.authView));
+  $("[data-auth-view]").forEach(button => {
+    button.addEventListener("click", () => {
+      const view = button.dataset.authView;
+      setView(view);
+      const field = $(`.auth-view[data-view="${view}"] input`);
+      if (field && modal.classList.contains("open")) field.focus();
+    });
   });
 
   function updateHeader() {
@@ -123,6 +136,9 @@
     const status = Number(error.status);
     const message = String(error.message || "").toLowerCase();
     let explanation = errorMessages[code] || "";
+    if (context === "recovery" && code === "over_email_send_rate_limit") {
+      explanation = "비밀번호 복구 메일 발송 한도를 초과했습니다. 잠시 후 다시 시도하거나 관리자에게 메일 설정을 요청해 주세요.";
+    }
     if (!explanation) {
       if (message.includes("email address not authorized") || message.includes("default smtp")) {
         explanation = errorMessages.email_address_not_authorized;
@@ -245,9 +261,8 @@
         redirectTo: redirectedHome()
       });
       if (error) throw error;
-      form.reset();
-      setNotice("이메일 주소가 등록되어 있다면 비밀번호 재설정 링크를 보내드립니다.", "success");
-    });
+      setNotice("등록된 계정이라면 비밀번호 재설정 링크를 발송했습니다. 메일함과 스팸함을 확인해 주세요.", "success");
+    }, "recovery");
   });
 
   $("#resetForm").addEventListener("submit", event => {
