@@ -46,7 +46,7 @@ function readPlans(env) {
     return [1,7,30,90,365].filter(days => {
       const price = src[String(days)];
       return typeof price === "number" && Number.isFinite(price) &&
-        price >= 1 && price <= 10000 && Number(price.toFixed(2)) === price;
+        price >= 0.01 && price <= 10000 && Number(price.toFixed(2)) === price;
     }).map(days => ({days, usd: src[String(days)]}));
   } catch { return []; }
 }
