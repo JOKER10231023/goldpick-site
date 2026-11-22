@@ -115,3 +115,6 @@ html{scroll-padding-top:85px}body{background:radial-gradient(ellipse 75% 25% at 
 #gpStudioForm .gp-ai-inline-status[data-kind=error]{color:#ffae9a}
 #gpStudioForm .gp-ai-inline-status[data-kind=success]{color:#bce9a6}
 @media(max-width:650px){#gpStudioForm .gp-ai-inline-wrap{margin:5px 0 12px;padding:10px}#gpStudioForm .gp-ai-inline-btn{min-height:52px;font-size:13px}}
+
+/* Prompt V3 – analysis-stage control */
+#gpStudio #gpAiStage{width:100%;min-height:46px;border:1px solid #d0b07875;border-radius:10px;padding:10px 12px;background:#0b100c;color:#f3ecd9;font-size:13px}
