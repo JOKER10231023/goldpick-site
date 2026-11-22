@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="auth.css">
 <link rel="stylesheet" href="member.css?v=4">
 <link rel="stylesheet" href="payment.css?v=2">
-<link rel="stylesheet" href="revamp.css?v=5">
+<link rel="stylesheet" href="revamp.css?v=6">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
 <script src="auth.js?v=8" defer></script>
@@ -21,7 +21,7 @@
 <script src="admin.js?v=4" defer></script>
 <script src="direct-payment.js?v=5" defer></script>
 <script src="direct-admin.js?v=2" defer></script>
-<script src="content-studio.js?v=5" defer></script>
+<script src="content-studio.js?v=6" defer></script>
 <script src="accuracy.js?v=1" defer></script>
 <script src="clipboard-tools.js?v=1" defer></script>
 
@@ -292,7 +292,7 @@
 <section class="auth-view" data-view="admin" hidden>
 <div class="auth-head"><span class="eyebrow">GOLD PICK ADMINISTRATION</span><h2 id="adminTitle">관리자 센터</h2><p>분석 자료 작성 · VIP 회원 관리 · 입금 설정</p></div>
 <div class="gp-admin-nav"><button type="button" id="gpGoEditor" class="btn primary">✍️ 분석 자료 작성</button><button type="button" id="gpGoMembers" class="btn ghost">👑 VIP 관리</button><button type="button" id="gpGoWallet" class="btn ghost">💳 결제 설정</button></div>
-<div class="gp-studio" id="gpStudio"><h3>✦ 분석 자료 관리</h3><p>템플릿을 선택하고 내용을 입력하면 무료/VIP 게시판에 자동 반영됩니다.</p><button type="button" class="btn ghost" id="gpNewPost">+ 새 자료 작성</button><form id="gpStudioForm" class="gp-studio-form">
+<div class="gp-studio" id="gpStudio"><h3>✦ 분석 자료 관리</h3><p>템플릿을 선택하고 내용을 입력하면 무료/VIP 게시판에 자동 반영됩니다.</p><button type="button" class="btn ghost" id="gpNewPost">+ 새 자료 작성</button><section class="gp-ai-panel"><div class="gp-ai-header"><strong>✦ GOLD PICK AI STUDIO</strong><small>Gemini · 관리자 전용 분석 초안 생성</small></div><p>홈팀·원정팀과 경기 일시를 입력하면 Gemini가 게시글 초안을 작성합니다. 자동 게시되지 않으니 검토 후 저장하세요.</p><label for="gpAiContext">확인한 경기 정보 / 참고 자료 (선택)</label><textarea id="gpAiContext" rows="3" placeholder="공식 기록, 확인한 점수, 분석에 반영할 정보와 출처를 입력하세요."></textarea><button id="gpAiGenerate" class="btn primary" type="button">✨ Gemini AI로 분석 초안 생성</button><p id="gpAiStatus" role="status" aria-live="polite">홈팀과 원정팀 입력 후 생성 버튼을 누르세요.</p></section><form id="gpStudioForm" class="gp-studio-form">
 <label>템플릿<span class="gp-clipboard-row"><select id="gpTemplate"><option value="basic">기본 분석</option><option value="quick">간편 분석</option><option value="image">이미지 분석</option><option value="detailed">상세 분석</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpTemplate" aria-label="gpTemplate에 붙여넣기">📋 붙여넣기</button></span></label>
 <label>공개 범위<span class="gp-clipboard-row"><select id="gpAccess"><option value="free">무료</option><option value="vip">VIP</option></select><button class="gp-clipboard-btn" type="button" data-paste-for="gpAccess" aria-label="gpAccess에 붙여넣기">📋 붙여넣기</button></span></label>
 <label>제목<span class="gp-clipboard-row"><input id="gpTitle" maxlength="160" required placeholder="분석 제목"><button class="gp-clipboard-btn" type="button" data-paste-for="gpTitle" aria-label="gpTitle에 붙여넣기">📋 붙여넣기</button></span></label>
