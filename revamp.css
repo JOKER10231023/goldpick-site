@@ -104,3 +104,14 @@ html{scroll-padding-top:85px}body{background:radial-gradient(ellipse 75% 25% at 
 #gpStudio #gpAiGenerate{min-height:49px;justify-content:center;font-size:13px;font-weight:800}
 #gpStudio #gpAiStatus[data-kind=error]{color:#f4b0a0}
 #gpStudio #gpAiStatus[data-kind=success]{color:#bde5ad}
+
+/* AI actions are always-visible HTML inside the actual analysis form. */
+#gpStudioForm .gp-ai-inline-wrap{display:grid!important;grid-column:1/-1!important;gap:6px!important;visibility:visible!important;opacity:1!important;margin:8px 0 16px;padding:14px;border:1px solid #e8c17a80;border-radius:12px;background:linear-gradient(115deg,#2b281a,#121a11)}
+#gpStudioForm .gp-ai-inline-btn{display:flex!important;align-items:center;justify-content:space-between;gap:12px;visibility:visible!important;opacity:1!important;width:100%;min-height:54px;padding:13px 16px;border:1px solid #f0d093;border-radius:10px;background:linear-gradient(110deg,#f7e3b7,#d7aa63);color:#211b13!important;font-size:14px;font-weight:900;line-height:1.45;white-space:normal;text-align:left}
+#gpStudioForm .gp-ai-inline-btn:disabled{opacity:.6!important}
+#gpStudioForm .gp-ai-inline-wrap small{color:#bbac90;font-size:11px;line-height:1.6}
+#gpStudioForm .gp-ai-inline-status{margin:0;font-size:12px;line-height:1.7;color:#edd09a;overflow-wrap:anywhere}
+#gpStudioForm .gp-ai-inline-status:empty{display:none}
+#gpStudioForm .gp-ai-inline-status[data-kind=error]{color:#ffae9a}
+#gpStudioForm .gp-ai-inline-status[data-kind=success]{color:#bce9a6}
+@media(max-width:650px){#gpStudioForm .gp-ai-inline-wrap{margin:5px 0 12px;padding:10px}#gpStudioForm .gp-ai-inline-btn{min-height:52px;font-size:13px}}
