@@ -70,3 +70,28 @@ radial-gradient(ellipse 39% 40% at 0% 0%,#57412520,transparent),
 @media(max-width:800px){.hero{min-height:0;padding-top:82px}.hero-content{padding-bottom:15px}.hero h1{font-size:clamp(55px,10.5vw,76px)}.brand-strip-inner{gap:25px}.brand-strip-ill{width:120px;height:120px}.brand-strip-ill .icon{width:48px;height:48px}.risk-band{grid-template-columns:1fr}}
 @media(max-width:520px){.hero{padding:64px 0 50px}.hero h1{font-size:clamp(44px,10.3vw,63px)}.hero-copy{font-size:13px}.hero-art{transform:scale(.93)}.brand-strip{padding:55px 0}.brand-strip h2{font-size:36px}.brand-strip-inner{display:block}.brand-strip-ill{position:absolute;right:-42px;top:35px;width:120px;height:120px;opacity:.55}.brand-strip-ill .icon{width:46px;height:46px}.brand-strip p{position:relative;max-width:250px}.risk-band{padding:26px 22px;gap:15px}.risk-band .risk-heading{font-size:26px}.risk-band p{font-size:11px}.truth-row{grid-template-columns:1fr;gap:8px;margin-top:14px}.truth-unit{padding:13px 17px}.review-stage p{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.brand-strip-ill,.hero:before{animation:none}}
+
+/* Premium pricing storefront */
+.gp-pricing-section{position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 55% at 50% 10%,#c99e3b1d,transparent 80%)}
+.gp-pricing-heading{text-align:center;max-width:680px;margin:0 auto 42px}
+.gp-pricing-eyebrow{display:inline-flex;align-items:center;gap:9px;color:#f0cd8c;border:1px solid #e3ba744b;border-radius:100px;padding:9px 15px;font-size:10px;font-weight:800;letter-spacing:.14em;background:#ddae5910}
+.gp-pricing-eyebrow i{width:7px;height:7px;border-radius:50%;background:#f0ce8a;box-shadow:0 0 13px #e3bb6b}
+.gp-pricing-heading h2{margin:20px 0 14px;line-height:1.23;letter-spacing:-.055em}
+.gp-pricing-heading p{color:#bdb6a6;font-size:13px;line-height:1.9}
+.gp-price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.gp-tier{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:280px;padding:29px 25px 24px;border:1px solid #d1b27a3e;border-radius:19px;background:linear-gradient(145deg,#25251b,#121510 75%);box-shadow:0 15px 40px #0003;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.gp-tier:hover{transform:translateY(-5px);border-color:#e6c080a0;box-shadow:0 22px 55px #0006}
+.gp-tier-featured{background:radial-gradient(ellipse at 60% 0,#c99e4852,transparent 70%),linear-gradient(145deg,#302a1a,#15170f);border-color:#e8c57c;box-shadow:0 18px 50px #d7a8471c}
+.gp-tier-label{font-size:10px;letter-spacing:.16em;font-weight:800;color:#c8ad7c}
+.gp-tier h3{font-size:21px;font-weight:800;color:#f7ebd4;margin:13px 0 19px}
+.gp-tier-price{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.gp-tier-price strong{font:800 clamp(25px,2.6vw,34px)/1.2 'Outfit','Noto Sans KR',sans-serif;color:#f9ddaa;letter-spacing:-.045em}
+.gp-tier-price small{color:#a9a08f;font-size:11px}
+.gp-tier p{font-size:11px;color:#b5ac99;margin:12px 0 23px;line-height:1.8}
+.gp-buy-btn{margin-top:auto;width:100%;border:1px solid #e0bc7c7d;border-radius:10px;padding:14px 15px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#d8ae69,#f5d799);color:#241b0d;font-size:12px;font-weight:900;cursor:pointer;transition:filter .2s,transform .2s}
+.gp-buy-btn:hover{filter:brightness(1.12)}.gp-buy-btn:active{transform:scale(.98)}.gp-buy-btn span{font-size:19px}
+.gp-popular{position:absolute;top:-13px;right:18px;padding:7px 12px;border-radius:30px;background:#f1ce87;color:#261b0c;font-size:10px;font-weight:900;box-shadow:0 5px 18px #d6a44745}
+.gp-pricing-footer{display:flex;justify-content:center;flex-wrap:wrap;gap:13px 28px;margin-top:31px;color:#d4be94;font-size:11px}
+.gp-pricing-disclaimer{text-align:center;font-size:10px;color:#a59b8b;line-height:1.8;margin:20px auto 0;max-width:660px}
+@media(max-width:850px){.gp-price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.gp-pricing-heading{margin-bottom:33px}.gp-pricing-heading h2{font-size:clamp(31px,8vw,43px)}.gp-price-grid{grid-template-columns:1fr;gap:15px}.gp-tier{min-height:0;padding:23px 22px 20px}.gp-tier h3{margin:10px 0 13px}.gp-tier p{margin:8px 0 17px}.gp-pricing-footer{justify-content:flex-start;flex-direction:column;gap:10px;padding:0 8px}.gp-popular{top:-11px}}
