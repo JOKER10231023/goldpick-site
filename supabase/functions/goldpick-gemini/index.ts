@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* Gold Pick Gemini draft service | Supabase Edge Function (Deno)
  * Deploy as: goldpick-gemini
  * Secret: GEMINI_API_KEY = actual API key, never add it to GitHub.
@@ -14,7 +15,7 @@ Deno.serve(async (request)=>{
   if(origin!==ALLOWED_ORIGIN)return respond({error:"허용되지 않은 사이트입니다."},403,"null");
   if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{"access-control-allow-origin":ALLOWED_ORIGIN,"access-control-allow-headers":"authorization, content-type, apikey, x-client-info","access-control-allow-methods":"POST, OPTIONS","access-control-max-age":"600","vary":"Origin"}});
   if(request.method!=="POST")return respond({error:"POST만 지원합니다."},405);
-  if(!Deno.env.get("GEMINI_API_KEY"))return respond({error:"Cloudflare Worker에 GEMINI_API_KEY Secret을 설정해 주세요."},503);
+  if(!Deno.env.get("GEMINI_API_KEY"))return respond({error:"Supabase Edge Functions의 Secrets에 GEMINI_API_KEY를 등록해 주세요."},503);
   const token=(request.headers.get("Authorization")||"").match(/^Bearer (\S+)$/i)?.[1];
   if(!token||token.length>5000)return respond({error:"관리자 로그인이 필요합니다."},401);
   // goldpick_is_admin() executes as the authenticated user; server verifies JWT and admin membership.
