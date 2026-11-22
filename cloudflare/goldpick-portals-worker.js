@@ -13,8 +13,9 @@ export default {
   if(u.pathname!=="/"&&u.pathname!=="/index.html")return Response.redirect("https://goldpick.6uv0.xyz/"+mode+"/",302);
   const response=await fetch("https://goldpick.6uv0.xyz/"+mode+"/index.html",{headers:{"Accept":"text/html"}});
   if(!response.ok)return new Response("Portal origin unavailable",{status:502});
-  const headers=new Headers(response.headers);headers.set("Cache-Control","no-cache, must-revalidate");headers.set("X-Content-Type-Options","nosniff");
+  const headers=new Headers(response.headers);headers.set("Cache-Control","no-cache, must-revalidate");headers.set("X-Content-Type-Options","nosniff");headers.set("Access-Control-Allow-Origin","https://goldpick.6uv0.xyz");
   headers.set("Content-Security-Policy","frame-ancestors 'none'");headers.delete("content-security-policy-report-only");
+  if(request.method==="HEAD")return new Response(null,{status:200,headers});
   return new Response(response.body,{status:200,headers});
  }
 };
