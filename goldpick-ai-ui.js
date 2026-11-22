@@ -2,7 +2,7 @@
 (()=>{
 "use strict";
 const get=id=>document.getElementById(id);
-const API="https://goldpick-ai.lovesdw1023.workers.dev/generate";
+const API="https://xyssumwioolllczqgwsr.supabase.co/functions/v1/goldpick-gemini";
 let busy=false;
 function message(txt,kind="info"){
  const items=[get("gpAiStatus"),...document.querySelectorAll(".gp-ai-inline-status")];
@@ -33,7 +33,7 @@ async function generate(){
  try{
   const response=await fetch(API,{
    method:"POST",
-   headers:{"content-type":"application/json","authorization":"Bearer "+token},
+   headers:{"content-type":"application/json","authorization":"Bearer "+token,"apikey":"sb_publishable_vqCZirS5_x5r7B7zDb7TxQ_GAuQi_O2"},
    body:JSON.stringify({
     home,away,sport:get("gpSport")?.value||"",
     matchAt:get("gpMatchAt")?.value||"",
@@ -55,7 +55,7 @@ async function generate(){
   get("gpBody")?.scrollIntoView({block:"center",behavior:"smooth"});
  }catch(err){
   const network=/failed to fetch|networkerror|load failed/i.test(String(err));
-  message(network?"AI 서버에 연결되지 않습니다. Cloudflare Worker의 배포 및 주소를 확인해 주세요.":"AI 작성 실패: "+(err?.message||"알 수 없는 오류"),"error");
+  message(network?"AI 서버에 연결되지 않습니다. Supabase Edge Function의 배포와 Secret을 확인해 주세요.":"AI 작성 실패: "+(err?.message||"알 수 없는 오류"),"error");
  }finally{setBusy(false);}
 }
 document.addEventListener("click",e=>{
