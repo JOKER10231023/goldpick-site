@@ -146,8 +146,6 @@
     if (event.detail?.name === "admin") {
       if (!isAdmin || !bridge.getUser()) {
         bridge.setView("account");
-      } else {
-        setTimeout(() => void loadCryptoCases(), 0);
       }
     }
   });
@@ -161,56 +159,5 @@
     status("회원의 이메일을 입력하고 조회해 주세요.");
   });
 
-  async function loadCryptoCases() {
-    const root = el("adminCryptoCases");
-    if (!isAdmin || !bridge.getClient() || !bridge.getUser()) return;
-    root.replaceChildren();
-    const info = document.createElement("span");
-    info.textContent = "결제 예외 내역을 확인하고 있습니다...";
-    root.append(info);
-    try {
-      const {data, error} = await bridge.getClient().rpc("goldpick_admin_crypto_cases",{p_limit:30});
-      if (!isAdmin || !bridge.getUser()) return;
-      if (error) {
-        info.textContent = error.code === "PGRST202" ?
-          "Supabase에 goldpick-crypto.sql을 먼저 설치해 주세요." :
-          "검토 목록을 불러오지 못했습니다.";
-        return;
-      }
-      if (!Array.isArray(data) || !data.length) {
-        info.textContent = "현재 접수된 TXID 또는 결제 검토 요청이 없습니다.";
-        return;
-      }
-      const cards = data.map(item => {
-        const card = document.createElement("div");
-        card.className = "admin-crypto-case";
-        const email = document.createElement("strong");
-        email.textContent = String(item.email || "알 수 없는 회원");
-        const detail = document.createElement("small");
-        detail.textContent = String(item.days || 0) + "일 VIP · " +
-          String(item.currency || "").toUpperCase() + " " +
-          String(item.amount || "—") + " · " +
-          String(item.provider_status || "조회 중");
-        const txid = document.createElement("code");
-        txid.textContent = item.txid ? "제출 TXID: " + item.txid : "TXID 미제출";
-        const payment = document.createElement("code");
-        payment.textContent = "결제 ID: " + (item.provider_payment_id || "미발급");
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.textContent = "이 회원 VIP 조회";
-        btn.addEventListener("click", () => {
-          form.elements.memberEmail.value = item.email || "";
-          form.elements.memberEmail.focus();
-        });
-        card.append(email, detail, txid, payment, btn);
-        return card;
-      });
-      root.replaceChildren(...cards);
-    } catch {
-      info.textContent = "검토 요청을 조회하지 못했습니다.";
-    }
-  }
-
-  el("adminCryptoReload").addEventListener("click", () => void loadCryptoCases());
   showAdminButton(false);
 })();
