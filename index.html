@@ -20,6 +20,8 @@
 <script src="admin.js?v=3" defer></script>
 <script src="direct-payment.js?v=5" defer></script>
 <script src="direct-admin.js?v=2" defer></script>
+<script src="content-studio.js?v=1" defer></script>
+<script src="analysis-feed.js?v=1" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -41,7 +43,7 @@
 <div class="topbar"><div class="container"><span><i></i>골드픽 · 프리미엄 스포츠 분석</span><span class="right">서비스 미리보기</span></div></div>
 <header class="header" id="header"><div class="container nav-inner">
 <a href="#top" class="logo" aria-label="Gold Pick 홈"><span class="logo-mark">GP</span><span><strong>GOLD PICK</strong><small>SPORTS INSIGHT</small></span></a>
-<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#plans">이용권</a><a href="#vip-lounge">VIP 라운지</a><a href="#faq">이용 안내</a></nav>
+<nav id="mobileNav" class="navlinks" aria-label="주 메뉴"><a href="#benefits">소개</a><a href="#analysis">분석 자료</a><a href="#plans">이용권</a><a href="#vip-lounge">VIP 라운지</a><a href="#faq">이용 안내</a></nav>
 <div class="actions"><button id="loginOpen" type="button" class="btn ghost small"><svg class="icon"><use href="#ic-user"/></svg><span id="loginLabel">로그인</span></button><button id="signupOpen" type="button" class="btn primary small join-button">회원가입</button><button id="menuToggle" type="button" class="menu-button" aria-label="메뉴" aria-expanded="false" aria-controls="mobileNav"><svg class="icon"><use href="#ic-menu"/></svg></button></div>
 </div></header>
 
@@ -103,6 +105,7 @@
 <div class="preview-bottom">93.4%는 운영자가 제공한 기존 수치이며, 실시간 집계 또는 독립 검증된 적중률이 아닙니다. 그래프는 디자인 예시입니다.</div></div></div>
 </div></section>
 
+<section class="section gp-feed-section" id="analysis"><div class="container"><div class="section-head"><div class="eyebrow">GOLD PICK ANALYSIS</div><h2 class="display">무료 · VIP <span class="gradient-text">분석 자료</span></h2><p>무료 분석은 누구나, VIP 분석은 활성 멤버십 회원에게만 공개됩니다.</p></div><div class="gp-feed-grid" id="gpPublicPosts"><p class="gp-empty">자료를 불러오는 중...</p></div><p class="gp-feed-note">VIP 자료는 로그인 및 이용권 인증 후 표시됩니다. 결과는 사후에 갱신될 수 있습니다.</p></div></section>
 <section class="section gp-pricing-section" id="plans"><div class="container">
 <div class="gp-pricing-heading reveal"><span class="gp-pricing-eyebrow"><i></i> GOLD PICK PREMIUM MEMBERSHIP</span><h2 class="display">더 깊은 인사이트,<br><span class="gradient-text">합리적인 멤버십.</span></h2><p>필요한 기간만 선택하세요. VIP 전용 콘텐츠를 이용할 수 있습니다.</p></div>
 <div class="gp-price-grid">
@@ -326,7 +329,18 @@
 <div id="directAdminOrders" class="admin-crypto-list"><span>거래 요청을 불러오는 중입니다.</span></div>
 </div>
 
-<button type="button" class="btn ghost vip-return" id="adminBack">← 마이페이지로 돌아가기</button>
+<div class="gp-studio" id="gpStudio"><h3>✦ 분석 자료 관리</h3><p>템플릿을 선택하고 내용을 입력하면 무료/VIP 게시판에 자동 반영됩니다.</p><button type="button" class="btn ghost" id="gpNewPost">+ 새 자료 작성</button><form id="gpStudioForm" class="gp-studio-form">
+<label>템플릿<select id="gpTemplate"><option value="basic">기본 분석</option><option value="quick">간편 분석</option><option value="image">이미지 분석</option><option value="detailed">상세 분석</option></select></label>
+<label>공개 범위<select id="gpAccess"><option value="free">무료</option><option value="vip">VIP</option></select></label>
+<label>제목<input id="gpTitle" maxlength="160" required placeholder="분석 제목"></label>
+<div id="gpMatchFields"><label>종목<input id="gpSport" placeholder="축구 / 야구 / 농구"></label><label>홈팀<input id="gpHome"></label><label>원정팀<input id="gpAway"></label><label>경기 일시<input id="gpMatchAt" type="datetime-local"></label></div>
+<label id="gpPredictionField">예상 결과<input id="gpPrediction" maxlength="300" placeholder="예상 결과"></label>
+<label id="gpBodyField">분석 내용<textarea id="gpBody" rows="6" placeholder="분석 근거를 작성하세요"></textarea></label>
+<div id="gpImagesField"><label>이미지 첨부 (최대 8장, 각 5MB)<input id="gpImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></label><span id="gpImageNames">0장 첨부됨</span><button type="button" id="gpClearImages">이미지 목록 초기화</button></div>
+<label>경기 결과<select id="gpResult"><option value="pending">대기</option><option value="hit">적중</option><option value="miss">미적중</option><option value="void">적특</option></select></label>
+<label>게시 상태<select id="gpStatus"><option value="draft">임시저장</option><option value="published">발행 / 예약 발행</option></select></label>
+<label>공개 일시 (비워두면 즉시)<input id="gpPublishAt" type="datetime-local"></label>
+<button type="submit" class="btn primary" id="gpSavePost">자료 저장</button></form><p id="gpStudioMsg" role="status"></p><h4>등록된 자료</h4><div id="gpStudioList"></div></div><button type="button" class="btn ghost vip-return" id="adminBack">← 마이페이지로 돌아가기</button>
 </section>
 
 <p class="auth-message" id="authNotice" role="status" aria-live="polite"></p>
