@@ -84,3 +84,17 @@
 .vip-admin-result{margin-top:18px;padding:16px;border-radius:11px;border:1px solid #af96634a;background:#171912;color:#dec69c;font-size:12px;line-height:1.85;white-space:pre-line;overflow-wrap:anywhere}
 .vip-admin-result[data-kind="success"]{color:#d8efc1;background:#71864b24;border-color:#a7bd8b70}
 .vip-admin-result[data-kind="error"]{color:#f1b7a6;background:#a5484320;border-color:#d28d7d70}
+
+/* Read-only admin exception queue; no automatic settlement on TXID alone */
+.admin-crypto-claims{margin-top:24px;border-top:1px solid #d4ae6f36;padding-top:21px}
+.admin-crypto-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.admin-crypto-head strong{font-size:13px;color:#eed2a0}
+.admin-crypto-head button{border:1px solid #b69e6f78;border-radius:8px;background:#c1a17020;padding:7px 11px;color:#e9cc98;font-size:10px;cursor:pointer}
+.admin-crypto-claims>p{font-size:10px;line-height:1.8;color:#b7a88d;margin:0 0 13px}
+.admin-crypto-list{max-height:310px;overflow:auto;display:grid;gap:9px;font-size:11px;color:#cbb795}
+.admin-crypto-case{border:1px solid #aa945b57;background:#101710;border-radius:10px;padding:13px}
+.admin-crypto-case strong,.admin-crypto-case small,.admin-crypto-case code{display:block;line-height:1.7;overflow-wrap:anywhere}
+.admin-crypto-case strong{color:#efd49e;font-size:12px;margin-bottom:4px}
+.admin-crypto-case small{color:#c3b29b;margin-bottom:9px}
+.admin-crypto-case code{color:#b4c0a9;font-size:10px;font-family:ui-monospace,monospace;margin:4px 0;user-select:all}
+.admin-crypto-case button{border:1px solid #bda57465;background:#bea06b21;color:#f0d1a1;border-radius:7px;padding:8px 10px;font-size:10px;cursor:pointer;margin-top:10px}
