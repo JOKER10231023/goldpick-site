@@ -126,10 +126,16 @@
     await checkAdmin();
     if (isAdmin) {
       bridge.setView("admin");
-      setTimeout(() => form.elements.memberEmail.focus(), 0);
+      setTimeout(() => { const dlg = document.querySelector(".auth-dialog"); if (dlg) dlg.scrollTop = 0; }, 0);
     }
   });
 
+  [["gpGoEditor","gpStudio"],["gpGoMembers","vipAdminForm"],["gpGoWallet","directWalletAdminPanel"]].forEach(([buttonId,targetId]) => {
+    el(buttonId)?.addEventListener("click", () => {
+      const target=el(targetId), dlg=document.querySelector(".auth-dialog");
+      if (target && dlg) dlg.scrollTo({top:target.getBoundingClientRect().top - dlg.getBoundingClientRect().top + dlg.scrollTop - 14,behavior:"smooth"});
+    });
+  });
   el("adminBack").addEventListener("click", () => bridge.setView("account"));
   actionButtons.forEach(button => {
     button.addEventListener("click", () => void doAction(button.dataset.vipAdminAction));
