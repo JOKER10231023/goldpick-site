@@ -56,6 +56,7 @@
     if ((name === "account" || name === "vip" || name === "admin" || name === "payment") && !currentUser) name = "login";
     activeView = name;
     $("#authDialog").classList.toggle("member-mode", name === "account" || name === "vip" || name === "admin" || name === "payment");
+    $("#authDialog").classList.toggle("payment-mode", name === "payment");
     // Carry the address already entered at login into the recovery form.
     if (name === "forgot") {
       const loginEmail = $("#loginForm input[name='email']");
