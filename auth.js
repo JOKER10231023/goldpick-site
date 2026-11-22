@@ -53,9 +53,9 @@
   }
 
   function setView(name) {
-    if ((name === "account" || name === "vip") && !currentUser) name = "login";
+    if ((name === "account" || name === "vip" || name === "admin") && !currentUser) name = "login";
     activeView = name;
-    $("#authDialog").classList.toggle("member-mode", name === "account" || name === "vip");
+    $("#authDialog").classList.toggle("member-mode", name === "account" || name === "vip" || name === "admin");
     // Carry the address already entered at login into the recovery form.
     if (name === "forgot") {
       const loginEmail = $("#loginForm input[name='email']");
@@ -322,7 +322,7 @@
     if (event === "SIGNED_OUT") {
       currentUser = null;
       updateHeader();
-      if (activeView === "account" || activeView === "vip") setView("login");
+      if (activeView === "account" || activeView === "vip" || activeView === "admin") setView("login");
       window.dispatchEvent(new CustomEvent("goldpick:session", {detail: {event: "SIGNED_OUT"}}));
       return;
     }
