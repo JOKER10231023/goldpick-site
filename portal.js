@@ -118,6 +118,7 @@ async function init(){
   sb=createClient(config.url,config.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
   sb.auth.onAuthStateChange(()=>setTimeout(()=>void refreshUser(),0));
   await refreshUser();
+  setInterval(()=>{if(!document.hidden&&mode==="free"&&!$("portalListSection").hidden)void loadArticles()},30000);
  }catch(err){notice("서비스 연결에 실패했습니다. 네트워크를 확인해 주세요.","error");console.error(err)}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else void init();
