@@ -85,7 +85,8 @@ async function generate(){
    el.dispatchEvent(new Event("input",{bubbles:true}));
    el.dispatchEvent(new Event("change",{bubbles:true}));
   }
-  message("✅ 실제 경기 데이터를 반영한 분석 초안 작성 완료! 데이터 출처와 내용을 확인한 뒤 저장하세요.","success");
+  const total=(data.sportsData?.home?.recent?.length||0)+(data.sportsData?.away?.recent?.length||0);
+  message(total>0?"✅ ESPN의 실제 과거 경기 "+total+"건을 참고해 초안을 작성했어요. 확인 후 저장하세요.":"✅ AI 분석 초안 작성 완료! 자동 수집 기록이 부족해 추정 분석으로 작성됐어요. 내용을 확인하세요.","success");
   get("gpBody")?.scrollIntoView({block:"center",behavior:"smooth"});
  }catch(err){
   const network=/failed to fetch|networkerror|load failed/i.test(String(err));
