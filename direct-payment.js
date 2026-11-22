@@ -78,8 +78,10 @@
   function renderPreview(){
     const wallet=currentWallet();
     const amount=wallet?.prices?.[el("directPayDays").value];
-    setText("directPayAmount",amount?(wallet.coin==="ltc"?"주문 생성 시 고유 수량 안내":amount+" "+wallet.coin.toUpperCase()):"미설정");
+    setText("directPayAmount",amount?(wallet.coin==="ltc"?"주문 시 정확한 LTC 수량 표시":amount+" "+wallet.coin.toUpperCase()):"미설정");
     el("directPayCreate").textContent=wallet?.coin==="ltc"?"LTC 자동결제 주문 생성":"결제 요청 생성";
+    const krw={1:1900,7:9900,30:29900,90:69900,365:149000};
+    const label=el("directKrwPrice");if(label)label.textContent=wallet?.coin==="ltc"&&krw[el("directPayDays").value]?"₩"+krw[el("directPayDays").value].toLocaleString("ko-KR")+" · 결제 수량은 주문 시 확정":"—";
     const guide=el("directPaymentNote");
     if(guide)guide.textContent=wallet?.coin==="ltc"?"LTC 자동결제: 주문 생성 후 표시되는 고유 수량을 정확히 보내세요. 서버가 입금을 자동 감지해 6회 확인 후 VIP를 지급합니다. 주문 전 송금하거나 임의의 수량을 보내면 자동 처리되지 않습니다.":"다른 코인은 기존 수동 검증 방식입니다. 주문 생성 후 TXID를 제출해야 합니다.";
     setText("directPayNetworkLabel",wallet?.networkLabel||"—");
