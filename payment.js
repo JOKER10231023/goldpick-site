@@ -145,7 +145,7 @@
     bridge.openModal("payment");
   }
   async function loadHistory() {
-    if (!settings?.enabled || !bridge.getUser()) return;
+    if (!apiOK || !bridge.getUser()) return;
     try {
       const {orders}=await request("/v1/orders");
       const list=el("payHistoryList");
