@@ -5,6 +5,8 @@
   if(!bridge)return;
   const el=id=>document.getElementById(id);
   const days=[1,7,30,90,365];
+  const krwPrices={1:1900,7:9900,30:29900,90:69900,365:149000};
+  async function ltcRate(){const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=krw");if(!r.ok)throw Error("LTC 시세 조회 실패");const d=await r.json();const n=Number(d?.litecoin?.krw);if(!Number.isFinite(n)||n<1000)throw Error("LTC 시세를 확인할 수 없습니다.");return n;}
   let catalog=[],busy=false,active=false,refreshId=0;
   function notice(text,ok=false){
     const node=el("directAdminMessage");
@@ -45,8 +47,9 @@
     el("directAdminEnabled").checked=!!item?.enabled;
     for(const d of days){
       document.querySelector('[data-direct-days="'+d+'"]').value=
-        item?.prices?.[String(d)]||"";
+        item?.coin==="ltc"&&item?.network==="litecoin"?String(krwPrices[d]):item?.prices?.[String(d)]||"";
     }
+    for(const d of days){const input=document.querySelector('[data-direct-days="'+d+'"]');if(input)input.placeholder=item?.coin==="ltc"?"원화 가격":"코인 수량";}
     notice(item?
       (item.enabled?"현재 공개 중 · 구매자가 입금 주소를 볼 수 있습니다.":
         "비공개 상태 · 주소와 가격을 등록한 뒤 공개할 수 있습니다."):
@@ -74,6 +77,7 @@
     const tag=el("directAdminTag").value.trim();
     const enabled=el("directAdminEnabled").checked;
     const prices={};
+    const isLtc=item.coin==="ltc"&&item.network==="litecoin";
     for(const d of days){
       const v=document.querySelector('[data-direct-days="'+d+'"]').value.trim();
       if(!v)continue;
@@ -91,13 +95,14 @@
     ))return;
     busy=true;el("directAdminSave").disabled=true;
     try{
+      if(isLtc){const rate=await ltcRate();for(const d of days){const krw=Number(prices[String(d)]);if(krw>0)prices[String(d)]=(Math.ceil(krw/rate*1e8)/1e8).toFixed(8);}}
       const resp=await rpc("gp_direct_admin_save_wallet",{
         p_coin:item.coin,p_network:item.network,p_address:address,
         p_tag:tag,p_enabled:enabled,p_prices:prices
       });
       const found=catalog.find(x=>x.coin===item.coin&&x.network===item.network);
       if(found){found.address=address;found.tag=tag;found.enabled=enabled;found.prices=prices;}
-      notice(resp.message,true);
+      notice(isLtc?"LTC 지갑 저장 완료 · 원화 가격은 Railway가 시세에 맞춰 자동 갱신합니다.":resp.message,true);
     }catch(e){notice(e.message);}
     finally{busy=false;el("directAdminSave").disabled=false;}
   }
