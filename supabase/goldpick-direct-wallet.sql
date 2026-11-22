@@ -197,7 +197,7 @@ begin
  end if;
  for v_days,v_amount in select key,value from jsonb_each_text(p_prices) loop
    if v_days not in ('1','7','30','90','365')
-      or v_amount !~ '^(0|[1-9][0-9]*)(\\.[0-9]{1,14})?$' then
+      or v_amount !~ '^(0|[1-9][0-9]*)(\.[0-9]{1,14})?$' then
      return jsonb_build_object('ok',false,'message','이용 기간 또는 코인 수량의 형식이 올바르지 않습니다.');
    end if;
    v_price:=v_amount::numeric;
