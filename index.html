@@ -18,8 +18,8 @@
 <script src="auth.js?v=8" defer></script>
 <script src="member.js?v=1" defer></script>
 <script src="admin.js?v=3" defer></script>
-<script src="direct-payment.js?v=2" defer></script>
-<script src="direct-admin.js?v=1" defer></script>
+<script src="direct-payment.js?v=3" defer></script>
+<script src="direct-admin.js?v=2" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -242,8 +242,8 @@
 <label class="auth-field"><span>VIP 이용 기간</span><select id="directPayDays" disabled><option>기간 선택</option></select></label>
 </div>
 <div class="direct-quote">
-<div class="direct-quote-head"><span>전송할 코인 수량</span><small>관리자 설정 기준 · 네트워크 수수료 별도</small></div>
-<strong id="directPayAmount">설정 전</strong>
+<div class="direct-quote-head"><span>전송할 코인 수량</span><small>실시간 환산 · 네트워크 수수료 별도</small></div>
+<strong id="directPayAmount">설정 전</strong><div class="direct-quote-line"><small>원화 기준 가격</small><span id="directKrwPrice">—</span></div>
 <div class="direct-quote-line"><small>선택한 네트워크</small><span id="directPayNetworkLabel">—</span></div>
 </div>
 <div class="direct-wallet">
@@ -251,7 +251,7 @@
 <code id="directPayAddress">관리자가 등록한 주소가 여기에 표시됩니다.</code>
 <div id="directPayTagWrap" hidden><div class="direct-wallet-head"><span>필수 태그 / 메모</span><button type="button" id="directPayCopyTag" class="pay-copy">태그 복사</button></div><code id="directPayTag">—</code></div>
 </div>
-<div class="direct-payment-note" id="directPaymentNote">LTC는 주문 생성 후 표시되는 고유 수량으로 자동결제합니다. 다른 코인은 기존 수동 검증 방식입니다.</div>
+<div class="direct-payment-note" id="directPaymentNote">LTC는 원화 기준 가격을 시세로 자동 환산하고, 주문마다 고유 수량으로 자동결제합니다. 다른 코인은 기존 수동 검증 방식입니다.</div>
 <button type="button" class="btn primary pay-full-btn" id="directPayCreate" disabled>결제 주문 생성</button>
 </div>
 <div id="directPayOrder" hidden>
