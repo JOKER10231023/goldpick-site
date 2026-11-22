@@ -98,3 +98,27 @@
 .admin-crypto-case small{color:#c3b29b;margin-bottom:9px}
 .admin-crypto-case code{color:#b4c0a9;font-size:10px;font-family:ui-monospace,monospace;margin:4px 0;user-select:all}
 .admin-crypto-case button{border:1px solid #bda57465;background:#bea06b21;color:#f0d1a1;border-radius:7px;padding:8px 10px;font-size:10px;cursor:pointer;margin-top:10px}
+
+/* Admin-configurable coin/network wallet and fixed crypto prices */
+.direct-admin-panel{margin-top:27px;border-top:1px solid #d3ab7345;padding-top:23px}
+.direct-admin-header{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:15px}
+.direct-admin-header strong{font-size:14px;color:#f2d7a5}
+.direct-admin-header small{font-size:10px;color:#b1a287}
+.direct-admin-header button{color:#e4c58d;border:1px solid #bfa67778;background:#b7a16c16;border-radius:8px;padding:8px 11px;font-size:10px;cursor:pointer}
+.direct-admin-warning{color:#c7b091;font-size:10px;line-height:1.9;padding:13px;background:#88683c1f;border:1px solid #b79a5d51;border-radius:10px;margin:0 0 20px}
+.direct-admin-two .auth-field{min-width:0}
+.direct-admin-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:11px 0 20px}
+.direct-admin-prices label{min-width:0;display:flex;flex-direction:column;gap:7px;color:#dfc899;font-size:11px;font-weight:700}
+.direct-admin-prices input{min-width:0;width:100%;border:1px solid #ae965d88;border-radius:9px;background:#101710;color:#f7e2ba;font-size:12px;height:43px;padding:0 10px;outline:none}
+.direct-admin-prices input:focus{border-color:#e4bd79;box-shadow:0 0 0 3px #b791562a}
+.direct-admin-switch{display:flex;gap:12px;align-items:center;padding:13px 0 17px;color:#eed49e;font-size:12px;line-height:1.6;cursor:pointer}
+.direct-admin-switch input{width:17px;height:17px;accent-color:#d6ad69}
+.direct-admin-result{border:1px solid #b9a2744b;border-radius:9px;background:#1e2118;padding:12px;font-size:11px;line-height:1.8;color:#deca9e;margin:14px 0 0}
+.direct-admin-result[data-kind="success"]{border-color:#99b97d68;color:#d7efbd}
+.direct-review-note{width:100%;min-height:68px;max-height:160px;resize:vertical;margin:12px 0;border:1px solid #b7a37277;border-radius:9px;padding:12px;color:#f0dfbf;background:#101610;font:500 11px/1.8 'Noto Sans KR',sans-serif}
+.direct-review-actions{display:flex;flex-wrap:wrap;gap:8px}
+.direct-review-actions button{flex:1;min-width:145px;border:1px solid #caa3658c;background:#a4894e29;padding:10px;font-size:10px;line-height:1.5;color:#f7dda9;border-radius:8px;cursor:pointer}
+.direct-review-actions button:last-child{border-color:#ac71688c;color:#f1b5a5;background:#a33c3220}
+.direct-review-actions button:disabled{opacity:.48;pointer-events:none}
+.direct-review-done{color:#b8d29a;font-size:11px}
+@media(max-width:520px){.direct-admin-prices{grid-template-columns:repeat(2,minmax(0,1fr))}.direct-admin-header small{font-size:9px}.direct-admin-two{gap:8px}}
