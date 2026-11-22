@@ -68,10 +68,7 @@ async function check(env){
   for(const order of items){
    checked++;
    // If user supplied a TXID, verify it against the same address and amount.
-   const matches=txs.filter(tx=>
-    !consumed.has(tx.hash)&&matchTx(order,tx)&&
-    (!order.submittedTxid ||
-     String(order.submittedTxid).toLowerCase()===String(tx.hash).toLowerCase()));
+   const matches=txs.filter(tx=>!consumed.has(tx.hash)&&matchTx(order,tx));
    if(matches.length!==1)continue; // ambiguous / none -> do not pay
    const tx=matches[0];
    try{
