@@ -318,10 +318,12 @@ Deno.serve(async (request)=>{
    // Enforce one and only one named team. Never silently invent or reverse the model's pick.
    if(!["home","away"].includes(article.pick))throw Error("missing pick");
    if(!["낮음","보통","높음"].includes(article.confidence))article.confidence="낮음";
+   if(!sportsData.home.recent.length||!sportsData.away.recent.length)article.confidence="낮음";
    const winner=article.pick==="home"?home:away;
    const opponent=article.pick==="home"?away:home;
    if(!String(article.title).includes(winner))article.title="[GOLD PICK] "+home+" vs "+away+" | "+winner+" 승 예상";
    const note=(stage==="started_unverified"||stage==="live"||stage==="post")?" (현재 실제 경기 결과는 확인하지 않은 가정적 예측)":"";
+   if(String(article.prediction).includes(opponent+" 승"))article.prediction="승부 흐름과 경기 변수에 따른 조건부 승리 예상.";
    article.prediction="예측: "+winner+" 승 | 확신도: "+article.confidence+" — "+
       (cut(article.prediction,180).replace(/^예측\s*[:：].*?[—–-]\s*/,"").replace(/^.*?승\s*\|\s*확신도\s*[:：]\s*(낮음|보통|높음)\s*/,"").trim()||"승부 흐름과 변수에 기초한 조건부 전망.")+note;
    if(!String(article.body).includes(winner))throw Error("winner absent");
@@ -336,8 +338,10 @@ Deno.serve(async (request)=>{
    article.body=cleanCopy(article.body);
    article.prediction=cleanCopy(article.prediction);
    article.title=cleanCopy(article.title);
-   if(!String(article.body).startsWith("■ GOLD PICK 최종 선택:"))
-      article.body="■ GOLD PICK 최종 선택: "+winner+" 승 (확신도: "+article.confidence+")\n\n"+article.body;
+   const correctHeader="■ GOLD PICK 최종 선택: "+winner+" 승 (확신도: "+article.confidence+")";
+   if(String(article.body).startsWith("■ GOLD PICK 최종 선택:"))
+      article.body=String(article.body).replace(/^■ GOLD PICK 최종 선택:[^\n]*/,correctHeader);
+   else article.body=correctHeader+"\n\n"+article.body;
   }catch{return respond({error:"Gemini 응답을 읽지 못했습니다. 다시 생성해 주세요."},502);}
   return respond({title:cut(article.title,160),prediction:cut(article.prediction,300),body:cut(article.body,20000),pick:article.pick,winner:article.pick==="home"?home:away,confidence:article.confidence,generatedAt:new Date().toISOString(),model:usedModel,sportsData});
 });
