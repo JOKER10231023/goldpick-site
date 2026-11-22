@@ -1,0 +1,23 @@
+name = "goldpick-payments"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[triggers]
+crons = ["*/2 * * * *"]
+
+[vars]
+SUPABASE_URL = "https://xyssumwioolllczqgwsr.supabase.co"
+SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vqCZirS5_x5r7B7zDb7TxQ_GAuQi_O2"
+SITE_ORIGIN = "https://goldpick.6uv0.xyz"
+PAYMENTS_ENABLED = "false"
+PAY_COINS = "usdttrc20,ltc"
+VIP_PLANS_JSON = "{}"
+
+# Set THESE as Cloudflare Worker Secrets, never in this file:
+# SUPABASE_SERVICE_ROLE_KEY (prefer the newer sb_secret_* key)
+# NOWPAYMENTS_API_KEY
+# NOWPAYMENTS_IPN_SECRET
+#
+# Optional secrets if NOWPayments GET /payment/:id requires JWT:
+# NOWPAYMENTS_EMAIL
+# NOWPAYMENTS_PASSWORD
