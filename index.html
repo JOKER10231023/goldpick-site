@@ -18,7 +18,7 @@
 <script src="auth.js?v=8" defer></script>
 <script src="member.js?v=1" defer></script>
 <script src="admin.js?v=3" defer></script>
-<script src="direct-payment.js?v=4" defer></script>
+<script src="direct-payment.js?v=5" defer></script>
 <script src="direct-admin.js?v=2" defer></script>
 </head>
 <body>
@@ -93,14 +93,14 @@
 <section class="section showcase" id="preview"><div class="container showcase-grid">
 <div class="showcase-copy reveal"><div class="eyebrow">분석 화면 미리보기</div><h2 class="display">핵심만 남기고,<br><span class="gradient-text">선명하게 보여주다.</span></h2><p>긴 설명을 읽기 전에 중요한 부분부터 확인할 수 있도록. 복잡한 분석을 보기 좋은 정보로 정리하는 방식을 구상하고 있습니다.</p>
 <div class="showcase-bullets"><span><svg class="icon"><use href="#ic-check"/></svg>읽기 쉬운 핵심 요약</span><span><svg class="icon"><use href="#ic-check"/></svg>시각적으로 정리된 흐름</span><span><svg class="icon"><use href="#ic-check"/></svg>정보 출처 표시 계획</span></div></div>
-<div class="preview reveal" data-delay="1"><div class="preview-top"><strong>GOLD PICK / 분석 미리보기</strong><span class="preview-tag">예시 데이터</span></div>
-<div class="preview-body"><span class="preview-time">분석 카드 디자인 예시 · 실제 경기 아님</span><h3 class="preview-title">한눈에 보는 경기 흐름</h3>
+<div class="preview reveal" data-delay="1"><div class="preview-top"><strong>GOLD PICK / 적중률 기록</strong><span class="preview-tag">운영자 제공 기록</span></div>
+<div class="preview-body"><span class="preview-time">기존 운영 기록 · 독립 검증 전</span><h3 class="preview-title">기존 적중률 93.4%</h3>
 <div class="preview-chart"><svg viewBox="0 0 420 175" preserveAspectRatio="none" role="img" aria-label="가상 데이터를 사용한 샘플 그래프"><defs><linearGradient id="shade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8bf7b" stop-opacity=".35"/><stop offset="1" stop-color="#e8bf7b" stop-opacity="0"/></linearGradient></defs>
 <path d="M0 38H420M0 78H420M0 118H420M0 155H420" stroke="#c9a76c29" stroke-dasharray="4 7"/>
 <path d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24 L420 175 L0 175Z" fill="url(#shade)"/>
 <path class="line-chart" d="M0 147 C40 133 45 158 76 127 S122 89 156 111 S195 139 226 89 S270 112 306 72 S353 91 375 39 S400 48 420 24" fill="none" stroke="#e9ca88" stroke-width="3" stroke-linecap="round"/></svg></div>
 <div class="preview-rows"><div class="preview-row"><span>전력 비교</span><div><i style="--bar:74%"></i></div></div><div class="preview-row"><span>최근 흐름</span><div><i style="--bar:59%"></i></div></div><div class="preview-row"><span>주요 변수</span><div><i style="--bar:83%"></i></div></div></div>
-<div class="preview-bottom">이 그래프와 지표는 디자인 시연용이며 실제 분석 결과가 아닙니다.</div></div></div>
+<div class="preview-bottom">93.4%는 운영자가 제공한 기존 수치이며, 실시간 집계 또는 독립 검증된 적중률이 아닙니다. 그래프는 디자인 예시입니다.</div></div></div>
 </div></section>
 
 <section class="section gp-pricing-section" id="plans"><div class="container">
@@ -238,7 +238,7 @@
 </section>
 
 <section class="auth-view" data-view="payment" hidden>
-<div class="auth-head"><span class="eyebrow">GOLD PICK · COIN CHECKOUT</span><h2 id="paymentTitle">VIP 코인 결제</h2><p>LTC는 입금 자동 감지 후 VIP가 지급됩니다. 다른 코인은 관리자 검증 방식입니다.</p></div>
+<div class="auth-head"><span class="eyebrow">GOLD PICK · COIN CHECKOUT</span><h2 id="paymentTitle">VIP 코인 결제</h2><p>LTC는 블록체인 입금 감지 및 6회 확인 후 관리자 승인 없이 VIP가 자동 지급됩니다. 다른 코인은 관리자 검증 방식입니다.</p></div>
 <div class="pay-banner" id="directPayStatus" role="status" aria-live="polite">설정된 지갑 주소를 확인하는 중입니다.</div>
 <div id="directPaySetup">
 <div class="direct-payment-grid">
@@ -322,7 +322,7 @@
 </div>
 <div class="direct-admin-panel" id="directAdminReviews">
 <div class="direct-admin-header"><strong>코인 입금 검토 · TXID</strong><button type="button" id="directAdminOrdersRefresh">새로고침</button></div>
-<p class="direct-admin-warning">자동 입금 검증 기능은 없습니다. 수신 주소, 코인·네트워크, 수량, 태그, 거래 확인 횟수, 중복 여부를 독립적으로 확인한 뒤에만 승인하세요. TXID만으로 결제 완료를 판단하면 안 됩니다.</p>
+<p class="direct-admin-warning">LTC는 별도 자동 입금 감지 서버가 6회 확인 후 VIP를 지급합니다. 다른 코인은 관리자 검증이 필요하며 TXID만으로 승인하면 안 됩니다. LTC 자동 감지 서버의 정상 작동 여부를 별도로 확인하세요.</p>
 <div id="directAdminOrders" class="admin-crypto-list"><span>거래 요청을 불러오는 중입니다.</span></div>
 </div>
 
