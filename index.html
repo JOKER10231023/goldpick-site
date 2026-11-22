@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="auth.css">
 <script src="auth-config.js" defer></script>
 <script src="luxe.js" defer></script>
-<script src="auth.js?v=4" defer></script>
+<script src="auth.js?v=5" defer></script>
 </head>
 <body>
 <div class="page-noise" aria-hidden="true"></div>
@@ -142,7 +142,7 @@
 <form class="auth-form" id="loginForm">
 <label class="auth-field"><span>이메일 주소</span><input type="email" name="email" placeholder="you@example.com" required autocomplete="email" maxlength="254"></label>
 <label class="auth-field"><span>비밀번호</span><input type="password" name="password" placeholder="비밀번호 입력" required autocomplete="current-password"></label>
-<div class="auth-extra"><span class="subtle">로그인 정보를 안전하게 관리합니다.</span><button type="button" data-auth-view="forgot">비밀번호 찾기</button></div>
+<div class="auth-extra"><span class="subtle">로그인 정보를 안전하게 관리합니다.</span><button type="button" data-auth-view="forgot">비밀번호를 잊으셨나요?</button></div>
 <button class="btn primary auth-main-submit" type="submit">로그인 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 </form>
 <div class="auth-switch">처음 방문했나요? <button type="button" data-auth-view="signup">회원가입하기</button></div>
@@ -156,22 +156,22 @@
 <label class="auth-field"><span>비밀번호 확인</span><input type="password" name="confirm" placeholder="비밀번호 다시 입력" minlength="10" maxlength="128" required autocomplete="new-password"></label>
 <button class="btn primary auth-main-submit" type="submit">회원가입 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 </form>
-<p class="auth-small">이메일 인증 없이 가입하는 방식입니다. <strong>이메일 소유 여부는 확인되지 않습니다.</strong> 이메일과 비밀번호는 계정 관리에 사용됩니다. 공개 운영 전 개인정보 처리방침이 필요합니다.</p>
+<p class="auth-small">이메일 인증 없이 가입할 수 있습니다. <strong>비밀번호 복구를 위해 반드시 본인이 메일을 받을 수 있는 주소를 입력해 주세요.</strong> 가입 시 이메일 소유 여부는 확인되지 않습니다.</p>
 <div class="auth-switch">이미 회원이신가요? <button type="button" data-auth-view="login">로그인하기</button></div>
 </section>
 
 <section class="auth-view" data-view="forgot" hidden>
-<div class="auth-head"><span class="eyebrow">ACCOUNT RECOVERY</span><h2 id="forgotTitle">비밀번호 찾기</h2><p>비밀번호 재설정은 별도 이메일 발송 설정이 필요합니다.</p></div>
+<div class="auth-head"><span class="eyebrow">ACCOUNT RECOVERY</span><h2 id="forgotTitle">비밀번호 재설정</h2><p>가입한 이메일로 비밀번호 재설정 링크를 보내드립니다.</p></div>
 <form class="auth-form" id="forgotForm">
 <label class="auth-field"><span>이메일 주소</span><input type="email" name="email" placeholder="you@example.com" maxlength="254" required autocomplete="email"></label>
-<button class="btn primary auth-main-submit" type="submit">재설정 링크 받기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
+<button class="btn primary auth-main-submit" type="submit">복구 이메일 보내기 <svg class="icon"><use href="#ic-arrow"/></svg></button>
 </form>
-<p class="auth-small">이메일 발송 서비스가 설정되지 않은 경우 비밀번호 재설정 메일을 받을 수 없습니다.</p>
+<p class="auth-small">메일에 있는 링크를 누르면 새 비밀번호를 설정할 수 있습니다. 메일 발송 한도 또는 서버 설정에 따라 전송이 제한될 수 있습니다.</p>
 <div class="auth-switch"><button type="button" data-auth-view="login">로그인 화면으로 돌아가기</button></div>
 </section>
 
 <section class="auth-view" data-view="reset" hidden>
-<div class="auth-head"><span class="eyebrow">SET A NEW PASSWORD</span><h2 id="resetTitle">새 비밀번호 설정</h2><p>10자 이상의 새 비밀번호를 입력하세요.</p></div>
+<div class="auth-head"><span class="eyebrow">SET A NEW PASSWORD</span><h2 id="resetTitle">새 비밀번호 설정</h2><p>이메일 복구 링크가 확인되었습니다. 10자 이상의 새 비밀번호를 입력하세요.</p></div>
 <form class="auth-form" id="resetForm">
 <label class="auth-field"><span>새 비밀번호</span><input type="password" name="password" minlength="10" maxlength="128" required autocomplete="new-password"></label>
 <label class="auth-field"><span>새 비밀번호 확인</span><input type="password" name="confirm" minlength="10" maxlength="128" required autocomplete="new-password"></label>
