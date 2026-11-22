@@ -62,9 +62,11 @@ async function supa(path, env, {method = "GET", data, token, service = true, pre
   const apiKey = service ? env.SUPABASE_SERVICE_ROLE_KEY : env.SUPABASE_PUBLISHABLE_KEY;
   const headers = {
     "apikey": apiKey,
-    "Authorization": "Bearer " + (service ? apiKey : token),
     "Content-Type": "application/json"
   };
+  // New sb_secret_* API keys are opaque: they belong in apikey, NOT Bearer.
+  if (!service) headers.Authorization = "Bearer " + token;
+  else if (!apiKey.startsWith("sb_secret_")) headers.Authorization = "Bearer " + apiKey;
   if (prefer) headers.Prefer = prefer;
   const res = await fetch(url, {method, headers, body: data === undefined ? undefined : JSON.stringify(data)});
   const body = await res.json().catch(() => null);
@@ -347,7 +349,7 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     if (request.method === "OPTIONS") {
-      return out({ok:true},204,origin,env);
+      return out({ok:true},200,origin,env);
     }
     const url = new URL(request.url);
     if (origin && origin !== env.SITE_ORIGIN && url.pathname !== "/v1/webhooks/nowpayments") {
