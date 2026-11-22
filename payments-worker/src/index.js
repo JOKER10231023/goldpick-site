@@ -343,7 +343,7 @@ async function webhook(request,env) {
   return out({ok:true},200);
 }
 async function pollPending(env) {
-  if (!enabled(env)) return;
+  if (!required(env)) return;
   const rows = await supa(
     "/rest/v1/goldpick_crypto_orders?select=*&fulfilled_at=is.null"+
     "&provider_payment_id=not.is.null"+
