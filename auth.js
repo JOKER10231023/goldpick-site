@@ -53,8 +53,9 @@
   }
 
   function setView(name) {
-    if (name === "account" && !currentUser) name = "login";
+    if ((name === "account" || name === "vip") && !currentUser) name = "login";
     activeView = name;
+    $("#authDialog").classList.toggle("member-mode", name === "account" || name === "vip");
     // Carry the address already entered at login into the recovery form.
     if (name === "forgot") {
       const loginEmail = $("#loginForm input[name='email']");
@@ -73,6 +74,7 @@
     }
     const currentTitle = $(".auth-view:not([hidden]) h2");
     if (currentTitle) $("#authDialog").setAttribute("aria-labelledby", currentTitle.id);
+    window.dispatchEvent(new CustomEvent("goldpick:view", {detail: {name}}));
   }
 
   function openModal(view) {
@@ -360,5 +362,13 @@
       setNotice("인증 서비스에 연결하지 못했습니다. 네트워크 또는 관리자 설정을 확인해 주세요.", "error");
     }
   }
+  // Public browser-side bridge: never exposes privileged credentials.
+  // All VIP permissions must be enforced by Supabase RLS.
+  window.GOLDPICK_MEMBER_BRIDGE = Object.freeze({
+    getClient: () => client,
+    getUser: () => currentUser,
+    openModal,
+    setView
+  });
   init();
 })();
